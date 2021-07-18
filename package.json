@@ -1,0 +1,19 @@
+{
+  "name": "capacisoft",
+  "version": "1.0.0",
+  "description": "Proyecto de control de alumnos y capacitaciones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AngelCertificatedProfessional/Capacisoft.git"
+  },
+  "author": "Angel Espinoza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AngelCertificatedProfessional/Capacisoft/issues"
+  },
+  "homepage": "https://github.com/AngelCertificatedProfessional/Capacisoft#readme"
+}
