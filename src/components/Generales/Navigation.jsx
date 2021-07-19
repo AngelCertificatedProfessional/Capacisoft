@@ -11,7 +11,7 @@ class Navigation extends Component {
                 {/* <Navbar.Brand as={Link} to="/">
                     <img src={logo} width="150" height="30" alt="Hemolife"/>
                 </Navbar.Brand> */}
-                <Navbar.Brand href="#home">
+                <Navbar.Brand as={Link} to="/">
                     Capacisoft
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -19,7 +19,7 @@ class Navigation extends Component {
                     <Nav className="me-auto">
                         <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
                             <NavDropdown.Item as={Link} to="#action/1.1">Usuarios</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="#action/1.2">Universidades</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/universidad">Universidades</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="#action/1.3">Carreras</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="#action/1.4">Alumnos</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="#action/1.5">Proveedores</NavDropdown.Item>
