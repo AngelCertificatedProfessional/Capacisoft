@@ -1,22 +1,36 @@
-import React,{Fragment} from 'react'
-import { Container,Col,Row,Button } from 'react-bootstrap'
+import React,{Fragment,useState } from 'react'
+import { Col,Row,Container } from 'react-bootstrap'
 import InfoUniversidad from '../components/Universidad/InfoUniversidad'
+import FormularioUniversidad from '../components/Universidad/FormularioUniversidad'
 import SideBar from '../components/Universidad/SideBar'
 
 const Universidad = () => {
+    const [ accion, setAccion ] = useState(0)
+
+    const cambiarVentana = (ventana) => {
+        setAccion(ventana);
+    }
+
     return(
-        <Fragment>
+        <Container fluid>
             <Row>
-                <Col Col xs={12} md={2}> 
-                    <SideBar/>
+                <Col xs={10} md={2}>
+                    <SideBar cambiarVentana={cambiarVentana}/>
                 </Col>
                 <Col xs={12} md={10}>
                     <main className="pt-4">
-                        <InfoUniversidad/>
+                        
+                        {(accion ==1) &&
+                            <InfoUniversidad/>
+                        }:
+                        {(accion ==2 || accion ==3) &&
+                            <FormularioUniversidad/>
+                        }
                     </main>
                 </Col>
             </Row>
-        </Fragment>
+            
+        </Container>
     )
 }
 
