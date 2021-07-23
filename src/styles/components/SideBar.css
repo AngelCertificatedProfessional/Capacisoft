@@ -1,3 +1,13 @@
 .aside__titulo{
     margin-top:1.5rem;
 }
+
+.tablaSeleccionada {
+    background-color:#007BFF!important;
+    color:white!important;
+}
+  
+.tablaNoSeleccionada {
+    background-color: #FFF!important;
+    color:black!important;
+}
