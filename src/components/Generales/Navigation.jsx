@@ -20,7 +20,7 @@ class Navigation extends Component {
                         <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
                             <NavDropdown.Item as={Link} to="#action/1.1">Usuarios</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/universidad">Universidades</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="#action/1.3">Carreras</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/carerra">Carreras</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="#action/1.4">Alumnos</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="#action/1.5">Proveedores</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="#action/1.6">Tema de Curso</NavDropdown.Item>
