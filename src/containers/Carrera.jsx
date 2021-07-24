@@ -1,16 +1,18 @@
 import React,{useState,useEffect } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
-// import InfoUniversidad from '../components/Universidad/InfoUniversidad'
-// import FormularioUniversidad from '../components/Universidad/FormularioUniversidad'
-import SideBar from '../components/Carreras/SideBar'
+import InfoUniversidad from '../components/Universidad/InfoUniversidad'
+import FormularioUniversidad from '../components/Universidad/FormularioUniversidad'
+import SideBar from '../components/Generales/SideBar'
 import initialState from '../utils/initialState'
 import {listado,consultaById} from '../utils/ConexionAPI'
+import {crearArregloColumnas} from '../utils/Tabla'
 
-const Universidad = () => {
+const Carrera = () => {
     const [ accion, setAccion ] = useState(0)
     // const [ universidad, setUniversidad ] = useState(initialState.universidad)
-    // const [ universidadListado,setUniversidadListado] = useState([{}])
+    const [ carreraListado,setCarreraListado] = useState([{}])
     const [ seleccionado,setSeleccionado] = useState(0)
+    const [ columnas, setColumnas] = useState([])
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -19,17 +21,20 @@ const Universidad = () => {
         setAccion(ventana);
     } 
     
-    useEffect ( () => {
-        // setUniversidad(initialState.universidad);
-        // listado('universidad/listado')
-        //     .then((jsListado) => setUniversidadListado(jsListado));
-    }, [] )
+    // useEffect ( () => {
+    //     setUniversidad(initialState.universidad);
+    //     listado('universidad/listado')
+    //         .then((jsListado) => {
+    //             setUniversidadListado(jsListado)
+    //             setColumnas(crearArregloColumnas(jsListado));
+    //         });
+    // }, [] )
 
-    const actualizarListado = () => {
-        // listado('universidad/listado')
-        //     .then((jsListado) => setUniversidadListado(jsListado));
-        setAccion(0);
-    }
+    // const actualizarListado = () => {
+    //     listado('universidad/listado')
+    //         .then((jsListado) => setUniversidadListado(jsListado));
+    //     setAccion(0);
+    // }
 
     const buscarRegistro = (sIdCarrera) => {
         setSeleccionado(sIdCarrera);
@@ -46,9 +51,11 @@ const Universidad = () => {
                 <Col xs={10} md={3}>
                     <SideBar 
                         cambiarVentana={cambiarVentana}
-                        // listado = {universidadListado}
+                        listado = {carreraListado}
                         seleccionado = {seleccionado}
                         buscarRegistro = {buscarRegistro}
+                        columnas = {columnas}
+                        proceso = 'Carrera'
                         />
                 </Col>
                 {/* <Col xs={12} md={9}>
@@ -76,4 +83,4 @@ const Universidad = () => {
     )
 }
 
-export default Universidad
+export default Carrera

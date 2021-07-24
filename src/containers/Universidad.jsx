@@ -2,15 +2,17 @@ import React,{useState,useEffect } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import InfoUniversidad from '../components/Universidad/InfoUniversidad'
 import FormularioUniversidad from '../components/Universidad/FormularioUniversidad'
-import SideBar from '../components/Universidad/SideBar'
+import SideBar from '../components/Generales/SideBar'
 import initialState from '../utils/initialState'
 import {listado,consultaById} from '../utils/ConexionAPI'
+import {crearArregloColumnas} from '../utils/Tabla'
 
 const Universidad = () => {
     const [ accion, setAccion ] = useState(0)
     const [ universidad, setUniversidad ] = useState(initialState.universidad)
     const [ universidadListado,setUniversidadListado] = useState([{}])
     const [ seleccionado,setSeleccionado] = useState(0)
+    const [ columnas, setColumnas] = useState([])
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -22,7 +24,10 @@ const Universidad = () => {
     useEffect ( () => {
         setUniversidad(initialState.universidad);
         listado('universidad/listado')
-            .then((jsListado) => setUniversidadListado(jsListado));
+            .then((jsListado) => {
+                setUniversidadListado(jsListado)
+                setColumnas(crearArregloColumnas(jsListado));
+            });
     }, [] )
 
     const actualizarListado = () => {
@@ -49,6 +54,8 @@ const Universidad = () => {
                         listado = {universidadListado}
                         seleccionado = {seleccionado}
                         buscarRegistro = {buscarRegistro}
+                        columnas = {columnas}
+                        proceso = 'Universidad'
                         />
                 </Col>
                 <Col xs={12} md={9}>
