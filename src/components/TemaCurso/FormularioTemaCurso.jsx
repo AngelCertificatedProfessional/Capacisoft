@@ -6,7 +6,7 @@ import {agregar,actualizar} from '../../utils/ConexionAPI'
 import swal from 'sweetalert';
 
 const schema = yup.object({
-    temaCurso: yup.string().required(),
+    temaCurso: yup.string().required('El tema del curso es un campo Obligatorio'),
 });
 
 const FormularioTemaCurso = ({accion,temaCurso,actualizarListado}) => {
@@ -63,11 +63,11 @@ const FormularioTemaCurso = ({accion,temaCurso,actualizarListado}) => {
                 <Form.Label>Nombre del Tema del Curso</Form.Label>
                 <Form.Control  placeholder="Nombre del Tema del Curso" name="temaCurso" id="temaCurso" 
                     value={values.temaCurso} onChange={handleChange} onBlur={handleBlur}
-                    // isInvalid={!!formik.touched.clave && !!formik.errors.clave}
+                    isInvalid={!!touched.temaCurso && !!errors.temaCurso}
                     />
-                {/* <Form.Control.Feedback type="invalid">
-                    {formik.errors.clave}
-                </Form.Control.Feedback> */}
+                <Form.Control.Feedback type="invalid">
+                    {errors.temaCurso}
+                </Form.Control.Feedback>
                 </Form.Group>
             </Row>
             <Form.Row className="float-right">
