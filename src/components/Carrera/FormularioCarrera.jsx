@@ -80,7 +80,7 @@ const FormularioCarrera = ({accion,carrera,actualizarListado}) => {
                 </Form.Group>
 
                 <Form.Group as={Col}>
-                <Form.Label>Serie</Form.Label>
+                <Form.Label>Cantidad de Semestres</Form.Label>
                 <Form.Control type="number" placeholder="Cantidad de semestres" name="cantidadSemestres" id="cantidadSemestres" 
                     value={values.cantidadSemestres} onChange={handleChange} onBlur={handleBlur} 
                     // isInvalid={!!formik.touched.serie && !!formik.errors.serie}

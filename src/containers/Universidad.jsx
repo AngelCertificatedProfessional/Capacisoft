@@ -9,20 +9,20 @@ import {crearArregloColumnas} from '../utils/Tabla'
 
 const Universidad = () => {
     const [ accion, setAccion ] = useState(0)
-    const [ universidad, setUniversidad ] = useState(initialState.universidad)
+    const [ universidad, setUniversidad ] = useState({...initialState.universidad})
     const [ universidadListado,setUniversidadListado] = useState([{}])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
-            setUniversidad(initialState.universidad);
+            setUniversidad({...initialState.universidad})
         }
         setAccion(ventana);
     } 
     
     useEffect ( () => {
-        setUniversidad(initialState.universidad);
+        setUniversidad({...initialState.universidad})
         actualizarListado();
     }, [] )
 
