@@ -8,5 +8,8 @@ export default {
         nombreCoordinador:'',
         apellidoCoordinador:'',
         cantidadSemestres:8
+    },
+    temaCurso:{
+        temaCurso:''
     }
 }
