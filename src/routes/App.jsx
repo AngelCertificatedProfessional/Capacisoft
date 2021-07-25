@@ -5,6 +5,7 @@ import Home from '../containers/Home'
 import Universidad from '../containers/Universidad'
 import Carrera from '../containers/Carrera'
 import TemaCurso from '../containers/TemaCurso'
+import Usuario from '../containers/Usuario'
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                     <Route exact path="/universidad" component={Universidad}/>
                     <Route exact path="/carerra" component={Carrera}/>
                     <Route exact path="/temaCurso" component={TemaCurso}/>
+                    <Route exact path="/usuario" component={Usuario}/>
                 </Switch>
             </Layout>
         </BrowserRouter>

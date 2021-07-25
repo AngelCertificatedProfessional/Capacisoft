@@ -18,7 +18,7 @@ class Navigation extends Component {
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                     <Nav className="me-auto">
                         <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
-                            <NavDropdown.Item as={Link} to="#action/1.1">Usuarios</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/usuario">Usuarios</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/universidad">Universidades</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/carerra">Carreras</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="#action/1.4">Alumnos</NavDropdown.Item>

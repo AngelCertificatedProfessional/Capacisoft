@@ -11,5 +11,11 @@ export default {
     },
     temaCurso:{
         temaCurso:''
+    },
+    usuario:{
+        usuario:'',
+        contrasena:'',
+        nombre:'',
+        apellido:''
     }
 }
