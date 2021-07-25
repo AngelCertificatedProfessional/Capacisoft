@@ -23,16 +23,15 @@ const Universidad = () => {
     
     useEffect ( () => {
         setUniversidad(initialState.universidad);
-        listado('universidad/listado')
-            .then((jsListado) => {
-                setUniversidadListado(jsListado)
-                setColumnas(crearArregloColumnas(jsListado));
-            });
+        actualizarListado();
     }, [] )
 
     const actualizarListado = () => {
         listado('universidad/listado')
-            .then((jsListado) => setUniversidadListado(jsListado));
+        .then((jsListado) => {
+            setUniversidadListado(jsListado)
+            setColumnas(crearArregloColumnas(jsListado));
+        });
         setAccion(0);
     }
 

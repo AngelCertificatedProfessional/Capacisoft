@@ -1,3 +1,7 @@
+html{
+    font-family: 'DM Sans', sans-serif;
+}
+
 .aside__titulo{
     margin-top:1.5rem;
 }
@@ -10,4 +14,14 @@
 .tablaNoSeleccionada {
     background-color: #FFF!important;
     color:black!important;
+}
+
+.tituloCarta{
+    font-size:2rem;
+    text-align: center;
+}
+
+.informacionAdicional {
+    margin-top:0.5rem;
+    font-size:1rem;
 }

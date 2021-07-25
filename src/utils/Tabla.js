@@ -73,6 +73,8 @@ export const sobreescribirColumnName = (col,proceso) => {
     switch(proceso){
         case "Universidad":
             return universidadColumna(col);
+        case "Carrera":
+          return carreraColumna(col);
     }
 }
 
@@ -87,4 +89,15 @@ const universidadColumna = (col) => {
         default:
             return "";
     }
+}
+
+const carreraColumna = (col) => {
+  switch(col) {
+      case "nombreCarrera":
+              return "Carrera";
+      case "nombreCompletoCoordinador":
+          return "Coordinador";
+      default:
+          return "";
+  }
 }
