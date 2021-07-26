@@ -10,7 +10,15 @@ export const agregar = async(sRuta,data) => {
         }
         
         let res = await fetch('http://localhost:3000/api/'+sRuta, config);
+
         let json =  await res.json();
+
+        if(res.status !== 200 && json.data !== undefined){
+            throw(json.data)
+        }
+        else if(res.status !== 200){
+            throw('Hubo un error al ingresar la informacion')
+        }
 
         if(json.data.hasOwnProperty('_id') ){
             return;        
@@ -19,27 +27,38 @@ export const agregar = async(sRuta,data) => {
         }
 
     }catch(error) {
-        return error;
+        throw(error)
     }
 }
 
 export const listado = async (sRuta) =>{
     try {
         let res = await fetch('http://localhost:3000/api/'+sRuta);
+        
+        if(res.status !== 200){
+            throw('Hubo un error al ingresar la informacion')
+        }
+
         let data = await res.json();
+
         return data.data;
     }catch(error) {
-        return error;
+        throw(error)
     }
 }
 
 export const consultaById = async (sRuta,nIdRegistro) => {
     try {
         let res = await fetch( 'http://localhost:3000/api/'+sRuta+nIdRegistro );
+
+        if(res.status !== 200){
+            throw('Hubo un error al ingresar la informacion')
+        }
+
         let data = await res.json();
         return data.data;
     }catch(error) {
-        return error;
+        throw(error)
     }
 }
 
@@ -55,7 +74,16 @@ export const actualizar = async(sRuta,data) => {
         }
         
         let res = await fetch('http://localhost:3000/api/'+sRuta, config);
+
         let json =  await res.json();
+
+        if(res.status !== 200 && json.data !== undefined){
+            throw(json.data)
+        }
+        else if(res.status !== 200){
+            throw('Hubo un error al ingresar la informacion')
+        }
+
 
         if(json.data.hasOwnProperty('_id') ){
             return;        
@@ -64,6 +92,6 @@ export const actualizar = async(sRuta,data) => {
         }
 
     }catch(error) {
-        return error;
+        throw(error)
     }
 }

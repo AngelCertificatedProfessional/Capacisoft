@@ -26,7 +26,7 @@ const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
                 usuario.nombre = values.nombre;
                 usuario.apellido = values.apellido;
                 if(accion === 2){
-                    agregar('usuario/agregarUsuario',usuario).then( () => {
+                    agregar('usuario/agregarUsuario',usuario).then(() => {
                         swal({
                             title: "Usuario Agregado",
                             text: "Su usuario se a agregado exitosamente",
@@ -34,6 +34,13 @@ const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
                             button: "OK",
                           })
                           actualizarListado()
+                    }).catch(error => {
+                        swal({
+                            title: "Error",
+                            text: error,
+                            icon: "error",
+                            button: "OK",
+                          })
                     })
                 } else{
                     actualizar('usuario/actualizarUsuario',usuario).then( () => {
@@ -44,6 +51,13 @@ const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
                             button: "OK",
                           })
                           actualizarListado()
+                    }).catch(error => {
+                        swal({
+                            title: "Error",
+                            text: error,
+                            icon: "error",
+                            button: "OK",
+                          })
                     })
                 }
                 
