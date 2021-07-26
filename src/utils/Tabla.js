@@ -118,7 +118,9 @@ const temaCursoColumna = (col) => {
 const usuarioColumna = (col) => {
   switch(col) {
       case "usuario":
-              return "Usuario";
+        return "Usuario";
+      case "tipoUsuario":
+        return "Tipo de Usuario";
       default:
           return "";
   }

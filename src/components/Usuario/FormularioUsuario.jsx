@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form,Button,Col,Row } from 'react-bootstrap'
+import { Form,Button,Col,Row,Select } from 'react-bootstrap'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import {agregar,actualizar} from '../../utils/ConexionAPI'
@@ -10,7 +10,8 @@ const schema = yup.object({
     contrasena: yup.string().required().min(8, 'La Contrasena debe contener minimo 8 caracteres.'),
     validaContrasena: yup.string().required().oneOf([yup.ref('contrasena'), null], 'Las contrasenas no son iguales'),
     nombre: yup.string().required(),
-    apellido: yup.string().required()
+    apellido: yup.string().required(),
+    tipoUsuario: yup.number()
 });
 
 const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
@@ -25,6 +26,7 @@ const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
                 usuario.contrasena = values.contrasena;
                 usuario.nombre = values.nombre;
                 usuario.apellido = values.apellido;
+                usuario.tipoUsuario = values.tipoUsuario;
                 if(accion === 2){
                     agregar('usuario/agregarUsuario',usuario).then(() => {
                         swal({
@@ -68,6 +70,7 @@ const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
                 validaContrasena: usuario.contrasena,
                 nombre: usuario.nombre,
                 apellido: usuario.apellido,
+                tipoUsuario: usuario.tipoUsuario
             }}
             >
         {({
@@ -138,6 +141,16 @@ const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
                     <Form.Control.Feedback type="invalid">
                         {errors.apellido}
                     </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col}>
+                    <Form.Label>Tipo de usuario</Form.Label>
+                    <Form.Control as="select" name="tipoUsuario" id="tipoUsuario" 
+                        value={values.tipoUsuario} onChange={handleChange} onBlur={handleBlur}>
+                        <option value="1">Administrador</option>
+                        <option value="2">Coordiandor Escolar</option>
+                        <option value="3">Maestro</option>
+                        <option value="4">Alumno</option>
+                    </Form.Control>
                 </Form.Group>
             </Row>
             <Form.Row className="float-right">

@@ -16,6 +16,7 @@ export default {
         usuario:'',
         contrasena:'',
         nombre:'',
-        apellido:''
+        apellido:'',
+        tipoUsuario:1
     }
 }
