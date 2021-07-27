@@ -1,22 +1,27 @@
 import React from 'react';
-import { Form,Button,Col,Row,Select } from 'react-bootstrap'
+import { Form,Button,Col,Row } from 'react-bootstrap'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import {agregar,actualizar} from '../../utils/ConexionAPI'
 import swal from 'sweetalert';
 
 const schema = yup.object({
-    usuario: yup.string().required(),
-    contrasena: yup.string().required().min(8, 'La Contrasena debe contener minimo 8 caracteres.'),
-    validaContrasena: yup.string().required().oneOf([yup.ref('contrasena'), null], 'Las contrasenas no son iguales'),
-    nombre: yup.string().required(),
-    apellido: yup.string().required(),
+    usuario: yup.string().required('El usuario es requerido'),
+    contrasena: yup.string().required('La contrasena es requerido').min(8, 'La Contrasena debe contener minimo 8 caracteres.'),
+    validaContrasena: yup.string().required('El valor de valida Contrasena es obligatorio').oneOf([yup.ref('contrasena'), null], 'Las contrasenas no son iguales'),
+    nombre: yup.string().required('El nombre es un campo requerido'),
+    apellido: yup.string().required('El apellido es un campo obligatorio'),
     tipoUsuario: yup.number()
 });
 
 const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
 
     console.log(usuario)
+
+    if(accion ===3){
+        usuario.contrasena = '**********';
+    }
+
 
     return(
         <Formik
@@ -88,36 +93,40 @@ const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
             <h1>Usuario</h1>
             <Row className="mb-3">
                 <Form.Group as={Col}>
-                <Form.Label>Usuario</Form.Label>
-                <Form.Control  placeholder="Usuario" name="usuario" id="usuario" 
-                    value={values.usuario} onChange={handleChange} onBlur={handleBlur}
-                    isInvalid={!!touched.clave && !!errors.clave}
-                    />
+                    <Form.Label>Usuario</Form.Label>
+                    <Form.Control placeholder="Usuario" name="usuario" id="usuario" 
+                        value={values.usuario} onChange={handleChange} onBlur={handleBlur}
+                        isInvalid={!!touched.usuario && !!errors.usuario}
+                        />
                     <Form.Control.Feedback type="invalid">
                         {errors.usuario}
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group as={Col}>
-                    <Form.Label>Contrasena</Form.Label>
-                    <Form.Control  placeholder="Contrasena" name="contrasena" id="contrasena" 
-                        value={values.contrasena} onChange={handleChange} onBlur={handleBlur}
-                        isInvalid={!!touched.contrasena && !!errors.contrasena}
-                        />
-                    <Form.Control.Feedback type="invalid">
-                        {errors.contrasena}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col}>
-                    <Form.Label>Contrasena</Form.Label>
-                    <Form.Control  placeholder="Valida Contrasena" name="validaContrasena" id="validaContrasena" 
-                        value={values.validaContrasena} onChange={handleChange} onBlur={handleBlur}
-                        isInvalid={!!touched.validaContrasena && !!errors.validaContrasena}
-                        />
-                    <Form.Control.Feedback type="invalid">
-                        {errors.validaContrasena}
-                    </Form.Control.Feedback>
-                </Form.Group>
+                {(accion ===2)&&
+                    <>
+                        <Form.Group as={Col}>
+                            <Form.Label>Contrasena</Form.Label>
+                            <Form.Control type="password" placeholder="Contrasena" name="contrasena" id="contrasena" 
+                                value={values.contrasena} onChange={handleChange} onBlur={handleBlur}
+                                isInvalid={!!touched.contrasena && !!errors.contrasena} 
+                                />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.contrasena}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Contrasena</Form.Label>
+                            <Form.Control type="password" placeholder="Valida Contrasena" name="validaContrasena" id="validaContrasena" 
+                                value={values.validaContrasena} onChange={handleChange} onBlur={handleBlur}
+                                isInvalid={!!touched.validaContrasena && !!errors.validaContrasena}
+                                />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.validaContrasena}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </>
+                }
             </Row>
             <Row className="mb-3">
                

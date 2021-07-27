@@ -10,7 +10,7 @@ import {crearArregloColumnas} from '../utils/Tabla'
 const Carrera = () => {
     const [ accion, setAccion ] = useState(0)
     const [ carrera, setCarrera ] = useState({...initialState.carerra})
-    const [ carreraListado,setCarreraListado] = useState([{}])
+    const [ carreraListado,setCarreraListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
 
@@ -26,12 +26,10 @@ const Carrera = () => {
         actualizarListado();
     }, [] )
 
-    const actualizarListado = () => {
-        listado('carrera/listado')
-            .then((jsListado) => {
-                setCarreraListado(jsListado)
-                setColumnas(crearArregloColumnas(jsListado));
-            });
+    const actualizarListado = async() => {
+        const jsListado = await listado('carrera/listado');
+        setCarreraListado(jsListado);
+        setColumnas(crearArregloColumnas(jsListado));
         setAccion(0);
     }
 

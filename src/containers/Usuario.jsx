@@ -2,6 +2,7 @@ import React,{useState,useEffect } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import InfoUsuario from '../components/Usuario/InfoUsuario'
 import FormularioUsuario from '../components/Usuario/FormularioUsuario'
+import CambiarContrasenas from '../components/Usuario/CambiarContrasenas'
 import SideBar from '../components/Generales/SideBar'
 import initialState from '../utils/initialState'
 import {listado,consultaById} from '../utils/ConexionAPI'
@@ -10,7 +11,7 @@ import {crearArregloColumnas} from '../utils/Tabla'
 const Usuario = () => {
     const [ accion, setAccion ] = useState(0)
     const [ usuario, setUsuario ] = useState({...initialState.usuario})
-    const [ usuarioListado,setUsuarioListado] = useState([{}])
+    const [ usuarioListado,setUsuarioListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
 
@@ -26,12 +27,10 @@ const Usuario = () => {
         actualizarListado();
     }, [] )
 
-    const actualizarListado = () => {
-        listado('usuario/listado')
-            .then((jsListado) => {
-                setUsuarioListado(jsListado)
-                setColumnas(crearArregloColumnas(jsListado));
-            });
+    const actualizarListado = async() => {
+        const jsListado = await listado('usuario/listado');
+        setColumnas(crearArregloColumnas(jsListado));
+        setUsuarioListado(jsListado);
         setAccion(0);
     }
 
@@ -70,7 +69,12 @@ const Usuario = () => {
                                 accion={accion}
                                 usuario={usuario}
                                 actualizarListado ={actualizarListado}
-                                seleccionado = {seleccionado}
+                            />
+                        }
+                        {(accion ===2 || accion ===4) &&
+                            <CambiarContrasenas
+                                usuario={usuario}
+                                actualizarListado ={actualizarListado}
                             />
                         }
                     </main>

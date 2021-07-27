@@ -10,7 +10,7 @@ import {crearArregloColumnas} from '../utils/Tabla'
 const TemaCurso = () => {
     const [ accion, setAccion ] = useState(0)
     const [ temaCurso, setTemaCurso ] = useState({...initialState.temaCurso})
-    const [ temaCursoListado,setTemaCursoListado] = useState([{}])
+    const [ temaCursoListado,setTemaCursoListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
 
@@ -26,12 +26,10 @@ const TemaCurso = () => {
         actualizarListado();
     }, [] )
 
-    const actualizarListado = () => {
-        listado('temaCurso/listado')
-        .then((jsListado) => {
-            setTemaCursoListado(jsListado)
-            setColumnas(crearArregloColumnas(jsListado));
-        });
+    const actualizarListado = async() => {
+        const jsListado = await listado('temaCurso/listado');
+        setTemaCursoListado(jsListado);
+        setColumnas(crearArregloColumnas(jsListado));
         setAccion(0);
     }
 

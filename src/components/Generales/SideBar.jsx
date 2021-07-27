@@ -28,7 +28,7 @@ const SideBar = ({cambiarVentana,listado,seleccionado,buscarRegistro,columnas,pr
         <aside className="aside__titulo">
             <h3 className="text-dark text-center">{proceso}</h3>
 
-            {listado.length ? (
+            {listado.length > 0 ? (
                  createTable() 
             ) : null}
             <div className="d-grid gap-2">
