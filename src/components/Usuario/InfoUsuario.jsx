@@ -4,7 +4,7 @@ import { Card,Container,Row,Col,CardDeck,Button } from 'react-bootstrap'
 const InfoUsuario = ({usuario,cambiarVentana}) => {
     return (
         <Fragment>
-            <Card style={{width:'100%'}} className="shadow Secondary" bg="secondary" text={'white'}> 
+            <Card style={{width:'100%'}} className="shadow Secondary" bg="success" text={'white'}> 
                 <Card.Body>
                     <Container>
                         <Row>

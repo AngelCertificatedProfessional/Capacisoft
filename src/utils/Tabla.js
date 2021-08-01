@@ -79,6 +79,8 @@ export const sobreescribirColumnName = (col,proceso) => {
           return temaCursoColumna(col);
         case "Usuario":
           return usuarioColumna(col);
+        case "Alumno":
+          return alumnoColumna(col);
     }
 }
 
@@ -123,5 +125,16 @@ const usuarioColumna = (col) => {
         return "Tipo de Usuario";
       default:
           return "";
+  }
+}
+
+const alumnoColumna = (col) => {
+  switch(col) {
+    case "matricula":
+      return "Matricula";
+    case "nombreCompletoAlumno":
+      return "Alumno";
+    default:
+        return "";
   }
 }

@@ -71,7 +71,7 @@ const Usuario = () => {
                                 actualizarListado ={actualizarListado}
                             />
                         }
-                        {(accion ===2 || accion ===4) &&
+                        {(accion ===4) &&
                             <CambiarContrasenas
                                 usuario={usuario}
                                 actualizarListado ={actualizarListado}
