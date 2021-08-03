@@ -1,5 +1,29 @@
 import React from 'react'
 const columnsToHide = ['_id'];
+import {Table} from 'react-bootstrap'
+
+export const createTable = (listado,seleccionado,buscarRegistro,columnas,proceso) => {
+  if(listado.length === 0 || !Array.isArray(listado)){
+    console.log('entre a la falla');
+    console.log(listado);
+    return null;
+  }
+  return (
+      <Table striped bordered hover responsive size="sm" >
+          <thead>
+              <tr>{mapTableColumns(columnas,proceso)}</tr>
+          </thead>
+          <tbody>
+          {listado.map((result, index) => {
+              return <tr onClick={() => buscarRegistro(result._id)} key={index}
+                  className={seleccionado === result._id ? "tablaSeleccionada" : "tablaNoSeleccionada" }>
+                  {addTableRow(result,columnas)}
+              </tr>;
+          })} 
+          </tbody>
+      </Table>
+  );
+};
 
 export const mapTableColumns = (columnas,proceso) => {
     return columnas.map((col) => {
@@ -81,6 +105,8 @@ export const sobreescribirColumnName = (col,proceso) => {
           return usuarioColumna(col);
         case "Alumno":
           return alumnoColumna(col);
+        case "Curso":
+          return cursoColumna(col);
     }
 }
 
@@ -134,6 +160,17 @@ const alumnoColumna = (col) => {
       return "Matricula";
     case "nombreCompletoAlumno":
       return "Alumno";
+    default:
+        return "";
+  }
+}
+
+const cursoColumna = (col) => {
+  switch(col) {
+    case "nombreCurso":
+      return "Curso";
+    case "proveedorDesc":
+      return "Proovedor";
     default:
         return "";
   }

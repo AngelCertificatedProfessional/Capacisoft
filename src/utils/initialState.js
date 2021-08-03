@@ -27,6 +27,20 @@ export default {
         apellidoCoordinador:'',
         cantidadSemestres:8
     },
+    curso:{
+        nombreCurso:'',
+        proveedor:1,
+        nombreInstructor:'',
+        descripcion:'',
+        detalleCurso:{
+            urlCurso:'',
+            precio:0,
+            horas:0,
+            herramientas:'',
+            proveeCertificado:true
+        },
+        temaCurso:[]
+    },
     temaCurso:{
         temaCurso:''
     },
