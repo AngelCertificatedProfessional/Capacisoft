@@ -31,7 +31,7 @@ const FormularioDetalleCurso = ({accion,curso,actualizarListado,cambiarVentana,s
                     cambiarVentana(4)
                 }
                 else{
-                    actualizarEspecifico('curso/actualizarCurso',curso).then( () => {
+                    actualizarEspecifico('curso/actualizarDetalleCurso',curso).then( () => {
                         swal({
                             title: "Detalle del curso Modificado",
                             text: "Su Curso se a modificado exitosamente",
@@ -94,7 +94,7 @@ const FormularioDetalleCurso = ({accion,curso,actualizarListado,cambiarVentana,s
                     type="checkbox"
                     className="mb-2"
                     required
-                    name="proveeCertificado" id="proveeCertificado" 
+                    name="proveeCertificado" id="proveeCertificado" defaultChecked={values.proveeCertificado}
                         value={values.proveeCertificado} onChange={handleChange} onBlur={handleBlur}
                     label="Certificado"
                     />

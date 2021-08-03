@@ -17,8 +17,6 @@ const Curso = () => {
     const [ cursoListado,setCursoListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
-    // const [ universidadListado,setUniversidadListado] = useState([])
-    // const [ carreraListado,setCarreraListado] = useState([])
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -37,10 +35,6 @@ const Curso = () => {
         setColumnas(crearArregloColumnas(jsListado));
         setCursoListado(jsListado);
         setAccion(0);
-
-    //     jsListado = await listado('carrera/listado');
-    //     setCarreraListado(jsListado);
-
     }
 
     const buscarRegistro = (sIdCurso) => {
