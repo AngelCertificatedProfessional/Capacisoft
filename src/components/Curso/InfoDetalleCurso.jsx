@@ -33,7 +33,7 @@ const InfoDetalleCurso = ({curso,cambiarVentana}) => {
                         </Row>
                         <Row>
                             <Col>
-                                <Card.Text className="mtop-0 mbot-0 informacionAdicional">Provee Certificado: {(curso.detalleCurso.cargaAcademico)?`Si`:`No`}</Card.Text>
+                                <Card.Text className="mtop-0 mbot-0 informacionAdicional">Provee Certificado: {(curso.detalleCurso.proveeCertificado)?`Si`:`No`}</Card.Text>
                             </Col>
                         </Row>
                         <Row>
