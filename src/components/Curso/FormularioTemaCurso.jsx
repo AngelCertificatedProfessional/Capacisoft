@@ -24,20 +24,13 @@ const FormularioTemaCurso = ({accion,curso,actualizarListado}) => {
 
     useEffect ( () => {
        actualizarListadoCurso();
+       setTemaCursoListadoFinal(curso.temaCurso);
     }, [] )
 
     const actualizarListadoCurso = async() => {
-    //     let jsListado = await listado('alumno/listado');
-        //    setColumnas(crearArregloColumnas(jsListado));
-    //     setAlumnoListado(jsListado);
-    //     setAccion(0);
-
-            const jsListado = await listado('temaCurso/listado');
-            setTemaCursoListado(jsListado);
-            setColumnasTemaCurso(crearArregloColumnas(jsListado));
-
-    //     jsListado = await listado('carrera/listado');
-    //     setCarreraListado(jsListado);
+        const jsListado = await listado('temaCurso/listado');
+        setTemaCursoListado(jsListado);
+        setColumnasTemaCurso(crearArregloColumnas(jsListado));
 
     }
 
@@ -75,7 +68,7 @@ const FormularioTemaCurso = ({accion,curso,actualizarListado}) => {
                     })
                 }
                 else{
-                    actualizarEspecifico('curso/actualizarCurso',curso).then( () => {
+                    actualizarEspecifico('curso/actualizarTemaCurso',curso).then( () => {
                         swal({
                             title: "Detalle del curso Modificado",
                             text: "Su Curso se a modificado exitosamente",
