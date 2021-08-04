@@ -1,3 +1,4 @@
+import moment from 'moment';
 export default {
     alumno:{
         nombreAlumno:'',
@@ -50,5 +51,11 @@ export default {
         nombre:'',
         apellido:'',
         tipoUsuario:1
+    },
+    periodo:{
+        periodo:'',
+        fechaInicio:'',
+        fechaFinal:'',
+        alumnos:[]
     }
 }

@@ -24,7 +24,7 @@ class Navigation extends Component {
                             <NavDropdown.Item as={Link} to="/alumno">Alumnos</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/temaCurso">Tema de Curso</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/curso">Curso</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="#action/1.6">Periodo</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/periodo">Periodo</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Procesos" id="collasible-nav-dropdown">  
                             <NavDropdown.Item as={Link} to="#action/3.1">Ver perfil</NavDropdown.Item>

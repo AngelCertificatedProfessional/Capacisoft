@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DotEnv = require('dotenv-webpack');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -50,6 +51,11 @@ module.exports = {
       filename: 'assets/[name].css',
     }),
     new DotEnv(),
+    // Or: To strip all locales except “en”, “es-us” and “ru”
+    // (“en” is built into Moment and can’t be removed)
+    new MomentLocalesPlugin({
+        localesToKeep: ['es-us', 'ru'],
+    }),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
