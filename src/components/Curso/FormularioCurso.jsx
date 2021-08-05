@@ -13,8 +13,6 @@ const schema = yup.object({
 });
 
 const FormularioCurso = ({accion,curso,actualizarListado,cambiarVentana,setCurso}) => {
-
-    console.log(curso)
     return(
         <Formik
             validationSchema={schema}
@@ -25,7 +23,6 @@ const FormularioCurso = ({accion,curso,actualizarListado,cambiarVentana,setCurso
                 curso.descripcion = values.descripcion;
                 setCurso(curso)
                 if(accion === 2){
-                    console.log('entre');
                     cambiarVentana(3)
                 }
                 else{

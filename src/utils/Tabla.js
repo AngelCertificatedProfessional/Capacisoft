@@ -4,8 +4,6 @@ import {Table} from 'react-bootstrap'
 
 export const createTable = (listado,seleccionado,buscarRegistro,columnas,proceso) => {
   if(listado.length === 0 || !Array.isArray(listado)){
-    console.log('entre a la falla');
-    console.log(listado);
     return null;
   }
   return (
@@ -47,10 +45,17 @@ export const addTableRow = (result,columns) => {
       if (!columnsToHide.includes(col)) {
         row.push(
             Object.keys(result).map((item) => {
-            if (result[item] && item === col) {
-              return result[item];
-            } else if (item === col) {
-              return "No Encontrado";
+            if (item === col) {
+              if(typeof result[item] == "boolean"){
+                if(result[item]){
+                  return "Si"
+                }else{
+                  return "No"
+                }
+              }else{
+                return result[item];
+              }
+              
             }
           })
         );
@@ -58,7 +63,6 @@ export const addTableRow = (result,columns) => {
       }
     });
     return row.map((item) => {
-        // console.log(item, "item ?");
         return (
           <td>
             {item}
@@ -74,7 +78,7 @@ const filtrarValores = (arr) => {
       )
       .map((val) => {
         if (val.length < 1) {
-          val = ["-"];
+          val = "";
           return val;
         }
         return val;
@@ -162,6 +166,8 @@ const alumnoColumna = (col) => {
       return "Matricula";
     case "nombreCompletoAlumno":
       return "Alumno";
+    case "alumnoBaja":
+      return "Baja";
     default:
         return "";
   }

@@ -14,9 +14,9 @@ const schema = yup.object({
 
 const FormularioPeriodo = ({accion,periodo,actualizarListado}) => {
 
-    console.log(periodo)
     const [ alumnoListado,setAlumnoListado] = useState([])
     const [ columnasAlumno, setColumnasAlumno] = useState([])
+    const [ columnasAlumnoFinal, setColumnasAlumnoFinal] = useState([])
     const [ alumnoListadoFinal, setAlumnoListadoFinal] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ seleccionadoFinal,setSeleccionadoFinal] = useState(0)
@@ -38,10 +38,14 @@ const FormularioPeriodo = ({accion,periodo,actualizarListado}) => {
         const jsListado = await listado('alumno/listado');
         setAlumnoListado(jsListado);
         setColumnasAlumno(crearArregloColumnas(jsListado));
+        let arreglo = crearArregloColumnas(jsListado);
+        arreglo.push("alumnoBaja")
+        setColumnasAlumnoFinal(arreglo);
     }
 
     const agregarRegistroTabla = () => {
         const alumno = alumnoListado.find(alumnoListado => alumnoListado._id === seleccionado);
+        alumno.alumnoBaja = false;
         setAlumnoListadoFinal([...alumnoListadoFinal,alumno])
     }
     
@@ -50,7 +54,15 @@ const FormularioPeriodo = ({accion,periodo,actualizarListado}) => {
         setAlumnoListadoFinal(alumno)
     }
 
-    console.log(periodo)
+    const bajaAlumno = () => {
+        const objIndex = alumnoListadoFinal.findIndex((alumnoListadoFinal => alumnoListadoFinal._id == seleccionadoFinal));
+        if(objIndex===-1){
+            return;
+        }
+        alumnoListadoFinal[objIndex].alumnoBaja = true;
+        setAlumnoListadoFinal([...alumnoListadoFinal]);
+    }
+
     return(
         <Formik
             validationSchema={schema}
@@ -142,6 +154,7 @@ const FormularioPeriodo = ({accion,periodo,actualizarListado}) => {
                 <Pagination>
                     <Pagination.Item onClick={() => eliminarRegistroTabla()}>{`<`}</Pagination.Item>
                     <Pagination.Item onClick={() => agregarRegistroTabla()}>{`>`}</Pagination.Item>
+                    <Pagination.Item onClick={() => bajaAlumno()}>{`Baja`}</Pagination.Item>
                 </Pagination>
             </Row>
             <Row className="mb-3">
@@ -159,7 +172,7 @@ const FormularioPeriodo = ({accion,periodo,actualizarListado}) => {
                         listado = {alumnoListadoFinal}
                         seleccionado = {seleccionadoFinal}
                         buscarRegistro = {seleccionarRegistroFinal}
-                        columnas = {columnasAlumno}
+                        columnas = {columnasAlumnoFinal}
                         proceso = 'Alumno'
                     />
                 </Col>

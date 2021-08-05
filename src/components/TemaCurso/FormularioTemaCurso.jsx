@@ -10,9 +10,6 @@ const schema = yup.object({
 });
 
 const FormularioTemaCurso = ({accion,temaCurso,actualizarListado}) => {
-
-    console.log(temaCurso)
-
     return(
         <Formik
             validationSchema={schema}

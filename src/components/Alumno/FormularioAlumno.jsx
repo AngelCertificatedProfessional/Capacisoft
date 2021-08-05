@@ -12,8 +12,6 @@ const schema = yup.object({
 });
 
 const FormularioAlumno = ({accion,alumno,actualizarListado,cambiarVentana,setAlumno}) => {
-
-    console.log(alumno)
     return(
         <Formik
             validationSchema={schema}

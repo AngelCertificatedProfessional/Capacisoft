@@ -15,12 +15,10 @@ const schema = yup.object({
 
 const FormularioDetalleCurso = ({accion,curso,actualizarListado,cambiarVentana,setCurso}) => {
 
-    console.log(curso)
     return(
         <Formik
             validationSchema={schema}
             onSubmit={(values,e) => {
-                console.log('entre');
                 curso.detalleCurso.urlCurso = values.urlCurso;
                 curso.detalleCurso.precio = values.precio;
                 curso.detalleCurso.horas = values.horas;

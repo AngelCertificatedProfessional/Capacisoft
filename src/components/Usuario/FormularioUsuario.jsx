@@ -15,9 +15,6 @@ const schema = yup.object({
 });
 
 const FormularioUsuario= ({accion,usuario,actualizarListado}) => {
-
-    console.log(usuario)
-
     if(accion ===3){
         usuario.contrasena = '**********';
     }

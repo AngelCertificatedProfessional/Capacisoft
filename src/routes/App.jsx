@@ -21,6 +21,7 @@ const App = () => {
                     <Route exact path="/temaCurso" component={TemaCurso}/>
                     <Route exact path="/usuario" component={Usuario}/>
                     <Route exact path="/alumno" component={Alumno}/>
+                    <Route exact path="/curso" component={Curso}/>
                     <Route exact path="/periodo" component={Periodo}/>
                 </Switch>
             </Layout>

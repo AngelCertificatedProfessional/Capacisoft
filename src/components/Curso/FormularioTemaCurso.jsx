@@ -44,7 +44,6 @@ const FormularioTemaCurso = ({accion,curso,actualizarListado}) => {
         setTemaCursoListadoFinal(temaCurso)
     }
 
-    console.log(curso)
     return(
         <Formik
             onSubmit={(values,e) => {
