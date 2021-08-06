@@ -4,17 +4,21 @@ import { Navbar,Nav,NavDropdown,Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 //const Navigation = ( expedienteActivo, admisionActivo ) => {
-class Navigation extends Component {
-    render() {
-        return(
-            <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
-                {/* <Navbar.Brand as={Link} to="/">
-                    <img src={logo} width="150" height="30" alt="Hemolife"/>
-                </Navbar.Brand> */}
-                <Navbar.Brand as={Link} to="/">
-                    Capacisoft
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+const usuario = sessionStorage.getItem('usuario');
+
+const Navigation = () => {
+    return(
+        <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
+            {/* <Navbar.Brand as={Link} to="/">
+                <img src={logo} width="150" height="30" alt="Hemolife"/>
+            </Navbar.Brand> */}
+            <Navbar.Brand as={Link} to="/">
+                Capacisoft
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+            {usuario !==null && (
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                     <Nav className="me-auto">
                         <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
@@ -41,10 +45,11 @@ class Navigation extends Component {
                         <Nav.Link >Usuario</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar>
+            )}
+
             
-        )
-    }
+        </Navbar>
+    )
 }
 
 export default Navigation

@@ -9,8 +9,10 @@ import Usuario from '../containers/Usuario'
 import Alumno from '../containers/Alumno'
 import Curso from '../containers/Curso'
 import Periodo from '../containers/Periodo'
+import Login from '../containers/Login'
 
 const App = () => {
+    const usuario = sessionStorage.getItem('usuario');
     return (
         <BrowserRouter>
             <Layout>
@@ -23,6 +25,7 @@ const App = () => {
                     <Route exact path="/alumno" component={Alumno}/>
                     <Route exact path="/curso" component={Curso}/>
                     <Route exact path="/periodo" component={Periodo}/>
+                    <Route exact path="/login" component={Login}/>
                 </Switch>
             </Layout>
         </BrowserRouter>
