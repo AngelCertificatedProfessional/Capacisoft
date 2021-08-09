@@ -1,25 +1,51 @@
-import React, {Component} from 'react' 
+import React, {useEffect,useContext,useState} from 'react' 
 import { Navbar,Nav,NavDropdown,Image } from 'react-bootstrap'
 // import logo from '../images/hemolife.png'
 import { Link } from 'react-router-dom'
+import AppContext from '../../context/AppContext';
+import initialState from '../../utils/initialState'
+import { useHistory } from "react-router-dom";
 
-//const Navigation = ( expedienteActivo, admisionActivo ) => {
-
-const usuario = sessionStorage.getItem('usuario');
 
 const Navigation = () => {
-    return(
-        <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
-            {/* <Navbar.Brand as={Link} to="/">
-                <img src={logo} width="150" height="30" alt="Hemolife"/>
-            </Navbar.Brand> */}
-            <Navbar.Brand as={Link} to="/">
-                Capacisoft
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+    const { state, agregarUsuario } = useContext(AppContext);
+    let history = useHistory();
+    const { usuario } = state; 
+    useEffect (() => {
+        // Buffer.from("SGVsbG8gV29ybGQ=", 'base64').toString('ascii')
+        //console.log(localStorage.getItem("usuario") );
+        // console.log(usuario)
+        // if(!validaUsuario(state,agregarUsuario)){
+            //     history.push('/login');
+            // }else{
+                
+                // }
+        if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
+            const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+            if (usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "" ) {
+                history.push('/login');
+            }
+            agregarUsuario(usuarioSesionT);
+        }
+    }, [] )
 
-            {usuario !==null && (
-                <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+    //const usuario = sessionStorage.getItem('usuario');
+
+    // console.log(usuario);
+
+    const cambiarVentana =()=> {
+        agregarUsuario({...initialState.usuario});
+        sessionStorage.setItem('usuario',JSON.stringify({...initialState.usuario}));
+        history.push('/login');
+    }
+
+    const opcionNavBar = () => {
+        console.log(usuario)
+        if(usuario === null || usuario === undefined || usuario.usuario === ""){
+            return;
+        }else{
+            return (
+                <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
                             <NavDropdown.Item as={Link} to="/usuario">Usuarios</NavDropdown.Item>
@@ -42,11 +68,29 @@ const Navigation = () => {
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="#action/3.4">Cerrar sesion</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link >Usuario</Nav.Link>
+                        
                     </Nav>
+                    <Nav className="ml-auto">
+                        <Nav.Link onClick={() =>cambiarVentana()}>Cerrar Sesion</Nav.Link>
+                    </Nav>
+                    
                 </Navbar.Collapse>
-            )}
+            )
+        }
+        
+    }
 
+
+    return(
+        <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
+            {/* <Navbar.Brand as={Link} to="/">
+                <img src={logo} width="150" height="30" alt="Hemolife"/>
+            </Navbar.Brand> */}
+            <Navbar.Brand as={Link} to="/">
+                Capacisoft
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            {opcionNavBar()}
             
         </Navbar>
     )

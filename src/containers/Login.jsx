@@ -1,53 +1,47 @@
-import React,{useState,useEffect } from 'react'
+import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import '../styles/components/SideBar.css'
-// import InfoUsuario from '../components/Usuario/InfoUsuario'
-// import FormularioUsuario from '../components/Usuario/FormularioUsuario'
-// import CambiarContrasenas from '../components/Usuario/CambiarContrasenas'
-// import SideBar from '../components/Generales/SideBar'
-// import initialState from '../utils/initialState'
-// import {listado,consultaById} from '../utils/ConexionAPI'
-// import {crearArregloColumnas} from '../utils/Tabla'
+import AppContext from '../context/AppContext';
+import LoginFormulario from '../components/Usuario/LoginFormulario'
+import initialState from '../utils/initialState'
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
-    // const [ accion, setAccion ] = useState(0)
-    // const [ usuario, setUsuario ] = useState({...initialState.usuario})
-    // const [ usuarioListado,setUsuarioListado] = useState([])
-    // const [ seleccionado,setSeleccionado] = useState(0)
-    // const [ columnas, setColumnas] = useState([])
+    let history = useHistory();
+    const { state, agregarUsuario } = useContext(AppContext);
+    const [ usuarioTemp, setUsuario ] = useState({...initialState.usuario})
+    let { usuario } = state; 
+    useEffect (() => {
+        if (usuario !== null && usuario !== undefined && usuario.usuario !== "" ) {
+            ingresarSesion(usuario);
+        }
+        const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+        if (usuarioSesionT !== null && usuarioSesionT !== undefined && usuarioSesionT.usuario !== "" ) {
+            ingresarSesion(usuario);s
+        }
+    }, [] )
 
-    // const cambiarVentana = (ventana) => {
-    //     if(ventana === 2){
-    //         setUsuario({...initialState.usuario})
-    //     }
-    //     setAccion(ventana);
-    // } 
-    
-    // useEffect ( () => {
-    //     setUsuario({...initialState.usuario})
-    //     actualizarListado();
-    // }, [] )
-
-    // const actualizarListado = async() => {
-    //     const jsListado = await listado('usuario/listado');
-    //     setColumnas(crearArregloColumnas(jsListado));
-    //     setUsuarioListado(jsListado);
-    //     setAccion(0);
-    // }
-
-    // const buscarRegistro = (sIdUsuario) => {
-    //     setSeleccionado(sIdUsuario);
-    //     consultaById('usuario/consultaById/',sIdUsuario)
-    //         .then((jsUsuario) => {
-    //             setUsuario(jsUsuario);
-    //             setAccion(1);
-    //         })
-    // }
+    const ingresarSesion = async(jsonUsuario) => {
+        agregarUsuario(jsonUsuario)
+        sessionStorage.setItem('usuario',JSON.stringify(jsonUsuario));
+        history.push('/');
+    }
 
     return(
         <main className="fondo">
             <Container fluid>
-            <Row >
+            <Row>
+                <Col>
+
+                </Col>
+                <Col className="login__formulario">
+                    <main className="mt-5 login">
+                        <LoginFormulario
+                            usuario = {usuarioTemp}
+                            ingresarSesion = {ingresarSesion}
+                        />
+                    </main>
+                </Col>
             </Row>        
             </Container>
         </main>

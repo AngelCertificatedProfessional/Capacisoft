@@ -38,3 +38,26 @@ html{
     flex-direction:column; 
     /* position:relative; */
 }
+
+.login{
+    background-color: white;
+    padding:2rem;
+    border-radius: 0.3rem;
+    min-height:20rem;
+    width:30rem;
+}
+
+
+.tituloCentrado{
+    text-align: center;
+}
+
+.ph-6{
+    padding-left: 2rem!important;
+    padding-right: 2rem!important;
+}
+
+.login__formulario{
+    display:flex;
+    justify-content: flex-end!important;
+}
