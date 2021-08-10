@@ -65,4 +65,10 @@ module.exports = {
         localesToKeep: ['es-us', 'ru'],
     }),
   ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    historyApiFallback: true,
+    port: 3005,
+  },
 };
