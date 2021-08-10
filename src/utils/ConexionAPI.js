@@ -1,3 +1,4 @@
+const config = require('../config/config')
 let usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
 export const agregar = async(sRuta,data) => {
@@ -8,7 +9,7 @@ export const agregar = async(sRuta,data) => {
             throw "No se a iniciado sesion";
         }
 
-        let config = {
+        const configuracion = {
             method: 'POST',
             headers : {
                 'Accept': 'application/json',
@@ -18,7 +19,7 @@ export const agregar = async(sRuta,data) => {
             body: JSON.stringify(data)
         }
         
-        let res = await fetch('http://localhost:3000/api/'+sRuta, config);
+        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
 
         let json =  await res.json();
 
@@ -47,7 +48,7 @@ export const listado = async (sRuta) =>{
             throw "No se a iniciado sesion";
         }
 
-        let config = {
+        const configuracion = {
             method: 'GET',
             headers : {
                 'Accept': 'application/json',
@@ -56,7 +57,7 @@ export const listado = async (sRuta) =>{
             }
         }
 
-        let res = await fetch('http://localhost:3000/api/'+sRuta,config);
+        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`,configuracion);
         
         if(res.status !== 200){
             throw('Hubo un error al ingresar la informacion')
@@ -78,7 +79,7 @@ export const consultaById = async (sRuta,nIdRegistro) => {
             throw "No se a iniciado sesion";
         }
 
-        let config = {
+        const configuracion = {
             method: 'GET',
             headers : {
                 'Accept': 'application/json',
@@ -87,7 +88,7 @@ export const consultaById = async (sRuta,nIdRegistro) => {
             }
         }
 
-        let res = await fetch( 'http://localhost:3000/api/'+sRuta+nIdRegistro,config );
+        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}${nIdRegistro}`,configuracion );
 
         if(res.status !== 200){
             throw('Hubo un error al ingresar la informacion')
@@ -108,8 +109,7 @@ export const actualizar = async(sRuta,data) => {
             throw "No se a iniciado sesion";
         }
 
-
-        let config = {
+        const configuracion = {
             method: 'PUT',
             headers : {
                 'Accept': 'application/json',
@@ -119,7 +119,7 @@ export const actualizar = async(sRuta,data) => {
             body: JSON.stringify(data)
         }
         
-        let res = await fetch('http://localhost:3000/api/'+sRuta, config);
+        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
 
         let json =  await res.json();
 
@@ -151,7 +151,7 @@ export const actualizarEspecifico = async(sRuta,data) => {
             throw "No se a iniciado sesion";
         }
 
-        let config = {
+        const configuracion = {
             method: 'PATCH',
             headers : {
                 'Accept': 'application/json',
@@ -161,7 +161,7 @@ export const actualizarEspecifico = async(sRuta,data) => {
             body: JSON.stringify(data)
         }
         
-        let res = await fetch('http://localhost:3000/api/'+sRuta, config);
+        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
 
         let json =  await res.json();
 
@@ -186,7 +186,7 @@ export const actualizarEspecifico = async(sRuta,data) => {
 
 export const iniciarSesion = async(sRuta,data) => {
     try {
-        let config = {
+        const configuracion = {
             method: 'POST',
             headers : {
                 'Accept': 'application/json',
@@ -194,8 +194,7 @@ export const iniciarSesion = async(sRuta,data) => {
             },
             body: JSON.stringify(data)
         }
-        
-        let res = await fetch('http://localhost:3000/api/'+sRuta, config);
+        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
 
         let json =  await res.json();
 
