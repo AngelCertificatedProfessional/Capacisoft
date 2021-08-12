@@ -1,4 +1,4 @@
-const config = require('../config/config')
+const config = require('./../config/config')
 let usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
 export const agregar = async(sRuta,data) => {

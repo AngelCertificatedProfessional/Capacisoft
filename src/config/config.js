@@ -2,6 +2,6 @@
 
 module.exports = {
     env: {
-        apiCapacisoftURL: process.env.APICAPACISOFTURL || 'http://localhost:3000'
+        apiCapacisoftURL: process.env.APICAPACISOFTURL || 'https://capacisoftapi.herokuapp.com'
     }
 }
