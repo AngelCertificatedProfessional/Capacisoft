@@ -1,9 +1,9 @@
-import React,{useState,useEffect,useContext } from 'react'
+import React,{useState,useEffect,useContext,lazy,Suspense } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import AppContext from '../context/AppContext';
-import LoginFormulario from '../components/Usuario/LoginFormulario'
-import initialState from '../utils/initialState'
 import { useHistory } from "react-router-dom";
+import initialState from '../utils/initialState'
+const LoginFormulario = lazy(() => import('./../components/Usuario/LoginFormulario'));
 
 const Login = () => {
     let history = useHistory();
@@ -35,10 +35,12 @@ const Login = () => {
                 </Col>
                 <Col className="login__formulario">
                     <main className="mt-5 login">
-                        <LoginFormulario
-                            usuario = {usuarioTemp}
-                            ingresarSesion = {ingresarSesion}
-                        />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <LoginFormulario
+                                    usuario = {usuarioTemp}
+                                    ingresarSesion = {ingresarSesion}
+                                />
+                        </Suspense>
                     </main>
                 </Col>
             </Row>        

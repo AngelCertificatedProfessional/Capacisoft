@@ -12,8 +12,9 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',
     filename:'[name][contenthash].js',
-    publicPath: './',
+    chunkFilename: "[name][contenthash].chunk.js",
     assetModuleFilename:'assets/images/[hash][ext][query]'
   },
   resolve: {
