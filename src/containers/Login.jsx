@@ -1,6 +1,5 @@
 import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
-import '../styles/components/SideBar.css'
 import AppContext from '../context/AppContext';
 import LoginFormulario from '../components/Usuario/LoginFormulario'
 import initialState from '../utils/initialState'

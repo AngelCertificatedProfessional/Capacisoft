@@ -1,4 +1,3 @@
-import '../../styles/components/SideBar.css'
 import {createTable} from '../../utils/Tabla'
 
 const Tabla = ({listado,seleccionado,buscarRegistro,columnas,proceso}) => {

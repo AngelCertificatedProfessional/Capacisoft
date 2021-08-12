@@ -1,7 +1,5 @@
 import React from 'react'
 import { Button} from 'react-bootstrap'
-import '../../styles/components/SideBar.css'
-import {createTable} from '../../utils/Tabla'
 import Tabla from './Tabla'
 
 const SideBar = ({cambiarVentana,listado,seleccionado,buscarRegistro,columnas,proceso}) => {

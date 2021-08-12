@@ -40,7 +40,6 @@ const Navigation = () => {
     }
 
     const opcionNavBar = () => {
-        console.log(usuario)
         if(usuario === null || usuario === undefined || usuario.usuario === ""){
             return;
         }else{
