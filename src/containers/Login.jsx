@@ -3,7 +3,7 @@ import { Col,Row,Container } from 'react-bootstrap'
 import AppContext from '../context/AppContext';
 import { useHistory } from "react-router-dom";
 import initialState from '../utils/initialState'
-const LoginFormulario = lazy(() => import('./../components/Usuario/LoginFormulario'));
+// const LoginFormulario = lazy(() => import('./../components/Usuario/LoginFormulario'));
 
 const Login = () => {
     let history = useHistory();
@@ -35,12 +35,12 @@ const Login = () => {
                 </Col>
                 <Col className="login__formulario">
                     <main className="mt-5 login">
-                        <Suspense fallback={<div>Loading...</div>}>
+                        {/* <Suspense fallback={<div>Loading...</div>}>
                             <LoginFormulario
                                     usuario = {usuarioTemp}
                                     ingresarSesion = {ingresarSesion}
                                 />
-                        </Suspense>
+                        </Suspense> */}
                     </main>
                 </Col>
             </Row>        
