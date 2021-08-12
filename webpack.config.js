@@ -14,7 +14,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/dist/',
     filename:'[name][contenthash].js',
-    chunkFilename: "[name][contenthash].chunk.js",
+    chunkFilename: '[name][contenthash].chunk.js',
     assetModuleFilename:'assets/images/[hash][ext][query]'
   },
   resolve: {
