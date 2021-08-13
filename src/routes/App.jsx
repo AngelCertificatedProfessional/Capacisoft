@@ -18,8 +18,8 @@ const App = () => {
     return (
         <AppConText.Provider value={initialState}>
             <BrowserRouter>
-            <Suspense fallback={<div>Loading...</div>}>
-                    <Layout>
+                <Layout>
+                    <Suspense fallback={<div>Loading...</div>}>
                         <Switch>
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/universidad" component={Universidad}/>
@@ -31,8 +31,8 @@ const App = () => {
                             <Route exact path="/periodo" component={Periodo}/>
                             <Route exact path="/login" component={Login}/>
                         </Switch>
-                    </Layout>
-                </Suspense>
+                    </Suspense>
+                </Layout>
             </BrowserRouter>
         </AppConText.Provider>
     );
