@@ -1,10 +1,10 @@
-import React, {useEffect,useContext,useState} from 'react' 
-import { Navbar,Nav,NavDropdown,Image } from 'react-bootstrap'
+import React, {useEffect,useContext} from 'react' 
+import { Navbar,Nav,NavDropdown } from 'react-bootstrap'
 // import logo from '../images/hemolife.png'
 import { Link } from 'react-router-dom'
-import AppContext from '../../context/AppContext';
-import initialState from '../../utils/initialState'
-import { useHistory,useLocation,withRouter,Redirect } from "react-router-dom";
+import AppContext from './../../context/AppContext';
+import initialState from './../../utils/initialState'
+import { useHistory,useLocation,withRouter } from "react-router-dom";
 
 
 const Navigation = () => {
@@ -16,26 +16,23 @@ const Navigation = () => {
         if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
             const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
             if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
-               
-                console.log("entre" + location.pathname);
-                //history.push('/login');
-                // window.location.href = window.location.href;
+                history.push('/login');
             }
             agregarUsuario(usuarioSesionT);
         }
     },[])
 
 
-    const cambiarVentana =()=> {
+    const cerrarSesion =()=> {
         agregarUsuario({...initialState.usuario});
         sessionStorage.setItem('usuario',JSON.stringify({...initialState.usuario}));
         history.push('/login');
     }
 
     const opcionNavBar = () => {
-        // if(usuario === null || usuario === undefined || usuario.usuario === ""){
-        //     return;
-        // }else{
+        if(usuario === null || usuario === undefined || usuario.usuario === ""){
+            return;
+        }else{
             return (
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -63,12 +60,12 @@ const Navigation = () => {
                         
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Link onClick={() =>cambiarVentana()}>Cerrar Sesion</Nav.Link>
+                        <Nav.Link onClick={() =>cerrarSesion()}>Cerrar Sesion</Nav.Link>
                     </Nav>
                     
                 </Navbar.Collapse>
             )
-        // }
+        }
         
     }
 
