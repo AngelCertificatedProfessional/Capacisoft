@@ -97,5 +97,8 @@ module.exports = {
         new CssMinimizerPlugin(),
         new TerserPlugin()
     ]
+  },  
+  devServer: {
+    historyApiFallback: true,
   }
 };

@@ -17,7 +17,7 @@ const App = () => {
 
     return (
         <AppConText.Provider value={initialState}>
-            <BrowserRouter forceRefresh={true}>
+            <BrowserRouter>
                 <Layout>
                     <Switch>
                         <Route exact path="/" component={Home}/>
