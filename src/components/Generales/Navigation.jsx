@@ -33,9 +33,9 @@ const Navigation = () => {
     }
 
     const opcionNavBar = () => {
-        if(usuario === null || usuario === undefined || usuario.usuario === ""){
-            return;
-        }else{
+        // if(usuario === null || usuario === undefined || usuario.usuario === ""){
+        //     return;
+        // }else{
             return (
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -68,7 +68,7 @@ const Navigation = () => {
                     
                 </Navbar.Collapse>
             )
-        }
+        // }
         
     }
 
