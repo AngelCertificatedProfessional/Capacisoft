@@ -1,17 +1,17 @@
-import React,{lazy,Suspense } from 'react'
+import React from 'react'
 import { HashRouter ,BrowserRouter,Switch,Route } from 'react-router-dom'
-const Layout = lazy(() => import('./../components/Generales/Layout'));
-const Home = lazy(() => import('./../containers/Home'));
-const Universidad = lazy(() => import('./../containers/Universidad'));
-const Carrera = lazy(() => import('./../containers/Carrera'));
-const TemaCurso = lazy(() => import('./../containers/TemaCurso'));
-const Usuario = lazy(() => import('./../containers/Usuario'));
-const Alumno = lazy(() => import('./../containers/Alumno'));
-const Curso = lazy(() => import('./../containers/Curso'));
-const Periodo = lazy(() => import('./../containers/Periodo'));
-const Login = lazy(() => import('./../containers/Login'));
-import AppConText from './../context/AppContext';
-import useInitialState from './../hooks/useInitialState';
+import Layout from '../components/Generales/Layout';
+import Home from '../containers/Home'
+import Universidad from '../containers/Universidad'
+import Carrera from '../containers/Carrera'
+import TemaCurso from '../containers/TemaCurso'
+import Usuario from '../containers/Usuario'
+import Alumno from '../containers/Alumno'
+import Curso from '../containers/Curso'
+import Periodo from '../containers/Periodo'
+import Login from '../containers/Login'
+import AppConText from '../context/AppContext';
+import useInitialState from '../hooks/useInitialState';
 const App = () => {
     const initialState = useInitialState();
 
@@ -19,19 +19,17 @@ const App = () => {
         <AppConText.Provider value={initialState}>
             <BrowserRouter>
                 <Layout>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <Switch>
-                            <Route exact path="/" component={Home}/>
-                            <Route exact path="/universidad" component={Universidad}/>
-                            <Route exact path="/carerra" component={Carrera}/>
-                            <Route exact path="/temaCurso" component={TemaCurso}/>
-                            <Route exact path="/usuario" component={Usuario}/>
-                            <Route exact path="/alumno" component={Alumno}/>
-                            <Route exact path="/curso" component={Curso}/>
-                            <Route exact path="/periodo" component={Periodo}/>
-                            <Route exact path="/login" component={Login}/>
-                        </Switch>
-                    </Suspense>
+                    <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/universidad" component={Universidad}/>
+                        <Route exact path="/carerra" component={Carrera}/>
+                        <Route exact path="/temaCurso" component={TemaCurso}/>
+                        <Route exact path="/usuario" component={Usuario}/>
+                        <Route exact path="/alumno" component={Alumno}/>
+                        <Route exact path="/curso" component={Curso}/>
+                        <Route exact path="/periodo" component={Periodo}/>
+                        <Route exact path="/login" component={Login}/>
+                    </Switch>
                 </Layout>
             </BrowserRouter>
         </AppConText.Provider>
