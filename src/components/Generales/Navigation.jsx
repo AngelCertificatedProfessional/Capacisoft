@@ -34,6 +34,8 @@ const Navigation = () => {
             return;
         }else{
             return (
+                <>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
@@ -64,6 +66,7 @@ const Navigation = () => {
                     </Nav>
                     
                 </Navbar.Collapse>
+                </>
             )
         }
         
@@ -75,10 +78,15 @@ const Navigation = () => {
             {/* <Navbar.Brand as={Link} to="/">
                 <img src={logo} width="150" height="30" alt="Hemolife"/>
             </Navbar.Brand> */}
-            <Navbar.Brand as={Link} to="/">
-                Capacisoft
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            {(usuario === null || usuario === undefined || usuario.usuario === "")?
+                <Navbar.Brand as={Link} to="/login">
+                    Capacisoft
+                </Navbar.Brand>
+                :
+                <Navbar.Brand as={Link} to="/">
+                    Capacisoft
+                </Navbar.Brand>
+            }
             {opcionNavBar()}
             
         </Navbar>
