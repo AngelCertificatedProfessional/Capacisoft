@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter ,BrowserRouter,Switch,Route,Redirect } from 'react-router-dom'
+import { HashRouter ,Switch,Route } from 'react-router-dom'
 import Layout from '../components/Generales/Layout';
 import Home from '../containers/Home'
 import Universidad from '../containers/Universidad'
@@ -17,7 +17,7 @@ const App = () => {
 
     return (
         <AppConText.Provider value={initialState}>
-            <BrowserRouter>
+            <HashRouter>
                 <Layout>
                     <Switch>
                         <Route exact path="/" component={Home}/>
@@ -29,10 +29,9 @@ const App = () => {
                         <Route exact path="/curso" component={Curso}/>
                         <Route exact path="/periodo" component={Periodo}/>
                         <Route exact path="/login" component={Login}/>
-                        <Redirect to="/" />
                     </Switch>
                 </Layout>
-            </BrowserRouter>
+            </HashRouter>
         </AppConText.Provider>
     );
 }
