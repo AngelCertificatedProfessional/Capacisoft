@@ -1,4 +1,4 @@
-import React,{useState,useEffect } from 'react'
+import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import InfoCurso from './../components/Curso/InfoCurso'
 import InfoDetalleCurso from './../components/Curso/InfoDetalleCurso'
@@ -10,6 +10,8 @@ import SideBar from './../components/Generales/SideBar'
 import initialState from './../utils/initialState'
 import {listado,consultaById} from './../utils/ConexionAPI'
 import {crearArregloColumnas} from './../utils/Tabla'
+import AppContext from './../../context/AppContext';
+import { useHistory,useLocation,withRouter } from "react-router-dom";
 
 const Curso = () => {
     const [ accion, setAccion ] = useState(0)
@@ -17,6 +19,7 @@ const Curso = () => {
     const [ cursoListado,setCursoListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
+    const { state, agregarUsuario } = useContext(AppContext);
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -24,7 +27,9 @@ const Curso = () => {
         }
         setAccion(ventana);
     } 
-    
+    const { usuario } = state; 
+    let history = useHistory();
+    const location = useLocation()
     useEffect ( () => {
         if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
             const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
@@ -127,4 +132,4 @@ const Curso = () => {
     )
 }
 
-export default Curso
+export default withRouter(Curso)
