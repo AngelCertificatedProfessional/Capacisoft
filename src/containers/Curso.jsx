@@ -1,15 +1,15 @@
 import React,{useState,useEffect } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
-import InfoCurso from '../components/Curso/InfoCurso'
-import InfoDetalleCurso from '../components/Curso/InfoDetalleCurso'
-import InfoTemaCurso from '../components/Curso/InfoTemaCurso'
-import FormularioCurso from '../components/Curso/FormularioCurso'
-import FormularioDetalleCurso from '../components/Curso/FormularioDetalleCurso'
-import FormularioTemaCurso from '../components/Curso/FormularioTemaCurso'
-import SideBar from '../components/Generales/SideBar'
-import initialState from '../utils/initialState'
-import {listado,consultaById} from '../utils/ConexionAPI'
-import {crearArregloColumnas} from '../utils/Tabla'
+import InfoCurso from './../components/Curso/InfoCurso'
+import InfoDetalleCurso from './../components/Curso/InfoDetalleCurso'
+import InfoTemaCurso from './../components/Curso/InfoTemaCurso'
+import FormularioCurso from './../components/Curso/FormularioCurso'
+import FormularioDetalleCurso from './../components/Curso/FormularioDetalleCurso'
+import FormularioTemaCurso from './../components/Curso/FormularioTemaCurso'
+import SideBar from './../components/Generales/SideBar'
+import initialState from './../utils/initialState'
+import {listado,consultaById} from './../utils/ConexionAPI'
+import {crearArregloColumnas} from './../utils/Tabla'
 
 const Curso = () => {
     const [ accion, setAccion ] = useState(0)
@@ -26,6 +26,13 @@ const Curso = () => {
     } 
     
     useEffect ( () => {
+        if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
+            const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
+                history.push('/login');
+            }
+            agregarUsuario(usuarioSesionT);
+        }
         setCurso({...initialState.curso})
         actualizarListado();
     }, [] )
