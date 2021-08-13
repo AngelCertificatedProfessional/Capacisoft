@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext,lazy,Suspense } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import AppContext from '../context/AppContext';
-import { useHistory } from "react-router-dom";
+import { useHistory,useLocation,withRouter,browserHistory  } from "react-router-dom";
 import initialState from '../utils/initialState'
 const LoginFormulario = lazy(() => import('./../components/Usuario/LoginFormulario'));
 
@@ -24,6 +24,7 @@ const Login = () => {
         agregarUsuario(jsonUsuario)
         sessionStorage.setItem('usuario',JSON.stringify(jsonUsuario));
         history.push('/');
+        window.location.href = window.location.href;
     }
 
     return(
@@ -49,4 +50,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default withRouter(Login)

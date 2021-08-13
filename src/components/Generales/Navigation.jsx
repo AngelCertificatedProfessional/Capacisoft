@@ -4,34 +4,27 @@ import { Navbar,Nav,NavDropdown,Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import AppContext from '../../context/AppContext';
 import initialState from '../../utils/initialState'
-import { useHistory } from "react-router-dom";
+import { useHistory,useLocation,withRouter,Redirect } from "react-router-dom";
 
 
 const Navigation = () => {
     const { state, agregarUsuario } = useContext(AppContext);
     let history = useHistory();
     const { usuario } = state; 
+    const location = useLocation()
     useEffect (() => {
-        // Buffer.from("SGVsbG8gV29ybGQ=", 'base64').toString('ascii')
-        //console.log(localStorage.getItem("usuario") );
-        // console.log(usuario)
-        // if(!validaUsuario(state,agregarUsuario)){
-            //     history.push('/login');
-            // }else{
-                
-                // }
         if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
             const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
-            if (usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "" ) {
-                history.push('/login');
+            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
+               
+                console.log("entre" + location.pathname);
+                //history.push('/login');
+                // window.location.href = window.location.href;
             }
             agregarUsuario(usuarioSesionT);
         }
-    }, [] )
+    },[])
 
-    //const usuario = sessionStorage.getItem('usuario');
-
-    // console.log(usuario);
 
     const cambiarVentana =()=> {
         agregarUsuario({...initialState.usuario});
@@ -95,4 +88,4 @@ const Navigation = () => {
     )
 }
 
-export default Navigation
+export default withRouter(Navigation)

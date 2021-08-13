@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack serve --mode development --config webpack.config.dev.js",
     "build": "webpack --mode production --config webpack.config.js",
+    "semibuild": "webpack --mode production --config webpack.config.prod.js",
     "format": "prettier --write '{*.js,src/**/*.{js,jsx}}'",
     "lint": "eslint src/ --fix"
   },

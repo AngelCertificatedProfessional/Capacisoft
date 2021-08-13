@@ -1,5 +1,5 @@
 import React,{lazy,Suspense } from 'react'
-import { BrowserRouter,Switch,Route } from 'react-router-dom'
+import { HashRouter ,BrowserRouter,Switch,Route } from 'react-router-dom'
 const Layout = lazy(() => import('./../components/Generales/Layout'));
 const Home = lazy(() => import('./../containers/Home'));
 const Universidad = lazy(() => import('./../containers/Universidad'));
@@ -12,7 +12,6 @@ const Periodo = lazy(() => import('./../containers/Periodo'));
 const Login = lazy(() => import('./../containers/Login'));
 import AppConText from './../context/AppContext';
 import useInitialState from './../hooks/useInitialState';
-
 const App = () => {
     const initialState = useInitialState();
 
