@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter ,BrowserRouter,Switch,Route } from 'react-router-dom'
+import { HashRouter ,BrowserRouter,Switch,Route,Redirect } from 'react-router-dom'
 import Layout from '../components/Generales/Layout';
 import Home from '../containers/Home'
 import Universidad from '../containers/Universidad'
@@ -29,6 +29,7 @@ const App = () => {
                         <Route exact path="/curso" component={Curso}/>
                         <Route exact path="/periodo" component={Periodo}/>
                         <Route exact path="/login" component={Login}/>
+                        <Redirect to="/" />
                     </Switch>
                 </Layout>
             </BrowserRouter>
