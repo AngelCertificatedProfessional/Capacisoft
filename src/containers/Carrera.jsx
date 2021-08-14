@@ -28,7 +28,6 @@ const Carrera = () => {
     const location = useLocation()
 
     useEffect ( () => {
-        console.log('entre')
         const { usuario } = state; 
         if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
             const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
