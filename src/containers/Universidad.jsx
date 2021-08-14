@@ -1,11 +1,11 @@
 import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
-import InfoUniversidad from '../components/Universidad/InfoUniversidad'
-import FormularioUniversidad from '../components/Universidad/FormularioUniversidad'
-import SideBar from '../components/Generales/SideBar'
-import initialState from '../utils/initialState'
-import {listado,consultaById} from '../utils/ConexionAPI'
-import {crearArregloColumnas} from '../utils/Tabla'
+import InfoUniversidad from './../components/Universidad/InfoUniversidad'
+import FormularioUniversidad from './../components/Universidad/FormularioUniversidad'
+import SideBar from './../components/Generales/SideBar'
+import initialState from './../utils/initialState'
+import {listado,consultaById} from './../utils/ConexionAPI'
+import {crearArregloColumnas} from './../utils/Tabla'
 import AppContext from './../context/AppContext';
 import { useHistory,useLocation,withRouter } from "react-router-dom";
 
@@ -24,10 +24,11 @@ const Universidad = () => {
         setAccion(ventana);
     } 
 
+    let history = useHistory();
+    const location = useLocation();
     useEffect ( () => {
         const { usuario } = state; 
-        let history = useHistory();
-        const location = useLocation()
+
 
         if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
             const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
@@ -36,7 +37,6 @@ const Universidad = () => {
             }
             agregarUsuario(usuarioSesionT);
         }
-
 
         setUniversidad({...initialState.universidad})
         actualizarListado();
