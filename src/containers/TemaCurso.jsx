@@ -1,4 +1,4 @@
-import React,{useState,useEffect } from 'react'
+import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import InfoTemaCurso from '../components/TemaCurso/InfoTemaCurso'
 import FormularioTemaCurso from '../components/TemaCurso/FormularioTemaCurso'
