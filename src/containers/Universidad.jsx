@@ -1,4 +1,4 @@
-import React,{useState,useEffect } from 'react'
+import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import InfoUniversidad from '../components/Universidad/InfoUniversidad'
 import FormularioUniversidad from '../components/Universidad/FormularioUniversidad'
@@ -6,13 +6,16 @@ import SideBar from '../components/Generales/SideBar'
 import initialState from '../utils/initialState'
 import {listado,consultaById} from '../utils/ConexionAPI'
 import {crearArregloColumnas} from '../utils/Tabla'
+import AppContext from './../context/AppContext';
+import { useHistory,useLocation,withRouter } from "react-router-dom";
 
 const Universidad = () => {
-    const [ accion, setAccion ] = useState(0)
-    const [ universidad, setUniversidad ] = useState({...initialState.universidad})
-    const [ universidadListado,setUniversidadListado] = useState([])
-    const [ seleccionado,setSeleccionado] = useState(0)
-    const [ columnas, setColumnas] = useState([])
+    const [ accion, setAccion ] = useState(0);
+    const [ universidad, setUniversidad ] = useState({...initialState.universidad});
+    const [ universidadListado,setUniversidadListado] = useState([]);
+    const [ seleccionado,setSeleccionado] = useState(0);
+    const [ columnas, setColumnas] = useState([]);
+    const { state, agregarUsuario } = useContext(AppContext);
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -20,8 +23,21 @@ const Universidad = () => {
         }
         setAccion(ventana);
     } 
-    
+
     useEffect ( () => {
+        const { usuario } = state; 
+        let history = useHistory();
+        const location = useLocation()
+
+        if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
+            const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
+                history.push('/login');
+            }
+            agregarUsuario(usuarioSesionT);
+        }
+
+
         setUniversidad({...initialState.universidad})
         actualizarListado();
     }, [] )
@@ -80,4 +96,4 @@ const Universidad = () => {
     )
 }
 
-export default Universidad
+export default withRouter(Universidad)
