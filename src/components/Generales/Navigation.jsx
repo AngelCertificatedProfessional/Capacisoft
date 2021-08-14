@@ -41,7 +41,7 @@ const Navigation = () => {
                         <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
                             <NavDropdown.Item as={Link} to="/usuario">Usuarios</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/universidad">Universidades</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/carerra">Carreras</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/carrera">Carreras</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/alumno">Alumnos</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/temaCurso">Tema de Curso</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/curso">Curso</NavDropdown.Item>

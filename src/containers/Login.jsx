@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext,lazy,Suspense } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import AppContext from '../context/AppContext';
-import { useHistory,useLocation,withRouter,browserHistory  } from "react-router-dom";
+import { useHistory,withRouter  } from "react-router-dom";
 import initialState from '../utils/initialState'
 const LoginFormulario = lazy(() => import('./../components/Usuario/LoginFormulario'));
 
@@ -16,7 +16,7 @@ const Login = () => {
         }
         const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
         if (usuarioSesionT !== null && usuarioSesionT !== undefined && usuarioSesionT.usuario !== "" ) {
-            ingresarSesion(usuario);s
+            ingresarSesion(usuario);
         }
     }, [] )
 

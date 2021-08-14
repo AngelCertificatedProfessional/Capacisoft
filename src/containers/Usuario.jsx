@@ -1,4 +1,4 @@
-import React,{useState,useEffect } from 'react'
+import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
 import InfoUsuario from '../components/Usuario/InfoUsuario'
 import FormularioUsuario from '../components/Usuario/FormularioUsuario'
@@ -7,6 +7,8 @@ import SideBar from '../components/Generales/SideBar'
 import initialState from '../utils/initialState'
 import {listado,consultaById} from '../utils/ConexionAPI'
 import {crearArregloColumnas} from '../utils/Tabla'
+import AppContext from './../context/AppContext';
+import { useHistory,useLocation,withRouter } from "react-router-dom";
 
 const Usuario = () => {
     const [ accion, setAccion ] = useState(0)
@@ -14,7 +16,8 @@ const Usuario = () => {
     const [ usuarioListado,setUsuarioListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
-
+    const { state, agregarUsuario } = useContext(AppContext);
+    
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
             setUsuario({...initialState.usuario})
@@ -22,7 +25,19 @@ const Usuario = () => {
         setAccion(ventana);
     } 
     
+    let history = useHistory();
+    const location = useLocation();
+
     useEffect ( () => {
+
+        let usuarioSesionT = state.usuario; 
+        if (usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "" ) {
+            usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
+                history.push('/login');
+            }
+            agregarUsuario(usuarioSesionT);
+        }
         setUsuario({...initialState.usuario})
         actualizarListado();
     }, [] )

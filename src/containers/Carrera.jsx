@@ -6,6 +6,7 @@ import SideBar from './../components/Generales/SideBar'
 import initialState from './../utils/initialState'
 import {listado,consultaById} from './../utils/ConexionAPI'
 import {crearArregloColumnas} from './../utils/Tabla'
+import AppContext from './../context/AppContext';
 import { useHistory,useLocation,withRouter } from "react-router-dom";
 
 const Carrera = () => {
@@ -25,7 +26,7 @@ const Carrera = () => {
     } 
 
     let history = useHistory();
-    const location = useLocation()
+    const location = useLocation();
 
     useEffect ( () => {
         const { usuario } = state; 

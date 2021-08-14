@@ -1,15 +1,17 @@
-import React,{useState,useEffect } from 'react'
+import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
-import InfoAlumno from '../components/Alumno/InfoAlumno'
-import InfoContacto from '../components/Alumno/InfoContacto'
-import InfoAcademico from '../components/Alumno/InfoAcademico'
-import FormularioAlumno from '../components/Alumno/FormularioAlumno'
-import FormularioInfoAcademico from '../components/Alumno/FormularioInfoAcademico'
-import FormularioContacto from '../components/Alumno/FormularioContacto'
-import SideBar from '../components/Generales/SideBar'
-import initialState from '../utils/initialState'
-import {listado,consultaById} from '../utils/ConexionAPI'
-import {crearArregloColumnas} from '../utils/Tabla'
+import InfoAlumno from './../components/Alumno/InfoAlumno'
+import InfoContacto from './../components/Alumno/InfoContacto'
+import InfoAcademico from './../components/Alumno/InfoAcademico'
+import FormularioAlumno from './../components/Alumno/FormularioAlumno'
+import FormularioInfoAcademico from './../components/Alumno/FormularioInfoAcademico'
+import FormularioContacto from './../components/Alumno/FormularioContacto'
+import SideBar from './../components/Generales/SideBar'
+import initialState from './../utils/initialState'
+import {listado,consultaById} from './../utils/ConexionAPI'
+import {crearArregloColumnas} from './../utils/Tabla'
+import AppContext from './../context/AppContext';
+import { useHistory,useLocation,withRouter } from "react-router-dom";
 
 const Alumnos = () => {
     const [ accion, setAccion ] = useState(0)
@@ -19,6 +21,7 @@ const Alumnos = () => {
     const [ columnas, setColumnas] = useState([])
     const [ universidadListado,setUniversidadListado] = useState([])
     const [ carreraListado,setCarreraListado] = useState([])
+    const { state, agregarUsuario } = useContext(AppContext);
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -27,7 +30,20 @@ const Alumnos = () => {
         setAccion(ventana);
     } 
     
+    let history = useHistory();
+    const location = useLocation();
+
     useEffect ( () => {
+
+        const { usuario } = state; 
+        if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
+            const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
+                history.push('/login');
+            }
+            agregarUsuario(usuarioSesionT);
+        }
+
         setAlumno({...initialState.alumno})
         actualizarListado();
     }, [] )
@@ -131,4 +147,4 @@ const Alumnos = () => {
     )
 }
 
-export default Alumnos
+export default withRouter(Alumnos)

@@ -28,8 +28,6 @@ const Universidad = () => {
     const location = useLocation();
     useEffect ( () => {
         const { usuario } = state; 
-
-
         if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
             const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
             if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {

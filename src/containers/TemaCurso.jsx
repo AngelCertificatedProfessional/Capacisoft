@@ -6,6 +6,8 @@ import SideBar from '../components/Generales/SideBar'
 import initialState from '../utils/initialState'
 import {listado,consultaById} from '../utils/ConexionAPI'
 import {crearArregloColumnas} from '../utils/Tabla'
+import { useHistory,useLocation,withRouter } from "react-router-dom";
+
 
 const TemaCurso = () => {
     const [ accion, setAccion ] = useState(0)
@@ -13,6 +15,8 @@ const TemaCurso = () => {
     const [ temaCursoListado,setTemaCursoListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
+    const { state, agregarUsuario } = useContext(AppContext);
+
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -21,7 +25,20 @@ const TemaCurso = () => {
         setAccion(ventana);
     } 
     
+    let history = useHistory();
+    const location = useLocation();
+
     useEffect ( () => {
+
+        const { usuario } = state; 
+        if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
+            const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
+                history.push('/login');
+            }
+            agregarUsuario(usuarioSesionT);
+        }
+
         setTemaCurso({...initialState.temaCurso})
         actualizarListado();
     }, [] )
@@ -80,4 +97,4 @@ const TemaCurso = () => {
     )
 }
 
-export default TemaCurso
+export default withRouter(TemaCurso)
