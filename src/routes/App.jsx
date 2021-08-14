@@ -1,18 +1,18 @@
 import React from 'react'
 import { HashRouter ,Switch,Route } from 'react-router-dom'
 import Layout from '../components/Generales/Layout';
-import Home from '../containers/Home'
-import Universidad from '../containers/Universidad'
-import Carrera from '../containers/Carrera'
-import TemaCurso from '../containers/TemaCurso'
-import Usuario from '../containers/Usuario'
-import Alumno from '../containers/Alumno'
-import Curso from '../containers/Curso'
-import Periodo from '../containers/Periodo'
-import Login from '../containers/Login'
-import Error404 from '../containers/Error404'
-import AppConText from '../context/AppContext';
-import useInitialState from '../hooks/useInitialState';
+import Home from './../containers/Home'
+import Universidad from './../containers/Universidad'
+import Carrera from './../containers/Carrera'
+import TemaCurso from './../containers/TemaCurso'
+import Usuario from './../containers/Usuario'
+import Alumno from './../containers/Alumno'
+import Curso from './../containers/Curso'
+import Periodo from './../containers/Periodo'
+import Login from './../containers/Login'
+import Error404 from './../containers/Error404'
+import AppConText from './../context/AppContext';
+import useInitialState from './../hooks/useInitialState';
 
 const App = () => {
     const initialState = useInitialState();
