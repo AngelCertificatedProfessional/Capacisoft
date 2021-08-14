@@ -1,11 +1,12 @@
-import React,{useState,useEffect } from 'react'
+import React,{useState,useEffect,useContext } from 'react'
 import { Col,Row,Container } from 'react-bootstrap'
-import InfoCarrera from '../components/Carrera/InfoCarrera'
-import FormularioCarrera from '../components/Carrera/FormularioCarrera'
-import SideBar from '../components/Generales/SideBar'
-import initialState from '../utils/initialState'
-import {listado,consultaById} from '../utils/ConexionAPI'
-import {crearArregloColumnas} from '../utils/Tabla'
+import InfoCarrera from './../components/Carrera/InfoCarrera'
+import FormularioCarrera from './../components/Carrera/FormularioCarrera'
+import SideBar from './../components/Generales/SideBar'
+import initialState from './../utils/initialState'
+import {listado,consultaById} from './../utils/ConexionAPI'
+import {crearArregloColumnas} from './../utils/Tabla'
+import { useHistory,useLocation,withRouter } from "react-router-dom";
 
 const Carrera = () => {
     const [ accion, setAccion ] = useState(0)
@@ -13,6 +14,8 @@ const Carrera = () => {
     const [ carreraListado,setCarreraListado] = useState([])
     const [ seleccionado,setSeleccionado] = useState(0)
     const [ columnas, setColumnas] = useState([])
+    const { state, agregarUsuario } = useContext(AppContext);
+
 
     const cambiarVentana = (ventana) => {
         if(ventana === 2){
@@ -20,8 +23,21 @@ const Carrera = () => {
         }
         setAccion(ventana);
     } 
-    
+
+    let history = useHistory();
+    const location = useLocation()
+
     useEffect ( () => {
+        console.log('entre')
+        const { usuario } = state; 
+        if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
+            const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
+            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
+                history.push('/login');
+            }
+            agregarUsuario(usuarioSesionT);
+        }
+
         setCarrera({...initialState.carerra})
         actualizarListado();
     }, [] )
@@ -79,4 +95,4 @@ const Carrera = () => {
     )
 }
 
-export default Carrera
+export default withRouter(Carrera)
