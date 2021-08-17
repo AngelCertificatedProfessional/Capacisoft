@@ -77,6 +77,7 @@ const FormularioInfoAcademico = ({accion,alumno,actualizarListado,cambiarVentana
             </h1>
             <Row className="mb-3">
                 <Form.Group as={Col}>
+                    <Form.Label>Universidad del Alumno</Form.Label>
                     <Form.Control as="select" name="universidadId" id="universidadId" value={values.universidadId}
                      onChange={handleChange} onBlur={handleBlur}
                      isInvalid={!!touched.universidadId && !!errors.universidadId}>
@@ -92,6 +93,7 @@ const FormularioInfoAcademico = ({accion,alumno,actualizarListado,cambiarVentana
                 
                 
                 <Form.Group as={Col}>
+                    <Form.Label>Carrera del Alumno</Form.Label>
                     <Form.Control required as="select" type="select" name="carrerId" id="carrerId" 
                     value={values.carrerId} onChange={handleChange} onBlur={handleBlur}
                     isInvalid={!!touched.carrerId && !!errors.carrerId} >

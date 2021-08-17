@@ -113,6 +113,8 @@ export const sobreescribirColumnName = (col,proceso) => {
           return cursoColumna(col);
         case "Periodo":
             return periodoColumna(col);
+        case "Programar Curso":
+          return programarCursoColumna(col);
     }
 }
 
@@ -184,11 +186,13 @@ const cursoColumna = (col) => {
   }
 }
 
-const periodoColumna = (col) => {
-  switch(col){
-    case "periodo":
+const programarCursoColumna = (col) => {
+  switch(col) {
+    case "cursoNombre":
+      return "Curso";
+    case "periodoNombre":
       return "Periodo";
-      default:
+    default:
         return "";
   }
 }

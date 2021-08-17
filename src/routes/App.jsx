@@ -10,6 +10,7 @@ import Alumno from './../containers/Alumno'
 import Curso from './../containers/Curso'
 import Periodo from './../containers/Periodo'
 import Login from './../containers/Login'
+import ProgramarCurso from './../containers/ProgramarCurso'
 import Error404 from './../containers/Error404'
 import AppConText from './../context/AppContext';
 import useInitialState from './../hooks/useInitialState';
@@ -31,6 +32,7 @@ const App = () => {
                         <Route exact path="/curso" component={Curso}/>
                         <Route exact path="/periodo" component={Periodo}/>
                         <Route exact path="/login" component={Login}/>
+                        <Route exact path="/programarCurso" component={ProgramarCurso}/>
                         <Route component={Error404} />     
                     </Switch>
                 </Layout>

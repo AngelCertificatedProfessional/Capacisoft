@@ -57,5 +57,13 @@ export default {
         fechaInicio:'',
         fechaFinal:'',
         alumnos:[]
-    }
+    },
+    programarCurso:{
+        cursoId:'',
+        fechaInicioCurso:'',
+        periodoId: '',
+        tipoCurso: 1,
+        precioFinal: 0,
+        alumnos:[]
+    },
 }
