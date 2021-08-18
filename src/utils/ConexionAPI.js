@@ -1,226 +1,223 @@
-const config = require('./../config/config')
-let usuario = JSON.parse(sessionStorage.getItem("usuario"));
+const config = require('./../config/config');
+let usuario = JSON.parse(sessionStorage.getItem('usuario'));
 
-export const agregar = async(sRuta,data) => {
-
-    try {
-
-        if(!validaUsuario()){
-            throw "No se a iniciado sesion";
-        }
-
-        const configuracion = {
-            method: 'POST',
-            headers : {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': usuario.token
-            },
-            body: JSON.stringify(data)
-        }
-        
-        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
-
-        let json =  await res.json();
-
-        if(res.status !== 200 && json.data !== undefined){
-            throw(json.data)
-        }
-        else if(res.status !== 200){
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-        if(json.data.hasOwnProperty('_id') ){
-            return;        
-        }else{
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-    }catch(error) {
-        throw(error)
+export const agregar = async (sRuta, data) => {
+  try {
+    if (!validaUsuario()) {
+      throw 'No se a iniciado sesion';
     }
-}
 
-export const listado = async (sRuta) =>{
-    try {
+    const configuracion = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: usuario.token,
+      },
+      body: JSON.stringify(data),
+    };
 
-        if(!validaUsuario()){
-            throw "No se a iniciado sesion";
-        }
+    let res = await fetch(
+      `${config.env.apiCapacisoftURL}/api/${sRuta}`,
+      configuracion
+    );
 
-        const configuracion = {
-            method: 'GET',
-            headers : {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': usuario.token
-            }
-        }
+    let json = await res.json();
 
-        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`,configuracion);
-        
-        if(res.status !== 200){
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-        let data = await res.json();
-
-        return data.data;
-    }catch(error) {
-        throw(error)
+    if (res.status !== 200 && json.data !== undefined) {
+      throw json.data;
+    } else if (res.status !== 200) {
+      throw 'Hubo un error al ingresar la informacion';
     }
-}
 
-export const consultaById = async (sRuta,nIdRegistro) => {
-
-    try {
-
-        if(!validaUsuario()){
-            throw "No se a iniciado sesion";
-        }
-
-        const configuracion = {
-            method: 'GET',
-            headers : {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': usuario.token
-            }
-        }
-
-        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}${nIdRegistro}`,configuracion );
-
-        if(res.status !== 200){
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-        let data = await res.json();
-        return data.data;
-    }catch(error) {
-        throw(error)
+    if (json.data.hasOwnProperty('_id')) {
+      return;
+    } else {
+      throw 'Hubo un error al ingresar la informacion';
     }
-}
+  } catch (error) {
+    throw error;
+  }
+};
 
-export const actualizar = async(sRuta,data) => {
-
-    try {
-
-        if(!validaUsuario()){
-            throw "No se a iniciado sesion";
-        }
-
-        const configuracion = {
-            method: 'PUT',
-            headers : {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': usuario.token
-            },
-            body: JSON.stringify(data)
-        }
-        
-        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
-
-        let json =  await res.json();
-
-        if(res.status !== 200 && json.data !== undefined){
-            throw(json.data)
-        }
-        else if(res.status !== 200){
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-
-        if(json.data.hasOwnProperty('_id') ){
-            return;        
-        }else{
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-    }catch(error) {
-        throw(error)
+export const listado = async (sRuta) => {
+  try {
+    if (!validaUsuario()) {
+      throw 'No se a iniciado sesion';
     }
-}
 
+    const configuracion = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: usuario.token,
+      },
+    };
 
-export const actualizarEspecifico = async(sRuta,data) => {
+    let res = await fetch(
+      `${config.env.apiCapacisoftURL}/api/${sRuta}`,
+      configuracion
+    );
 
-    try {
-
-        if(!validaUsuario()){
-            throw "No se a iniciado sesion";
-        }
-
-        const configuracion = {
-            method: 'PATCH',
-            headers : {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': usuario.token
-            },
-            body: JSON.stringify(data)
-        }
-        
-        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
-
-        let json =  await res.json();
-
-        if(res.status !== 200 && json.data !== undefined){
-            throw(json.data)
-        }
-        else if(res.status !== 200){
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-
-        if(json.data.hasOwnProperty('_id') ){
-            return;        
-        }else{
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-    }catch(error) {
-        throw(error)
+    if (res.status !== 200) {
+      throw 'Hubo un error al ingresar la informacion';
     }
-}
 
-export const iniciarSesion = async(sRuta,data) => {
-    try {
-        const configuracion = {
-            method: 'POST',
-            headers : {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        }
-        let res = await fetch(`${config.env.apiCapacisoftURL}/api/${sRuta}`, configuracion);
+    let data = await res.json();
 
-        let json =  await res.json();
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
-        if(res.status !== 200 && json.data !== undefined){
-            throw(json.data)
-        }
-        else if(res.status !== 200){
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-        if(json.data.hasOwnProperty('token') ){
-            usuario = json.data;
-            return json.data;        
-        }else{
-            throw('Hubo un error al ingresar la informacion')
-        }
-
-    }catch(error) {
-        throw(error)
+export const consultaById = async (sRuta, nIdRegistro) => {
+  try {
+    if (!validaUsuario()) {
+      throw 'No se a iniciado sesion';
     }
-}
 
-const validaUsuario =()=>{
+    const configuracion = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: usuario.token,
+      },
+    };
 
-    if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
-        return false;
+    let res = await fetch(
+      `${config.env.apiCapacisoftURL}/api/${sRuta}${nIdRegistro}`,
+      configuracion
+    );
+
+    if (res.status !== 200) {
+      throw 'Hubo un error al ingresar la informacion';
     }
-    return true;
-}
+
+    let data = await res.json();
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const actualizar = async (sRuta, data) => {
+  try {
+    if (!validaUsuario()) {
+      throw 'No se a iniciado sesion';
+    }
+
+    const configuracion = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: usuario.token,
+      },
+      body: JSON.stringify(data),
+    };
+
+    let res = await fetch(
+      `${config.env.apiCapacisoftURL}/api/${sRuta}`,
+      configuracion
+    );
+
+    let json = await res.json();
+
+    if (res.status !== 200 && json.data !== undefined) {
+      throw json.data;
+    } else if (res.status !== 200) {
+      throw 'Hubo un error al ingresar la informacion';
+    }
+
+    if (json.data.hasOwnProperty('_id')) {
+      return;
+    } else {
+      throw 'Hubo un error al ingresar la informacion';
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const actualizarEspecifico = async (sRuta, data) => {
+  try {
+    if (!validaUsuario()) {
+      throw 'No se a iniciado sesion';
+    }
+
+    const configuracion = {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: usuario.token,
+      },
+      body: JSON.stringify(data),
+    };
+
+    let res = await fetch(
+      `${config.env.apiCapacisoftURL}/api/${sRuta}`,
+      configuracion
+    );
+
+    let json = await res.json();
+
+    if (res.status !== 200 && json.data !== undefined) {
+      throw json.data;
+    } else if (res.status !== 200) {
+      throw 'Hubo un error al ingresar la informacion';
+    }
+
+    if (json.data.hasOwnProperty('_id')) {
+      return;
+    } else {
+      throw 'Hubo un error al ingresar la informacion';
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const iniciarSesion = async (sRuta, data) => {
+  try {
+    const configuracion = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    let res = await fetch(
+      `${config.env.apiCapacisoftURL}/api/${sRuta}`,
+      configuracion
+    );
+
+    let json = await res.json();
+
+    if (res.status !== 200 && json.data !== undefined) {
+      throw json.data;
+    } else if (res.status !== 200) {
+      throw 'Hubo un error al ingresar la informacion';
+    }
+
+    if (json.data.hasOwnProperty('token')) {
+      usuario = json.data;
+      return json.data;
+    } else {
+      throw 'Hubo un error al ingresar la informacion';
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const validaUsuario = () => {
+  if (usuario === null || usuario === undefined || usuario.usuario === '') {
+    return false;
+  }
+  return true;
+};

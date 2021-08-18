@@ -1,6 +1,5 @@
-import {useState } from 'react';
+import { useState } from 'react';
 import initialState from '../utils/initialState';
-
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
@@ -14,7 +13,7 @@ const useInitialState = () => {
 
   return {
     agregarUsuario,
-    state
+    state,
   };
 };
 

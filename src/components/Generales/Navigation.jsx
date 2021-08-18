@@ -1,93 +1,116 @@
-import React, {useEffect,useContext} from 'react' 
-import { Navbar,Nav,NavDropdown } from 'react-bootstrap'
+import React, { useEffect, useContext } from 'react';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 // import logo from '../images/hemolife.png'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import AppContext from './../../context/AppContext';
-import initialState from './../../utils/initialState'
-import { useHistory,useLocation,withRouter } from "react-router-dom";
-
+import initialState from './../../utils/initialState';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 
 const Navigation = () => {
-    const { state, agregarUsuario } = useContext(AppContext);
-    let history = useHistory();
-    const { usuario } = state; 
-    const location = useLocation()
-    useEffect (() => {
-        if (usuario === null || usuario === undefined || usuario.usuario === "" ) {
-            const usuarioSesionT = JSON.parse(sessionStorage.getItem("usuario"));
-            if ((usuarioSesionT === null || usuarioSesionT === undefined || usuarioSesionT.usuario === "") && location.pathname !== '/login') {
-                history.push('/login');
-            }
-            agregarUsuario(usuarioSesionT);
-        }
-    },[])
-
-
-    const cerrarSesion =()=> {
-        agregarUsuario({...initialState.usuario});
-        sessionStorage.setItem('usuario',JSON.stringify({...initialState.usuario}));
+  const { state, agregarUsuario } = useContext(AppContext);
+  let history = useHistory();
+  const { usuario } = state;
+  const location = useLocation();
+  useEffect(() => {
+    if (usuario === null || usuario === undefined || usuario.usuario === '') {
+      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      if (
+        (usuarioSesionT === null ||
+          usuarioSesionT === undefined ||
+          usuarioSesionT.usuario === '') &&
+        location.pathname !== '/login'
+      ) {
         history.push('/login');
+      }
+      agregarUsuario(usuarioSesionT);
     }
+  }, []);
 
-    const opcionNavBar = () => {
-        if(usuario === null || usuario === undefined || usuario.usuario === ""){
-            return;
-        }else{
-            return (
-                <>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                        <NavDropdown title="Catalogos" id="collasible-nav-dropdown">  
-                            <NavDropdown.Item as={Link} to="/usuario">Usuarios</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/universidad">Universidades</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/carrera">Carreras</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/alumno">Alumnos</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/temaCurso">Tema de Curso</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/curso">Curso</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/periodo">Periodo</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Procesos" id="collasible-nav-dropdown">  
-                            <NavDropdown.Item as={Link} to="/programarCurso">Programar Curso</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Reportes" id="collasible-nav-dropdown" >  
-                            <NavDropdown.Item as={Link} to="#action/3.1">Ver perfil</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="#action/3.2">Ajustes</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} to="#action/3.4">Cerrar sesion</NavDropdown.Item>
-                        </NavDropdown>
-                        
-                    </Nav>
-                    <Nav className="ml-auto">
-                        <Nav.Link onClick={() =>cerrarSesion()}>Cerrar Sesion</Nav.Link>
-                    </Nav>
-                    
-                </Navbar.Collapse>
-                </>
-            )
-        }
-        
+  const cerrarSesion = () => {
+    agregarUsuario({ ...initialState.usuario });
+    sessionStorage.setItem(
+      'usuario',
+      JSON.stringify({ ...initialState.usuario })
+    );
+    history.push('/login');
+  };
+
+  const opcionNavBar = () => {
+    if (usuario === null || usuario === undefined || usuario.usuario === '') {
+      return;
+    } else {
+      return (
+        <>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <NavDropdown title="Catalogos" id="collasible-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/usuario">
+                  Usuarios
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/universidad">
+                  Universidades
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/carrera">
+                  Carreras
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/alumno">
+                  Alumnos
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/temaCurso">
+                  Tema de Curso
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/curso">
+                  Curso
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/periodo">
+                  Periodo
+                </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="Procesos" id="collasible-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/programarCurso">
+                  Programar Curso
+                </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="Reportes" id="collasible-nav-dropdown">
+                <NavDropdown.Item as={Link} to="#action/3.1">
+                  Ver perfil
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="#action/3.2">
+                  Ajustes
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to="#action/3.4">
+                  Cerrar sesion
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Nav className="ml-auto">
+              <Nav.Link onClick={() => cerrarSesion()}>Cerrar Sesion</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </>
+      );
     }
+  };
 
-
-    return(
-        <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
-            {/* <Navbar.Brand as={Link} to="/">
+  return (
+    <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
+      {/* <Navbar.Brand as={Link} to="/">
                 <img src={logo} width="150" height="30" alt="Hemolife"/>
             </Navbar.Brand> */}
-            {(usuario === null || usuario === undefined || usuario.usuario === "")?
-                <Navbar.Brand as={Link} to="/login">
-                    Capacisoft
-                </Navbar.Brand>
-                :
-                <Navbar.Brand as={Link} to="/">
-                    Capacisoft
-                </Navbar.Brand>
-            }
-            {opcionNavBar()}
-            
-        </Navbar>
-    )
-}
+      {usuario === null || usuario === undefined || usuario.usuario === '' ? (
+        <Navbar.Brand as={Link} to="/login">
+          Capacisoft
+        </Navbar.Brand>
+      ) : (
+        <Navbar.Brand as={Link} to="/">
+          Capacisoft
+        </Navbar.Brand>
+      )}
+      {opcionNavBar()}
+    </Navbar>
+  );
+};
 
-export default withRouter(Navigation)
+export default withRouter(Navigation);
