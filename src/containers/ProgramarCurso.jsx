@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Col, Row, Container,Button } from 'react-bootstrap';
 import InfoProgramarCurso from './../components/ProgramarCurso/InfoProgramarCurso';
 import FormularioProgramarCurso from './../components/ProgramarCurso/FormularioProgramarCurso';
+import FormularioCalificacionAlumno from './../components/ProgramarCurso/FormularioCalificacionAlumno';
 import SideBar from './../components/Generales/SideBar';
 import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
@@ -118,7 +119,7 @@ const ProgramarCurso = () => {
                 <Row className="mt-3">
                   <Col>
                     <h2> Alumnos Enlistados</h2>
-                    <Button className="mt-2 mb-2"> Agregar Calificacion Alumno</Button>
+                    <Button className="mt-2 mb-2" onClick={() => setAccion(4)}> Agregar Calificacion Curso</Button>
                     <Tabla
                       listado={alumnoListado}
                       seleccionado={seleccionadoAlumno}
@@ -136,10 +137,19 @@ const ProgramarCurso = () => {
                 programarCurso={programarCurso}
                 actualizarListado={actualizarListado}
                 setProgramarCurso={setProgramarCurso}
-                cursoListado={cursoListado}
-                periodoListado={periodoListado}
+                cursoListado = {cursoListado}
+                periodoListado = {periodoListado}
               />
             )}
+
+            {(accion === 4) && (
+              <FormularioCalificacionAlumnox
+                alumno={jsonProgramarCurso.alumnos[seleccionadoAlumnos]}
+                actualizarListado={actualizarListado}
+                idCursoProgramado = {programarCurso._id}
+              />
+            )}
+
           </main>
         </Col>
       </Row>

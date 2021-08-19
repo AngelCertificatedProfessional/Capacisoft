@@ -3,7 +3,7 @@ import { Form, Button, Col, Row, Pagination } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import {
-  actualizarEspecifico,
+  actualizar,
   agregar,
   consultaById,
 } from '../../utils/ConexionAPI';
@@ -123,7 +123,7 @@ const FormularioProgramarCurso = ({
               });
             });
         } else {
-          actualizarEspecifico(
+          actualizar(
             'programarCurso/actualizarProgramarCurso',
             programarCurso
           )
