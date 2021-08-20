@@ -74,6 +74,9 @@ const FormularioProgramarCurso = ({
       (alumnoListado) => alumnoListado._id === seleccionado
     );
     delete alumno['alumnoBaja'];
+    alumno.fechaFinalizaCursos = null;
+    alumno.calificacionCurso = null;
+    alumno.notasCurso = null;
     setAlumnoListadoFinal([...alumnoListadoFinal, alumno]);
     actualizarPrecioTotal(nPrecioFinal, alumnoListadoFinal.length + 1);
   };

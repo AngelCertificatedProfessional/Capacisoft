@@ -26,6 +26,7 @@ const ProgramarCurso = () => {
   const [alumnoListado, setAlumnoListado] = useState([]);
   const [columnasAlumno, setColumnasAlumno] = useState([]);
   const [seleccionadoAlumno, setSeleccionadoAlumno] = useState(0);
+  const [alumnoModificar, setAlumnoModificar] = useState();
 
   const cambiarVentana = (ventana) => {
     if (ventana === 2) {
@@ -90,6 +91,15 @@ const ProgramarCurso = () => {
     );
   };
 
+  const obtenerAlumnoEspecifico = async () => {
+    const jsListado = await consultaById(
+      'programarCurso/getAlumnoByProgramarCurso/',
+      programarCurso._id+"/"+seleccionadoAlumno
+      );
+      setAlumnoModificar(jsListado.alumnos);
+      setAccion(4);
+  };
+
   return (
     <Container fluid>
       <Row>
@@ -119,7 +129,7 @@ const ProgramarCurso = () => {
                 <Row className="mt-3">
                   <Col>
                     <h2> Alumnos Enlistados</h2>
-                    <Button className="mt-2 mb-2" onClick={() => setAccion(4)}> Agregar Calificacion Curso</Button>
+                    <Button className="mt-2 mb-2" onClick={() => obtenerAlumnoEspecifico()}> Agregar Calificacion Curso</Button>
                     <Tabla
                       listado={alumnoListado}
                       seleccionado={seleccionadoAlumno}
@@ -143,10 +153,10 @@ const ProgramarCurso = () => {
             )}
 
             {(accion === 4) && (
-              <FormularioCalificacionAlumnox
-                alumno={jsonProgramarCurso.alumnos[seleccionadoAlumnos]}
+              <FormularioCalificacionAlumno
+                alumno={alumnoModificar}
+                idProgramarCurso = {programarCurso._id}
                 actualizarListado={actualizarListado}
-                idCursoProgramado = {programarCurso._id}
               />
             )}
 

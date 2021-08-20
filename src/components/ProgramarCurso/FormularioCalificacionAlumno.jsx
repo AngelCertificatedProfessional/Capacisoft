@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import {
-  actualizarEspecifico,
-  consultaById,
+  actualizarEspecifico
 } from '../../utils/ConexionAPI';
 import swal from 'sweetalert';
 import moment from 'moment';
@@ -18,25 +17,9 @@ const schema = yup.object({
 
 const FormularioCalificacionAlumno = ({
   alumno,
-  idCursoProgramado,
+  idProgramarCurso,
   actualizarListado,
 }) => {
-
-  useEffect(() => {
-    obtenerAlumnoEspecifico();
-  }, []);
-  
-  const obtenerAlumnoEspecifico = async () => {s
-    const jsListado = await consultaById(
-      'programarCurso/getAlumno/',
-      idCursoProgramado+"/"+alumno._id
-      );
-      setAlumnoListado(jsListado);
-      setColumnasAlumno(crearArregloColumnas(jsListado));
-      let arreglo = crearArregloColumnas(jsListado);
-      arreglo.splice(arreglo.indexOf('alumnoBaja'), 1);
-      setColumnasAlumnoFinal(arreglo);
-  };
 
   return (
     <Formik
