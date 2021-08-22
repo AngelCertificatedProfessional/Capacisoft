@@ -82,7 +82,6 @@ const ProgramarCurso = () => {
         jsonProgramarCurso.fechaInicioCurso = moment(
           jsonProgramarCurso.fechaInicioCurso
         ).format('YYYY-MM-DD');
-        console.log(jsonProgramarCurso.alumnos);
         setColumnasAlumno(crearArregloColumnas(jsonProgramarCurso.alumnos));
         setAlumnoListado(jsonProgramarCurso.alumnos);
         setProgramarCurso(jsonProgramarCurso);
@@ -95,9 +94,12 @@ const ProgramarCurso = () => {
     const jsListado = await consultaById(
       'programarCurso/getAlumnoByProgramarCurso/',
       programarCurso._id+"/"+seleccionadoAlumno
-      );
-      setAlumnoModificar(jsListado.alumnos);
-      setAccion(4);
+    );
+    jsListado.alumnos.fechaFinalizaCurso = moment(
+      jsListado.alumnos.fechaFinalizaCurso
+    ).format('YYYY-MM-DD');
+    setAlumnoModificar(jsListado.alumnos);
+    setAccion(4);
   };
 
   return (

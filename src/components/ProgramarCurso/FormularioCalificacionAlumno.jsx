@@ -9,10 +9,8 @@ import swal from 'sweetalert';
 import moment from 'moment';
 
 const schema = yup.object({
-  cursoId: yup.string().required('Seleccione un curso'),
-  periodoId: yup.string().required('Seleccione un periodo'),
-  tipoCurso: yup.string().required('Seleccione un tipo de curso'),
-  precioFinal: yup.number(),
+  calificacionCurso: yup.string().required('Seleccione un curso'),
+  notasCurso: yup.string().required('Seleccione un periodo')
 });
 
 const FormularioCalificacionAlumno = ({
@@ -25,20 +23,21 @@ const FormularioCalificacionAlumno = ({
     <Formik
       validationSchema={schema}
       onSubmit={(values, e) => {
-        alumno.fechaFinalizaCursos = moment
-          .utc(values.fechaInicioCurso, 'YYYY-MM-DD')
+        alumno.fechaFinalizaCurso = moment
+          .utc(values.fechaFinalizaCurso, 'YYYY-MM-DD')
           .format('YYYY-MM-DD HH:mm');
         alumno.calificacionCurso = values.calificacionCurso;
         alumno.notasCurso = values.notasCurso;
+        alumno._idProgramarCurso = idProgramarCurso
 
         actualizarEspecifico(
-          'programarCurso/actualizarProgramarCurso',
-          programarCurso
+          'programarCurso/actualizarProgramarCursoAlumno',
+          alumno
         )
           .then(() => {
             swal({
-              title: 'Curso Programado Modificado',
-              text: 'Su curso progsramado se a modificado exitosamente',
+              title: 'Alumno Programado Modificado',
+              text: 'El alumno programado se a modificado exitosamente',
               icon: 'success',
               button: 'OK',
             });
@@ -54,7 +53,7 @@ const FormularioCalificacionAlumno = ({
           });
       }}
       initialValues={{
-        fechaFinalizaCursos: alumno.fechaFinalizaCursos,
+        fechaFinalizaCurso: alumno.fechaFinalizaCurso,
         calificacionCurso: alumno.calificacionCurso,
         notasCurso: alumno.notasCurso,
       }}
@@ -82,17 +81,17 @@ const FormularioCalificacionAlumno = ({
               <Form.Control
                 placeholder="Fecha de Finalizacion del curso"
                 name="fechaFinalizaCurso"
-                id="fechaFinalizaCursos"
+                id="fechaFinalizaCurso"
                 type="date"
-                value={values.fechaFinalizaCursos}
+                value={values.fechaFinalizaCurso}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 isInvalid={
-                  !!touched.fechaFinalizaCursos && !!errors.fechaFinalizaCursos
+                  !!touched.fechaFinalizaCurso && !!errors.fechaFinalizaCurso
                 }
               />
               <Form.Control.Feedback type="invalid">
-                {errors.fechaFinalizaCursos}
+                {errors.fechaFinalizaCurso}
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col}>

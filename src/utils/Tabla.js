@@ -1,5 +1,5 @@
 import React from 'react';
-const columnsToHide = ['_id'];
+const columnsToHide = ['_id','notasCurso','calificacionCurso','fechaFinalizaCurso'];
 import { Table } from 'react-bootstrap';
 
 export const createTable = (
