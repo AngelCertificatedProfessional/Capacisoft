@@ -7,7 +7,12 @@ import Tabla from '../../components/Generales/Tabla';
 import { listado } from '../../utils/ConexionAPI';
 import { crearArregloColumnas } from '../../utils/Tabla';
 
-const FormularioTemaCurso = ({ accion, curso, actualizarListado }) => {
+const FormularioTemaCurso = ({
+  accion,
+  curso,
+  actualizarListado,
+  setAccion,
+}) => {
   const [temaCursoListado, setTemaCursoListado] = useState([]);
   const [columnasTemaCurso, setColumnasTemaCurso] = useState([]);
   const [temaCursoListadoFinal, setTemaCursoListadoFinal] = useState([]);
@@ -107,7 +112,11 @@ const FormularioTemaCurso = ({ accion, curso, actualizarListado }) => {
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>{accion === 3 ? `Curso 3/3` : `Modificar Tema del Curso`}</h1>
+          <h1>
+            {accion === 4
+              ? `Agregar Curso 3/3`
+              : `Modificar Información Tema del Curso`}
+          </h1>
           <Row className="mb-3">
             <Pagination>
               <Pagination.Item
@@ -139,6 +148,14 @@ const FormularioTemaCurso = ({ accion, curso, actualizarListado }) => {
             </Col>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 4 ? `Agregar` : `Modificar`}
             </Button>

@@ -1,13 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import InfoUniversidad from './../components/Universidad/InfoUniversidad';
-import FormularioUniversidad from './../components/Universidad/FormularioUniversidad';
-import SideBar from './../components/Generales/SideBar';
 import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import AppContext from './../context/AppContext';
+import moment from 'moment';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
+
+const InfoUniversidad = React.lazy(() =>
+  import('./../components/Universidad/InfoUniversidad')
+);
+const FormularioUniversidad = React.lazy(() =>
+  import('./../components/Universidad/FormularioUniversidad')
+);
+const SideBar = React.lazy(() => import('./../components/Generales/SideBar'));
 
 const Universidad = () => {
   const [accion, setAccion] = useState(0);
@@ -58,6 +64,9 @@ const Universidad = () => {
     setSeleccionado(sIdUniversidad);
     consultaById('universidad/consultaById/', sIdUniversidad).then(
       (jsUniversidad) => {
+        jsUniversidad.creado = moment(jsUniversidad.creado).format(
+          'DD/MM/YYYY hh:mm:ss'
+        );
         setUniversidad(jsUniversidad);
         setAccion(1);
       }
@@ -68,30 +77,37 @@ const Universidad = () => {
     <Container fluid>
       <Row>
         <Col xs={10} md={3}>
-          <SideBar
-            cambiarVentana={cambiarVentana}
-            listado={universidadListado}
-            seleccionado={seleccionado}
-            buscarRegistro={buscarRegistro}
-            columnas={columnas}
-            proceso="Universidad"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar
+              cambiarVentana={cambiarVentana}
+              listado={universidadListado}
+              seleccionado={seleccionado}
+              buscarRegistro={buscarRegistro}
+              columnas={columnas}
+              proceso="Universidad"
+            />
+          </Suspense>
         </Col>
         <Col xs={12} md={9}>
           <main className="pt-4">
             {accion === 1 && (
-              <InfoUniversidad
-                universidad={universidad}
-                cambiarVentana={cambiarVentana}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <InfoUniversidad
+                  universidad={universidad}
+                  cambiarVentana={cambiarVentana}
+                />
+              </Suspense>
             )}
             {(accion === 2 || accion === 3) && (
-              <FormularioUniversidad
-                accion={accion}
-                universidad={universidad}
-                actualizarListado={actualizarListado}
-                seleccionado={seleccionado}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioUniversidad
+                  accion={accion}
+                  universidad={universidad}
+                  actualizarListado={actualizarListado}
+                  seleccionado={seleccionado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
           </main>
         </Col>

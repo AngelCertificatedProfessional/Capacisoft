@@ -7,12 +7,17 @@ import swal from 'sweetalert';
 
 const schema = yup.object({
   nombreCarrera: yup.string().required(),
-  nombreCoordinador: yup.string(),
-  apellidoCoordinador: yup.string(),
+  nombreCoordinador: yup.string().required(),
+  apellidoCoordinador: yup.string().required(),
   cantidadSemestres: yup.number().required().positive().integer(),
 });
 
-const FormularioCarrera = ({ accion, carrera, actualizarListado }) => {
+const FormularioCarrera = ({
+  accion,
+  carrera,
+  actualizarListado,
+  setAccion,
+}) => {
   return (
     <Formik
       validationSchema={schema}
@@ -64,7 +69,7 @@ const FormularioCarrera = ({ accion, carrera, actualizarListado }) => {
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>Carrera</h1>
+          {accion === 2 ? `Agregar Carrera` : `Modificar Carrera`}
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>Nombre de la Carrera</Form.Label>
@@ -75,11 +80,11 @@ const FormularioCarrera = ({ accion, carrera, actualizarListado }) => {
                 value={values.nombreCarrera}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // isInvalid={!!formik.touched.clave && !!formik.errors.clave}
+                isInvalid={!!touched.nombreCarrera && !!errors.nombreCarrera}
               />
-              {/* <Form.Control.Feedback type="invalid">
-                    {formik.errors.clave}
-                </Form.Control.Feedback> */}
+              <Form.Control.Feedback type="invalid">
+                {errors.nombreCarrera}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group as={Col}>
@@ -92,11 +97,13 @@ const FormularioCarrera = ({ accion, carrera, actualizarListado }) => {
                 value={values.cantidadSemestres}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // isInvalid={!!formik.touched.serie && !!formik.errors.serie}
+                isInvalid={
+                  !!touched.cantidadSemestres && !!errors.cantidadSemestres
+                }
               />
-              {/* <Form.Control.Feedback type="invalid">
-                    {formik.errors.serie}   
-                </Form.Control.Feedback> */}
+              <Form.Control.Feedback type="invalid">
+                {errors.cantidadSemestres}
+              </Form.Control.Feedback>
             </Form.Group>
           </Row>
           <Row className="mb-3">
@@ -109,11 +116,13 @@ const FormularioCarrera = ({ accion, carrera, actualizarListado }) => {
                 value={values.nombreCoordinador}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // isInvalid={!!formik.touched.clave && !!formik.errors.clave}
+                isInvalid={
+                  !!touched.nombreCoordinador && !!errors.nombreCoordinador
+                }
               />
-              {/* <Form.Control.Feedback type="invalid">
-                    {formik.errors.clave}
-                </Form.Control.Feedback> */}
+              <Form.Control.Feedback type="invalid">
+                {errors.nombreCoordinador}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group as={Col}>
@@ -125,14 +134,24 @@ const FormularioCarrera = ({ accion, carrera, actualizarListado }) => {
                 value={values.apellidoCoordinador}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // isInvalid={!!formik.touched.serie && !!formik.errors.serie}
+                isInvalid={
+                  !!touched.apellidoCoordinador && !!errors.apellidoCoordinador
+                }
               />
-              {/* <Form.Control.Feedback type="invalid">
-                    {formik.errors.serie}   
-                </Form.Control.Feedback> */}
+              <Form.Control.Feedback type="invalid">
+                {errors.apellidoCoordinador}
+              </Form.Control.Feedback>
             </Form.Group>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 2 ? 'Agregar' : 'Modificar'}
             </Button>

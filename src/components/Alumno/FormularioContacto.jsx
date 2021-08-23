@@ -14,7 +14,12 @@ const schema = yup.object({
   linkedIn: yup.string().url('Escriba una direccion valida'),
 });
 
-const FormularioContacto = ({ accion, alumno, actualizarListado }) => {
+const FormularioContacto = ({
+  accion,
+  alumno,
+  actualizarListado,
+  setAccion,
+}) => {
   return (
     <Formik
       validationSchema={schema}
@@ -83,7 +88,9 @@ const FormularioContacto = ({ accion, alumno, actualizarListado }) => {
           noValidate
         >
           <h1>
-            {accion === 4 ? `Alumno 2/3` : `Modificar Informacion Alumno`}
+            {accion === 4
+              ? `Agregar Alumno 2/3`
+              : `Modificar Información Alumno`}
           </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
@@ -137,6 +144,14 @@ const FormularioContacto = ({ accion, alumno, actualizarListado }) => {
             </Form.Group>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 4 ? `Agregar` : `Modificar`}
             </Button>

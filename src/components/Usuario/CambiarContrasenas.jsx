@@ -8,15 +8,15 @@ import swal from 'sweetalert';
 const schema = yup.object({
   contrasena: yup
     .string()
-    .required('La contrasena es requerido')
+    .required('La contraseña es requerido')
     .min(8, 'La Contrasena debe contener minimo 8 caracteres.'),
   validaContrasena: yup
     .string()
     .required('El valor de valida Contrasena es obligatorio')
-    .oneOf([yup.ref('contrasena'), null], 'Las contrasenas no son iguales'),
+    .oneOf([yup.ref('contrasena'), null], 'Las contraseñas no son iguales'),
 });
 
-const CambiarContrasenas = ({ usuario, actualizarListado }) => {
+const CambiarContrasenas = ({ usuario, actualizarListado, setAccion }) => {
   return (
     <Formik
       validationSchema={schema}
@@ -26,7 +26,7 @@ const CambiarContrasenas = ({ usuario, actualizarListado }) => {
           .then(() => {
             swal({
               title: 'Usuario Modificado',
-              text: 'Su contrasena se a modificado exitosamente',
+              text: 'Su contraseña se a modificado exitosamente',
               icon: 'success',
               button: 'OK',
             });
@@ -59,13 +59,13 @@ const CambiarContrasenas = ({ usuario, actualizarListado }) => {
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>Cambiar contrasena: {usuario.usuario}</h1>
+          <h1>Cambiar contraseña: {usuario.usuario}</h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label>Contrasena</Form.Label>
+              <Form.Label>Contraseña</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Contrasena"
+                placeholder="Contraseña"
                 name="contrasena"
                 id="contrasena"
                 value={values.contrasena}
@@ -78,10 +78,10 @@ const CambiarContrasenas = ({ usuario, actualizarListado }) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>Contrasena</Form.Label>
+              <Form.Label>Valida Contraseña</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Valida Contrasena"
+                placeholder="Valida Contraseña"
                 name="validaContrasena"
                 id="validaContrasena"
                 value={values.validaContrasena}
@@ -97,8 +97,16 @@ const CambiarContrasenas = ({ usuario, actualizarListado }) => {
             </Form.Group>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
-              Actualizar Contrasena
+              Actualizar Contraseña
             </Button>
           </Form.Row>
         </Form>

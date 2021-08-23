@@ -9,7 +9,12 @@ const schema = yup.object({
   temaCurso: yup.string().required('El tema del curso es un campo Obligatorio'),
 });
 
-const FormularioTemaCurso = ({ accion, temaCurso, actualizarListado }) => {
+const FormularioTemaCurso = ({
+  accion,
+  temaCurso,
+  actualizarListado,
+  setAccion,
+}) => {
   return (
     <Formik
       validationSchema={schema}
@@ -55,7 +60,11 @@ const FormularioTemaCurso = ({ accion, temaCurso, actualizarListado }) => {
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>Carrera</h1>
+          <h1>
+            {accion === 2
+              ? `Agregar Tema del Curso`
+              : `Modificar Información Tema del Curso`}
+          </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>Nombre del Tema del Curso</Form.Label>
@@ -74,6 +83,14 @@ const FormularioTemaCurso = ({ accion, temaCurso, actualizarListado }) => {
             </Form.Group>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 2 ? 'Agregar' : 'Modificar'}
             </Button>

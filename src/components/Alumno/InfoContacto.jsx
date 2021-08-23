@@ -13,10 +13,9 @@ const InfoContacto = ({ alumno, cambiarVentana }) => {
         <Card.Body>
           <Container fluid>
             <Row>
-              {/* Imangen */}
               <Col>
                 <Card.Title className="mtop-0 mbot-0 tituloCarta">
-                  Informacion de Contacto
+                  Información de Contacto
                 </Card.Title>
               </Col>
               <Col xs="auto">

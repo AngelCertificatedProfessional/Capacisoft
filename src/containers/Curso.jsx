@@ -1,17 +1,28 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import InfoCurso from './../components/Curso/InfoCurso';
-import InfoDetalleCurso from './../components/Curso/InfoDetalleCurso';
-import InfoTemaCurso from './../components/Curso/InfoTemaCurso';
-import FormularioCurso from './../components/Curso/FormularioCurso';
-import FormularioDetalleCurso from './../components/Curso/FormularioDetalleCurso';
-import FormularioTemaCurso from './../components/Curso/FormularioTemaCurso';
-import SideBar from './../components/Generales/SideBar';
 import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import AppContext from './../context/AppContext';
+import moment from 'moment';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
+const InfoCurso = React.lazy(() => import('./../components/Curso/InfoCurso'));
+const InfoDetalleCurso = React.lazy(() =>
+  import('./../components/Curso/InfoDetalleCurso')
+);
+const InfoTemaCurso = React.lazy(() =>
+  import('./../components/Curso/InfoTemaCurso')
+);
+const FormularioCurso = React.lazy(() =>
+  import('./../components/Curso/FormularioCurso')
+);
+const FormularioDetalleCurso = React.lazy(() =>
+  import('./../components/Curso/FormularioDetalleCurso')
+);
+const FormularioTemaCurso = React.lazy(() =>
+  import('./../components/Curso/FormularioTemaCurso')
+);
+const SideBar = React.lazy(() => import('./../components/Generales/SideBar'));
 
 const Curso = () => {
   const [accion, setAccion] = useState(0);
@@ -57,6 +68,7 @@ const Curso = () => {
   const buscarRegistro = (sIdCurso) => {
     setSeleccionado(sIdCurso);
     consultaById('curso/consultaById/', sIdCurso).then((jsCurso) => {
+      jsCurso.creado = moment(jsCurso.creado).format('DD/MM/YYYY hh:mm:ss');
       setCurso(jsCurso);
       setAccion(1);
     });
@@ -66,14 +78,16 @@ const Curso = () => {
     <Container fluid>
       <Row>
         <Col xs={10} md={3}>
-          <SideBar
-            cambiarVentana={cambiarVentana}
-            listado={cursoListado}
-            seleccionado={seleccionado}
-            buscarRegistro={buscarRegistro}
-            columnas={columnas}
-            proceso="Curso"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar
+              cambiarVentana={cambiarVentana}
+              listado={cursoListado}
+              seleccionado={seleccionado}
+              buscarRegistro={buscarRegistro}
+              columnas={columnas}
+              proceso="Curso"
+            />
+          </Suspense>
         </Col>
         <Col xs={12} md={9}>
           <main className="pt-4">
@@ -81,49 +95,67 @@ const Curso = () => {
               <>
                 <Row>
                   <Col>
-                    <InfoCurso curso={curso} cambiarVentana={cambiarVentana} />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoCurso
+                        curso={curso}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
                 <Row>
                   <Col className="mt-3">
-                    <InfoDetalleCurso
-                      curso={curso}
-                      cambiarVentana={cambiarVentana}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoDetalleCurso
+                        curso={curso}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                   <Col className="mt-3">
-                    <InfoTemaCurso
-                      curso={curso}
-                      cambiarVentana={cambiarVentana}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoTemaCurso
+                        curso={curso}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
               </>
             )}
             {(accion === 2 || accion === 6) && (
-              <FormularioCurso
-                accion={accion}
-                curso={curso}
-                actualizarListado={actualizarListado}
-                cambiarVentana={cambiarVentana}
-                setCurso={setCurso}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioCurso
+                  accion={accion}
+                  curso={curso}
+                  actualizarListado={actualizarListado}
+                  cambiarVentana={cambiarVentana}
+                  setCurso={setCurso}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
             {(accion === 3 || accion === 7) && (
-              <FormularioDetalleCurso
-                accion={accion}
-                curso={curso}
-                actualizarListado={actualizarListado}
-                cambiarVentana={cambiarVentana}
-                setCurso={setCurso}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioDetalleCurso
+                  accion={accion}
+                  curso={curso}
+                  actualizarListado={actualizarListado}
+                  cambiarVentana={cambiarVentana}
+                  setCurso={setCurso}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
             {(accion === 4 || accion === 8) && (
-              <FormularioTemaCurso
-                accion={accion}
-                curso={curso}
-                actualizarListado={actualizarListado}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioTemaCurso
+                  accion={accion}
+                  curso={curso}
+                  actualizarListado={actualizarListado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
           </main>
         </Col>

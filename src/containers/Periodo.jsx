@@ -1,15 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import InfoPeriodo from './../components/Periodo/InfoPeriodo';
-import FormularioPeriodo from './../components/Periodo/FormularioPeriodo';
-import SideBar from './../components/Generales/SideBar';
 import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
-import Tabla from './../components/Generales/Tabla';
 import moment from 'moment';
 import AppContext from './../context/AppContext';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
+const Tabla = React.lazy(() => import('./../components/Generales/Tabla'));
+const InfoPeriodo = React.lazy(() =>
+  import('./../components/Periodo/InfoPeriodo')
+);
+const FormularioPeriodo = React.lazy(() =>
+  import('./../components/Periodo/FormularioPeriodo')
+);
+const SideBar = React.lazy(() => import('./../components/Generales/SideBar'));
 
 const Periodo = () => {
   const [accion, setAccion] = useState(0);
@@ -60,6 +64,7 @@ const Periodo = () => {
   const buscarRegistro = (sIdPeriodo) => {
     setSeleccionado(sIdPeriodo);
     consultaById('periodo/consultaById/', sIdPeriodo).then((periodo) => {
+      periodo.creado = moment(periodo.creado).format('DD/MM/YYYY hh:mm:ss');
       periodo.fechaInicio = moment(periodo.fechaInicio).format('YYYY-MM-DD');
       periodo.fechaFinal = moment(periodo.fechaFinal).format('YYYY-MM-DD');
       setColumnasAlumno(crearArregloColumnas(periodo.alumnos));
@@ -78,14 +83,16 @@ const Periodo = () => {
     <Container fluid>
       <Row>
         <Col xs={10} md={3}>
-          <SideBar
-            cambiarVentana={cambiarVentana}
-            listado={periodoListado}
-            seleccionado={seleccionado}
-            buscarRegistro={buscarRegistro}
-            columnas={columnas}
-            proceso="Periodo"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar
+              cambiarVentana={cambiarVentana}
+              listado={periodoListado}
+              seleccionado={seleccionado}
+              buscarRegistro={buscarRegistro}
+              columnas={columnas}
+              proceso="Periodo"
+            />
+          </Suspense>
         </Col>
         <Col xs={12} md={9}>
           <main className="pt-4">
@@ -93,33 +100,40 @@ const Periodo = () => {
               <>
                 <Row>
                   <Col>
-                    <InfoPeriodo
-                      periodo={periodo}
-                      cambiarVentana={cambiarVentana}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoPeriodo
+                        periodo={periodo}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
                 <Row className="mt-3">
                   <Col>
-                    <Tabla
-                      listado={alumnoListado}
-                      seleccionado={seleccionadoAlumno}
-                      buscarRegistro={seleccionarRegistroFinal}
-                      columnas={columnasAlumno}
-                      proceso="Alumno"
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <Tabla
+                        listado={alumnoListado}
+                        seleccionado={seleccionadoAlumno}
+                        buscarRegistro={seleccionarRegistroFinal}
+                        columnas={columnasAlumno}
+                        proceso="Alumno"
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
               </>
             )}
 
             {(accion === 2 || accion === 3) && (
-              <FormularioPeriodo
-                accion={accion}
-                periodo={periodo}
-                actualizarListado={actualizarListado}
-                seleccionado={seleccionado}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioPeriodo
+                  accion={accion}
+                  periodo={periodo}
+                  actualizarListado={actualizarListado}
+                  seleccionado={seleccionado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
           </main>
         </Col>

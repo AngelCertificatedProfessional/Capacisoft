@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Col, Row, Pagination } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import {
-  actualizar,
-  agregar,
-  consultaById,
-} from '../../utils/ConexionAPI';
+import { actualizar, agregar, consultaById } from '../../utils/ConexionAPI';
 import swal from 'sweetalert';
 import moment from 'moment';
 import { crearArregloColumnas } from '../../utils/Tabla';
@@ -26,6 +22,7 @@ const FormularioProgramarCurso = ({
   setProgramarCurso,
   cursoListado,
   periodoListado,
+  setAccion,
 }) => {
   const [alumnoListado, setAlumnoListado] = useState([]);
   const [columnasAlumno, setColumnasAlumno] = useState([]);
@@ -44,26 +41,29 @@ const FormularioProgramarCurso = ({
   };
 
   useEffect(() => {
-    actualizarListadoAlumno(programarCurso.periodoId,true);
+    actualizarListadoAlumno(programarCurso.periodoId, true);
   }, []);
-  
-  const actualizarListadoAlumno = async (sIdPeriodo,bPrimeraVez) => {
+
+  const actualizarListadoAlumno = async (sIdPeriodo, bPrimeraVez) => {
     if (sIdPeriodo === '') {
       return;
     }
     const jsListado = await consultaById(
       'periodo/listadoAlumnosByPeriodo/',
       sIdPeriodo
-      );
-      setAlumnoListado(jsListado);
-      setColumnasAlumno(crearArregloColumnas(jsListado));
-      let arreglo = crearArregloColumnas(jsListado);
-      arreglo.splice(arreglo.indexOf('alumnoBaja'), 1);
-      setColumnasAlumnoFinal(arreglo);
-    if(bPrimeraVez){
+    );
+    setAlumnoListado(jsListado);
+    setColumnasAlumno(crearArregloColumnas(jsListado));
+    let arreglo = crearArregloColumnas(jsListado);
+    arreglo.splice(arreglo.indexOf('alumnoBaja'), 1);
+    setColumnasAlumnoFinal(arreglo);
+    if (bPrimeraVez) {
       setAlumnoListadoFinal(programarCurso.alumnos);
-      actualizarPrecioTotal(programarCurso.precioFinal, programarCurso.alumnos.length);
-    }else{
+      actualizarPrecioTotal(
+        programarCurso.precioFinal,
+        programarCurso.alumnos.length
+      );
+    } else {
       setAlumnoListadoFinal([]);
       actualizarPrecioTotal(0, 0);
     }
@@ -126,10 +126,7 @@ const FormularioProgramarCurso = ({
               });
             });
         } else {
-          actualizar(
-            'programarCurso/actualizarProgramarCurso',
-            programarCurso
-          )
+          actualizar('programarCurso/actualizarProgramarCurso', programarCurso)
             .then(() => {
               swal({
                 title: 'Curso Programado Modificado',
@@ -172,7 +169,9 @@ const FormularioProgramarCurso = ({
           noValidate
         >
           <h1>
-            {accion === 2 ? `Programar Curso` : `Modificar Informacion Alumno`}
+            {accion === 2
+              ? `Agregar Programar Curso`
+              : `Modificar Información Programar Curso`}
           </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
@@ -231,7 +230,7 @@ const FormularioProgramarCurso = ({
                   e // call the built-in handleChange for formik
                 ) => {
                   handleChange(e);
-                  actualizarListadoAlumno(e.currentTarget.value,false);
+                  actualizarListadoAlumno(e.currentTarget.value, false);
                 }}
                 onBlur={handleBlur}
                 isInvalid={!!touched.periodoId && !!errors.periodoId}
@@ -336,6 +335,14 @@ const FormularioProgramarCurso = ({
             </Col>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 2 ? `Agregar` : `Modificar`}
             </Button>

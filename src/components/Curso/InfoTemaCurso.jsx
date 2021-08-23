@@ -13,7 +13,6 @@ const InfoTemaCurso = ({ curso, cambiarVentana }) => {
         <Card.Body>
           <Container fluid>
             <Row>
-              {/* Imangen */}
               <Col>
                 <Card.Title className="mtop-0 mbot-0 tituloCarta">
                   Temas del Curso

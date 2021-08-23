@@ -1,17 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import InfoAlumno from './../components/Alumno/InfoAlumno';
-import InfoContacto from './../components/Alumno/InfoContacto';
-import InfoAcademico from './../components/Alumno/InfoAcademico';
-import FormularioAlumno from './../components/Alumno/FormularioAlumno';
-import FormularioInfoAcademico from './../components/Alumno/FormularioInfoAcademico';
-import FormularioContacto from './../components/Alumno/FormularioContacto';
-import SideBar from './../components/Generales/SideBar';
 import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import AppContext from './../context/AppContext';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
+import moment from 'moment';
+const InfoAlumno = React.lazy(() =>
+  import('./../components/Alumno/InfoAlumno')
+);
+const InfoContacto = React.lazy(() =>
+  import('./../components/Alumno/InfoContacto')
+);
+const InfoAcademico = React.lazy(() =>
+  import('./../components/Alumno/InfoAcademico')
+);
+const FormularioAlumno = React.lazy(() =>
+  import('./../components/Alumno/FormularioAlumno')
+);
+const FormularioInfoAcademico = React.lazy(() =>
+  import('./../components/Alumno/FormularioInfoAcademico')
+);
+const FormularioContacto = React.lazy(() =>
+  import('./../components/Alumno/FormularioContacto')
+);
+const SideBar = React.lazy(() => import('./../components/Generales/SideBar'));
 
 const Alumnos = () => {
   const [accion, setAccion] = useState(0);
@@ -68,6 +81,7 @@ const Alumnos = () => {
   const buscarRegistro = (sIdAlumno) => {
     setSeleccionado(sIdAlumno);
     consultaById('alumno/consultaById/', sIdAlumno).then((jsAlumno) => {
+      jsAlumno.creado = moment(jsAlumno.creado).format('DD/MM/YYYY hh:mm:ss');
       setAlumno(jsAlumno);
       setAccion(1);
     });
@@ -77,14 +91,16 @@ const Alumnos = () => {
     <Container fluid>
       <Row>
         <Col xs={10} md={3}>
-          <SideBar
-            cambiarVentana={cambiarVentana}
-            listado={alumnoListado}
-            seleccionado={seleccionado}
-            buscarRegistro={buscarRegistro}
-            columnas={columnas}
-            proceso="Alumno"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar
+              cambiarVentana={cambiarVentana}
+              listado={alumnoListado}
+              seleccionado={seleccionado}
+              buscarRegistro={buscarRegistro}
+              columnas={columnas}
+              proceso="Alumno"
+            />
+          </Suspense>
         </Col>
         <Col xs={12} md={9}>
           <main className="pt-4">
@@ -92,54 +108,69 @@ const Alumnos = () => {
               <>
                 <Row>
                   <Col>
-                    <InfoAlumno
-                      alumno={alumno}
-                      cambiarVentana={cambiarVentana}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoAlumno
+                        alumno={alumno}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
                 <Row>
                   <Col className="mt-3">
-                    <InfoAcademico
-                      alumno={alumno}
-                      cambiarVentana={cambiarVentana}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoAcademico
+                        alumno={alumno}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                   <Col className="mt-3">
-                    <InfoContacto
-                      alumno={alumno}
-                      cambiarVentana={cambiarVentana}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoContacto
+                        alumno={alumno}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
               </>
             )}
             {(accion === 2 || accion === 6) && (
-              <FormularioAlumno
-                accion={accion}
-                alumno={alumno}
-                actualizarListado={actualizarListado}
-                cambiarVentana={cambiarVentana}
-                setAlumno={setAlumno}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioAlumno
+                  accion={accion}
+                  alumno={alumno}
+                  actualizarListado={actualizarListado}
+                  cambiarVentana={cambiarVentana}
+                  setAlumno={setAlumno}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
             {(accion === 3 || accion === 7) && (
-              <FormularioInfoAcademico
-                accion={accion}
-                alumno={alumno}
-                actualizarListado={actualizarListado}
-                cambiarVentana={cambiarVentana}
-                universidadListado={universidadListado}
-                carreraListado={carreraListado}
-                setAlumno={setAlumno}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioInfoAcademico
+                  accion={accion}
+                  alumno={alumno}
+                  actualizarListado={actualizarListado}
+                  cambiarVentana={cambiarVentana}
+                  universidadListado={universidadListado}
+                  carreraListado={carreraListado}
+                  setAlumno={setAlumno}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
             {(accion === 4 || accion === 8) && (
-              <FormularioContacto
-                accion={accion}
-                alumno={alumno}
-                actualizarListado={actualizarListado}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioContacto
+                  accion={accion}
+                  alumno={alumno}
+                  actualizarListado={actualizarListado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
           </main>
         </Col>

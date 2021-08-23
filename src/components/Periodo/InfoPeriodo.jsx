@@ -13,10 +13,9 @@ const InfoPeriodo = ({ periodo, cambiarVentana }) => {
         <Card.Body>
           <Container>
             <Row>
-              {/* Imangen */}
               <Col>
                 <Card.Title className="mtop-0 mbot-0 tituloCarta">
-                  Informacion del Periodo
+                  Información del Periodo
                 </Card.Title>
               </Col>
               <Col xs="auto">

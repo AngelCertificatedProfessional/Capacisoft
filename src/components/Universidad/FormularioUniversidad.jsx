@@ -10,7 +10,12 @@ const schema = yup.object({
   abreviacion: yup.string(),
 });
 
-const FormularioUniversidad = ({ accion, universidad, actualizarListado }) => {
+const FormularioUniversidad = ({
+  accion,
+  universidad,
+  actualizarListado,
+  setAccion,
+}) => {
   return (
     <Formik
       validationSchema={schema}
@@ -60,7 +65,9 @@ const FormularioUniversidad = ({ accion, universidad, actualizarListado }) => {
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>Universidad</h1>
+          <h1>
+            {accion === 2 ? `Agregar Universidad` : `Modificar Universidad`}
+          </h1>
           <Row className="mb-3">
             <Form.Group as={Col} md="6">
               <Form.Label htmlFor="nombre">Nombre</Form.Label>
@@ -71,27 +78,37 @@ const FormularioUniversidad = ({ accion, universidad, actualizarListado }) => {
                 value={values.nombre}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // isInvalid={!!formik.touched.clave && !!formik.errors.clave}
+                isInvalid={!!touched.nombre && !!errors.nombre}
               />
             </Form.Group>
-
+            <Form.Control.Feedback type="invalid">
+              {errors.nombre}
+            </Form.Control.Feedback>
             <Form.Group as={Col} md="3">
-              <Form.Label htmlFor="abreviacion"> Abreviacion</Form.Label>
+              <Form.Label htmlFor="abreviacion"> Abreviación</Form.Label>
               <Form.Control
-                placeholder="abreviacion"
+                placeholder="Abreviación"
                 name="abreviacion"
                 id="abreviacion"
                 value={values.abreviacion}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // isInvalid={!!formik.touched.serie && !!formik.errors.serie}
+                isInvalid={!!touched.abreviacion && !!errors.abreviacion}
               />
             </Form.Group>
             <Form.Control.Feedback type="invalid">
-              {/* {formik.errors.abreviacion}    */}
+              {errors.abreviacion}
             </Form.Control.Feedback>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 2 ? 'Agregar' : 'Modificar'}
             </Button>

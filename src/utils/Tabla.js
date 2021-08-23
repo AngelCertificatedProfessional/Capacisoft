@@ -1,5 +1,10 @@
 import React from 'react';
-const columnsToHide = ['_id','notasCurso','calificacionCurso','fechaFinalizaCurso'];
+const columnsToHide = [
+  '_id',
+  'notasCurso',
+  'calificacionCurso',
+  'fechaFinalizaCurso',
+];
 import { Table } from 'react-bootstrap';
 
 export const createTable = (
@@ -132,7 +137,7 @@ const universidadColumna = (col) => {
     case 'nombre':
       return 'Nombre';
     case 'abreviacion':
-      return 'Abreviacion';
+      return 'Abreviación';
     default:
       return '';
   }

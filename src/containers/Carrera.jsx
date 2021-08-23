@@ -1,13 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import InfoCarrera from './../components/Carrera/InfoCarrera';
-import FormularioCarrera from './../components/Carrera/FormularioCarrera';
-import SideBar from './../components/Generales/SideBar';
 import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import AppContext from './../context/AppContext';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
+const InfoCarrera = React.lazy(() =>
+  import('./../components/Carrera/InfoCarrera')
+);
+const FormularioCarrera = React.lazy(() =>
+  import('./../components/Carrera/FormularioCarrera')
+);
+const SideBar = React.lazy(() => import('./../components/Generales/SideBar'));
+import moment from 'moment';
 
 const Carrera = () => {
   const [accion, setAccion] = useState(0);
@@ -56,6 +61,7 @@ const Carrera = () => {
   const buscarRegistro = (sIdCarrera) => {
     setSeleccionado(sIdCarrera);
     consultaById('carrera/consultaById/', sIdCarrera).then((jsCarrera) => {
+      jsCarrera.creado = moment(jsCarrera.creado).format('DD/MM/YYYY hh:mm:ss');
       setCarrera(jsCarrera);
       setAccion(1);
     });
@@ -65,27 +71,37 @@ const Carrera = () => {
     <Container fluid>
       <Row>
         <Col xs={10} md={3}>
-          <SideBar
-            cambiarVentana={cambiarVentana}
-            listado={carreraListado}
-            seleccionado={seleccionado}
-            buscarRegistro={buscarRegistro}
-            columnas={columnas}
-            proceso="Carrera"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar
+              cambiarVentana={cambiarVentana}
+              listado={carreraListado}
+              seleccionado={seleccionado}
+              buscarRegistro={buscarRegistro}
+              columnas={columnas}
+              proceso="Carrera"
+            />
+          </Suspense>
         </Col>
         <Col xs={12} md={9}>
           <main className="pt-4">
             {accion === 1 && (
-              <InfoCarrera carrera={carrera} cambiarVentana={cambiarVentana} />
+              <Suspense fallback={<div>Loading...</div>}>
+                <InfoCarrera
+                  carrera={carrera}
+                  cambiarVentana={cambiarVentana}
+                />
+              </Suspense>
             )}
             {(accion === 2 || accion === 3) && (
-              <FormularioCarrera
-                accion={accion}
-                carrera={carrera}
-                actualizarListado={actualizarListado}
-                seleccionado={seleccionado}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioCarrera
+                  accion={accion}
+                  carrera={carrera}
+                  actualizarListado={actualizarListado}
+                  seleccionado={seleccionado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
           </main>
         </Col>

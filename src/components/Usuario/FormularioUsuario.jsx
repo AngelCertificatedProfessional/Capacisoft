@@ -9,18 +9,23 @@ const schema = yup.object({
   usuario: yup.string().required('El usuario es requerido'),
   contrasena: yup
     .string()
-    .required('La contrasena es requerido')
-    .min(8, 'La Contrasena debe contener minimo 8 caracteres.'),
+    .required('La contraseña es requerido')
+    .min(8, 'La Contraseña debe contener minimo 8 caracteres.'),
   validaContrasena: yup
     .string()
-    .required('El valor de valida Contrasena es obligatorio')
-    .oneOf([yup.ref('contrasena'), null], 'Las contrasenas no son iguales'),
+    .required('El valor de valida Contraseña es obligatorio')
+    .oneOf([yup.ref('contrasena'), null], 'Las contraseñas no son iguales'),
   nombre: yup.string().required('El nombre es un campo requerido'),
   apellido: yup.string().required('El apellido es un campo obligatorio'),
   tipoUsuario: yup.number(),
 });
 
-const FormularioUsuario = ({ accion, usuario, actualizarListado }) => {
+const FormularioUsuario = ({
+  accion,
+  usuario,
+  actualizarListado,
+  setAccion,
+}) => {
   if (accion === 3) {
     usuario.contrasena = '**********';
   }
@@ -118,10 +123,10 @@ const FormularioUsuario = ({ accion, usuario, actualizarListado }) => {
             {accion === 2 && (
               <>
                 <Form.Group as={Col}>
-                  <Form.Label>Contrasena</Form.Label>
+                  <Form.Label>Contraseña</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Contrasena"
+                    placeholder="Contraseña"
                     name="contrasena"
                     id="contrasena"
                     value={values.contrasena}
@@ -134,10 +139,10 @@ const FormularioUsuario = ({ accion, usuario, actualizarListado }) => {
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col}>
-                  <Form.Label>Contrasena</Form.Label>
+                  <Form.Label>Validar Contraseña</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Valida Contrasena"
+                    placeholder="Valida Contraseña"
                     name="validaContrasena"
                     id="validaContrasena"
                     value={values.validaContrasena}
@@ -187,7 +192,7 @@ const FormularioUsuario = ({ accion, usuario, actualizarListado }) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>Tipo de usuario</Form.Label>
+              <Form.Label>Tipo de Usuario</Form.Label>
               <Form.Control
                 as="select"
                 name="tipoUsuario"
@@ -204,6 +209,14 @@ const FormularioUsuario = ({ accion, usuario, actualizarListado }) => {
             </Form.Group>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 2 ? 'Agregar' : 'Modificar'}
             </Button>

@@ -2,23 +2,21 @@ import React from 'react';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import {
-  actualizarEspecifico
-} from '../../utils/ConexionAPI';
+import { actualizarEspecifico } from '../../utils/ConexionAPI';
 import swal from 'sweetalert';
 import moment from 'moment';
 
 const schema = yup.object({
   calificacionCurso: yup.string().required('Seleccione un curso'),
-  notasCurso: yup.string().required('Seleccione un periodo')
+  notasCurso: yup.string().required('Seleccione un periodo'),
 });
 
 const FormularioCalificacionAlumno = ({
   alumno,
   idProgramarCurso,
   actualizarListado,
+  setAccion,
 }) => {
-
   return (
     <Formik
       validationSchema={schema}
@@ -28,7 +26,7 @@ const FormularioCalificacionAlumno = ({
           .format('YYYY-MM-DD HH:mm');
         alumno.calificacionCurso = values.calificacionCurso;
         alumno.notasCurso = values.notasCurso;
-        alumno._idProgramarCurso = idProgramarCurso
+        alumno._idProgramarCurso = idProgramarCurso;
 
         actualizarEspecifico(
           'programarCurso/actualizarProgramarCursoAlumno',
@@ -72,9 +70,7 @@ const FormularioCalificacionAlumno = ({
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>
-            Actalizar Calificacion del curso
-          </h1>
+          <h1>Actalizar Calificacion del curso</h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>Fecha Finalizo Curso</Form.Label>
@@ -95,7 +91,7 @@ const FormularioCalificacionAlumno = ({
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>Calificacion del curso</Form.Label>
+              <Form.Label>Calificación del curso</Form.Label>
               <Form.Control
                 as="select"
                 name="calificacionCurso"
@@ -111,8 +107,8 @@ const FormularioCalificacionAlumno = ({
                 <option value="1">Muy Malo</option>
               </Form.Control>
             </Form.Group>
-            </Row>
-            <Row className="mb-3">
+          </Row>
+          <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>Notas del Curso</Form.Label>
               <Form.Control
@@ -132,6 +128,14 @@ const FormularioCalificacionAlumno = ({
             </Form.Control.Feedback>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               Actualizar
             </Button>

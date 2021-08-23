@@ -11,7 +11,7 @@ const schema = yup.object({
   nombreInstructor: yup
     .string()
     .required('El instructor es un campo obligatorio'),
-  descripcion: yup.string().required('La descripcion es un campo obligatorio'),
+  descripcion: yup.string().required('La descripción es un campo obligatorio'),
 });
 
 const FormularioCurso = ({
@@ -20,6 +20,7 @@ const FormularioCurso = ({
   actualizarListado,
   cambiarVentana,
   setCurso,
+  setAccion,
 }) => {
   return (
     <Formik
@@ -74,7 +75,9 @@ const FormularioCurso = ({
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>{accion === 2 ? `Curso 1/3` : `Modificar Informacion Curso`}</h1>
+          <h1>
+            {accion === 2 ? `Agregar Curso 1/3` : `Modificar Información Curso`}
+          </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>Nombre</Form.Label>
@@ -129,10 +132,10 @@ const FormularioCurso = ({
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label>Descripcion del curso</Form.Label>
+              <Form.Label>Descripción del curso</Form.Label>
               <Form.Control
                 as="textarea"
-                placeholder="Agregar una descripcion"
+                placeholder="Agregar una Descripción"
                 style={{ height: '100px' }}
                 name="descripcion"
                 id="descripcion"
@@ -147,6 +150,14 @@ const FormularioCurso = ({
             </Form.Control.Feedback>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 2 ? `Siguiente` : `Modificar`}
             </Button>

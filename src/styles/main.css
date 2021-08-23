@@ -6,6 +6,10 @@ html{
     margin-top:1.5rem;
 }
 
+.mr-2{
+    margin-right: 2rem!important;
+}
+
 .tablaSeleccionada {
     background-color:#007BFF!important;
     color:white!important;

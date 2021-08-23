@@ -1,16 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Col, Row, Container,Button } from 'react-bootstrap';
-import InfoProgramarCurso from './../components/ProgramarCurso/InfoProgramarCurso';
-import FormularioProgramarCurso from './../components/ProgramarCurso/FormularioProgramarCurso';
-import FormularioCalificacionAlumno from './../components/ProgramarCurso/FormularioCalificacionAlumno';
-import SideBar from './../components/Generales/SideBar';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
+import { Col, Row, Container, Button } from 'react-bootstrap';
 import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
-import Tabla from './../components/Generales/Tabla';
 import AppContext from './../context/AppContext';
 import moment from 'moment';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
+const Tabla = React.lazy(() => import('./../components/Generales/Tabla'));
+const InfoProgramarCurso = React.lazy(() =>
+  import('./../components/ProgramarCurso/InfoProgramarCurso')
+);
+const FormularioProgramarCurso = React.lazy(() =>
+  import('./../components/ProgramarCurso/FormularioProgramarCurso')
+);
+const FormularioCalificacionAlumno = React.lazy(() =>
+  import('./../components/ProgramarCurso/FormularioCalificacionAlumno')
+);
+const SideBar = React.lazy(() => import('./../components/Generales/SideBar'));
 
 const ProgramarCurso = () => {
   const [accion, setAccion] = useState(0);
@@ -82,6 +88,9 @@ const ProgramarCurso = () => {
         jsonProgramarCurso.fechaInicioCurso = moment(
           jsonProgramarCurso.fechaInicioCurso
         ).format('YYYY-MM-DD');
+        jsonProgramarCurso.creado = moment(jsonProgramarCurso.creado).format(
+          'DD/MM/YYYY hh:mm:ss'
+        );
         setColumnasAlumno(crearArregloColumnas(jsonProgramarCurso.alumnos));
         setAlumnoListado(jsonProgramarCurso.alumnos);
         setProgramarCurso(jsonProgramarCurso);
@@ -93,7 +102,7 @@ const ProgramarCurso = () => {
   const obtenerAlumnoEspecifico = async () => {
     const jsListado = await consultaById(
       'programarCurso/getAlumnoByProgramarCurso/',
-      programarCurso._id+"/"+seleccionadoAlumno
+      programarCurso._id + '/' + seleccionadoAlumno
     );
     jsListado.alumnos.fechaFinalizaCurso = moment(
       jsListado.alumnos.fechaFinalizaCurso
@@ -106,14 +115,16 @@ const ProgramarCurso = () => {
     <Container fluid>
       <Row>
         <Col xs={10} md={3}>
-          <SideBar
-            cambiarVentana={cambiarVentana}
-            listado={programarCursoListado}
-            seleccionado={seleccionado}
-            buscarRegistro={buscarRegistro}
-            columnas={columnas}
-            proceso="Programar Curso"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar
+              cambiarVentana={cambiarVentana}
+              listado={programarCursoListado}
+              seleccionado={seleccionado}
+              buscarRegistro={buscarRegistro}
+              columnas={columnas}
+              proceso="Programar Curso"
+            />
+          </Suspense>
         </Col>
 
         <Col xs={12} md={9}>
@@ -122,46 +133,61 @@ const ProgramarCurso = () => {
               <>
                 <Row>
                   <Col>
-                    <InfoProgramarCurso
-                      programarCurso={programarCurso}
-                      cambiarVentana={cambiarVentana}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <InfoProgramarCurso
+                        programarCurso={programarCurso}
+                        cambiarVentana={cambiarVentana}
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
                 <Row className="mt-3">
                   <Col>
                     <h2> Alumnos Enlistados</h2>
-                    <Button className="mt-2 mb-2" onClick={() => obtenerAlumnoEspecifico()}> Agregar Calificacion Curso</Button>
-                    <Tabla
-                      listado={alumnoListado}
-                      seleccionado={seleccionadoAlumno}
-                      buscarRegistro={seleccionarRegistroFinal}
-                      columnas={columnasAlumno}
-                      proceso="Alumno"
-                    />
+                    <Button
+                      className="mt-2 mb-2"
+                      onClick={() => obtenerAlumnoEspecifico()}
+                    >
+                      {' '}
+                      Agregar Calificación Curso
+                    </Button>
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <Tabla
+                        listado={alumnoListado}
+                        seleccionado={seleccionadoAlumno}
+                        buscarRegistro={seleccionarRegistroFinal}
+                        columnas={columnasAlumno}
+                        proceso="Alumno"
+                      />
+                    </Suspense>
                   </Col>
                 </Row>
               </>
             )}
             {(accion === 2 || accion === 3) && (
-              <FormularioProgramarCurso
-                accion={accion}
-                programarCurso={programarCurso}
-                actualizarListado={actualizarListado}
-                setProgramarCurso={setProgramarCurso}
-                cursoListado = {cursoListado}
-                periodoListado = {periodoListado}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioProgramarCurso
+                  accion={accion}
+                  programarCurso={programarCurso}
+                  actualizarListado={actualizarListado}
+                  setProgramarCurso={setProgramarCurso}
+                  cursoListado={cursoListado}
+                  periodoListado={periodoListado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
 
-            {(accion === 4) && (
-              <FormularioCalificacionAlumno
-                alumno={alumnoModificar}
-                idProgramarCurso = {programarCurso._id}
-                actualizarListado={actualizarListado}
-              />
+            {accion === 4 && (
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioCalificacionAlumno
+                  alumno={alumnoModificar}
+                  idProgramarCurso={programarCurso._id}
+                  actualizarListado={actualizarListado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
-
           </main>
         </Col>
       </Row>

@@ -12,7 +12,12 @@ const schema = yup.object({
   periodo: yup.string().required('El periodo es un campo Obligatorio'),
 });
 
-const FormularioPeriodo = ({ accion, periodo, actualizarListado }) => {
+const FormularioPeriodo = ({
+  accion,
+  periodo,
+  actualizarListado,
+  setAccion,
+}) => {
   const [alumnoListado, setAlumnoListado] = useState([]);
   const [columnasAlumno, setColumnasAlumno] = useState([]);
   const [columnasAlumnoFinal, setColumnasAlumnoFinal] = useState([]);
@@ -122,7 +127,11 @@ const FormularioPeriodo = ({ accion, periodo, actualizarListado }) => {
           onSubmit={handleSubmit}
           noValidate
         >
-          <h1>Periodo</h1>
+          <h1>
+            {accion === 2
+              ? `Agregar Información  Periodo`
+              : `Modificar Información Periodo`}
+          </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>Periodo</Form.Label>
@@ -207,6 +216,14 @@ const FormularioPeriodo = ({ accion, periodo, actualizarListado }) => {
             </Col>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 2 ? 'Agregar' : 'Modificar'}
             </Button>

@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
-import { Card, Container, Row, Col, CardDeck, Button } from 'react-bootstrap';
+import React from 'react';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 
 const InfoUniversidad = ({ universidad, cambiarVentana }) => {
   return (
-    <Fragment>
+    <>
       <Card
         style={{ width: '100%' }}
         className="shadow Secondary"
@@ -13,14 +13,12 @@ const InfoUniversidad = ({ universidad, cambiarVentana }) => {
         <Card.Body>
           <Container>
             <Row>
-              {/* Imangen */}
-              <Col xs></Col>
-              <Col xs>
-                <Card.Text className="mtop-0 mbot-0">
-                  {universidad.nombre}
-                </Card.Text>
+              <Col>
+                <Card.Title className="mtop-0 mbot-0 tituloCarta">
+                  Información de la Universidad
+                </Card.Title>
               </Col>
-              <Col xs className="textoDerecha">
+              <Col xs="auto">
                 <svg
                   width="2em"
                   height="1em"
@@ -38,16 +36,28 @@ const InfoUniversidad = ({ universidad, cambiarVentana }) => {
               </Col>
             </Row>
             <Row>
-              <Col xs>
-                <Card.Text className="mtop-0 mbot-0">
-                  {universidad.abreviacion}
+              <Col>
+                <Card.Text className="mtop-0 mbot-0 informacionAdicional">
+                  Universidad: {universidad.nombre}
+                </Card.Text>
+              </Col>
+              <Col>
+                <Card.Text className="mtop-0 mbot-0 informacionAdicional">
+                  Abreviación: {universidad.abreviacion}
+                </Card.Text>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Card.Text className="mtop-0 mbot-0 informacionAdicional">
+                  Creado El: {universidad.creado}
                 </Card.Text>
               </Col>
             </Row>
           </Container>
         </Card.Body>
       </Card>
-    </Fragment>
+    </>
   );
 };
 

@@ -24,6 +24,7 @@ const FormularioDetalleCurso = ({
   actualizarListado,
   cambiarVentana,
   setCurso,
+  setAccion,
 }) => {
   return (
     <Formik
@@ -82,8 +83,8 @@ const FormularioDetalleCurso = ({
         >
           <h1>
             {accion === 3
-              ? `Curso 2/3`
-              : `Modificar Informacion Detalle del Curso`}
+              ? `Agregar Curso 2/3`
+              : `Modificar Información Detalle del Curso`}
           </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
@@ -169,6 +170,14 @@ const FormularioDetalleCurso = ({
             </Form.Control.Feedback>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 3 ? `Siguiente` : `Modificar`}
             </Button>

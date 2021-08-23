@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Card, Container, Row, Col, CardDeck, Button } from 'react-bootstrap';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 
 const InfoAlumno = ({ alumno, cambiarVentana }) => {
   return (
@@ -13,10 +13,9 @@ const InfoAlumno = ({ alumno, cambiarVentana }) => {
         <Card.Body>
           <Container>
             <Row>
-              {/* Imangen */}
               <Col>
                 <Card.Title className="mtop-0 mbot-0 tituloCarta">
-                  Informacion del Alumno
+                  Información del Alumno
                 </Card.Title>
               </Col>
               <Col xs="auto">

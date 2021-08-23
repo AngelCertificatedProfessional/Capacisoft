@@ -21,6 +21,7 @@ const FormularioInfoAcademico = ({
   universidadListado,
   carreraListado,
   setAlumno,
+  setAccion,
 }) => {
   return (
     <Formik
@@ -80,7 +81,9 @@ const FormularioInfoAcademico = ({
           noValidate
         >
           <h1>
-            {accion === 3 ? `Alumno 2/3` : `Modificar Informacion Alumno`}
+            {accion === 3
+              ? `Agregar Alumno 2/3`
+              : `Modificar Información Alumno`}
           </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
@@ -176,9 +179,9 @@ const FormularioInfoAcademico = ({
 
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label>Carga Academica</Form.Label>
+              <Form.Label>Carga Académica</Form.Label>
               <Form.Control
-                placeholder="Carga Academica"
+                placeholder="Carga Académica"
                 name="cargaAcademica"
                 id="cargaAcademica"
                 value={values.cargaAcademica}
@@ -207,6 +210,14 @@ const FormularioInfoAcademico = ({
             </Form.Group>
           </Row>
           <Form.Row className="float-right">
+            <Button
+              className="mr-2"
+              onClick={() => setAccion(1)}
+              variant="primary"
+              type="button"
+            >
+              Cancelar
+            </Button>
             <Button variant="primary" type="submit">
               {accion === 3 ? `Siguiente` : `Modificar`}
             </Button>

@@ -16,7 +16,7 @@ const InfoProgramarCurso = ({ programarCurso, cambiarVentana }) => {
               {/* Imangen */}
               <Col>
                 <Card.Title className="mtop-0 mbot-0 tituloCarta">
-                  Informacion de la Programacion del Curso
+                  Informacion de la Programación del Curso
                 </Card.Title>
               </Col>
               <Col xs="auto">

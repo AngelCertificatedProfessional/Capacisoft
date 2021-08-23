@@ -1,14 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import InfoTemaCurso from '../components/TemaCurso/InfoTemaCurso';
-import FormularioTemaCurso from '../components/TemaCurso/FormularioTemaCurso';
 import SideBar from '../components/Generales/SideBar';
 import initialState from '../utils/initialState';
 import { listado, consultaById } from '../utils/ConexionAPI';
 import { crearArregloColumnas } from '../utils/Tabla';
 import AppContext from './../context/AppContext';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
-
+import moment from 'moment';
+const InfoTemaCurso = React.lazy(() =>
+  import('../components/TemaCurso/InfoTemaCurso')
+);
+const FormularioTemaCurso = React.lazy(() =>
+  import('./../components/TemaCurso/FormularioTemaCurso')
+);
 const TemaCurso = () => {
   const [accion, setAccion] = useState(0);
   const [temaCurso, setTemaCurso] = useState({ ...initialState.temaCurso });
@@ -57,6 +61,9 @@ const TemaCurso = () => {
     setSeleccionado(sIdTemaCurso);
     consultaById('temaCurso/consultaById/', sIdTemaCurso).then(
       (jsTemaCurso) => {
+        jsTemaCurso.creado = moment(jsTemaCurso.creado).format(
+          'DD/MM/YYYY hh:mm:ss'
+        );
         setTemaCurso(jsTemaCurso);
         setAccion(1);
       }
@@ -67,30 +74,37 @@ const TemaCurso = () => {
     <Container fluid>
       <Row>
         <Col xs={10} md={3}>
-          <SideBar
-            cambiarVentana={cambiarVentana}
-            listado={temaCursoListado}
-            seleccionado={seleccionado}
-            buscarRegistro={buscarRegistro}
-            columnas={columnas}
-            proceso="Tema Curso"
-          />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar
+              cambiarVentana={cambiarVentana}
+              listado={temaCursoListado}
+              seleccionado={seleccionado}
+              buscarRegistro={buscarRegistro}
+              columnas={columnas}
+              proceso="Tema Curso"
+            />
+          </Suspense>
         </Col>
         <Col xs={12} md={9}>
           <main className="pt-4">
             {accion === 1 && (
-              <InfoTemaCurso
-                temaCurso={temaCurso}
-                cambiarVentana={cambiarVentana}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <InfoTemaCurso
+                  temaCurso={temaCurso}
+                  cambiarVentana={cambiarVentana}
+                />
+              </Suspense>
             )}
             {(accion === 2 || accion === 3) && (
-              <FormularioTemaCurso
-                accion={accion}
-                temaCurso={temaCurso}
-                actualizarListado={actualizarListado}
-                seleccionado={seleccionado}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <FormularioTemaCurso
+                  accion={accion}
+                  temaCurso={temaCurso}
+                  actualizarListado={actualizarListado}
+                  seleccionado={seleccionado}
+                  setAccion={setAccion}
+                />
+              </Suspense>
             )}
           </main>
         </Col>
