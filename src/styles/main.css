@@ -53,7 +53,7 @@ html{
 
 
 .tituloCentrado{
-    text-align: center;
+    text-align: center!important;
 }
 
 .ph-6{
