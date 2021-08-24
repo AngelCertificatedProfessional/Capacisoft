@@ -73,15 +73,8 @@ const Navigation = () => {
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="Reportes" id="collasible-nav-dropdown">
-                <NavDropdown.Item as={Link} to="#action/3.1">
-                  Ver perfil
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="#action/3.2">
-                  Ajustes
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="#action/3.4">
-                  Cerrar sesion
+                <NavDropdown.Item as={Link} to="/actualizacion">
+                  Actualizaciones
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>

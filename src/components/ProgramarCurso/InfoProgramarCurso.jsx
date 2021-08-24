@@ -13,7 +13,6 @@ const InfoProgramarCurso = ({ programarCurso, cambiarVentana }) => {
         <Card.Body>
           <Container>
             <Row>
-              {/* Imangen */}
               <Col>
                 <Card.Title className="mtop-0 mbot-0 tituloCarta">
                   Informacion de la Programación del Curso

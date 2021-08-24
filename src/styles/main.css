@@ -65,3 +65,12 @@ html{
     display:flex;
     justify-content: flex-end!important;
 }
+
+.bloque{
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+h6{
+    display:inline;
+}

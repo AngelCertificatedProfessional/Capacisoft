@@ -14,6 +14,7 @@ import ProgramarCurso from './../containers/ProgramarCurso';
 import Error404 from './../containers/Error404';
 import AppConText from './../context/AppContext';
 import useInitialState from './../hooks/useInitialState';
+import Actualizacion from './../containers/Actualizacion';
 
 const App = () => {
   const initialState = useInitialState();
@@ -33,6 +34,7 @@ const App = () => {
             <Route exact path="/periodo" component={Periodo} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/programarCurso" component={ProgramarCurso} />
+            <Route exact path="/actualizacion" component={Actualizacion} />
             <Route component={Error404} />
           </Switch>
         </Layout>
