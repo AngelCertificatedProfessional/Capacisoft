@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import AppContext from '../context/AppContext';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
+import {b64_to_utf8} from './../utils/UtileriasPagina';
 
 const FatalError = () => {
   const { state, agregarUsuario } = useContext(AppContext);
@@ -9,7 +10,7 @@ const FatalError = () => {
   useEffect(() => {
     const { usuario } = state;
     if (usuario === null || usuario === undefined || usuario.usuario === '') {
-      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')));
       if (
         (usuarioSesionT === null ||
           usuarioSesionT === undefined ||

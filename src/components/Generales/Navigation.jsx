@@ -4,6 +4,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AppContext from './../../context/AppContext';
 import initialState from './../../utils/initialState';
+import {b64_to_utf8,utf8_to_b64} from './../../utils/UtileriasPagina';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 
 const Navigation = () => {
@@ -13,7 +14,7 @@ const Navigation = () => {
   const location = useLocation();
   useEffect(() => {
     if (usuario === null || usuario === undefined || usuario.usuario === '') {
-      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')))
       if (
         (usuarioSesionT === null ||
           usuarioSesionT === undefined ||
@@ -30,7 +31,7 @@ const Navigation = () => {
     agregarUsuario({ ...initialState.usuario });
     sessionStorage.setItem(
       'usuario',
-      JSON.stringify({ ...initialState.usuario })
+      utf8_to_b64(JSON.stringify({ ...initialState.usuario }))
     );
     history.push('/login');
   };

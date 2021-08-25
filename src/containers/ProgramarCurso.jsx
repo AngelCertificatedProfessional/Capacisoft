@@ -5,6 +5,7 @@ import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import AppContext from './../context/AppContext';
 import moment from 'moment';
+import {b64_to_utf8} from './../utils/UtileriasPagina';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 const Tabla = React.lazy(() => import('./../components/Generales/Tabla'));
 const InfoProgramarCurso = React.lazy(() =>
@@ -47,7 +48,7 @@ const ProgramarCurso = () => {
   useEffect(() => {
     const { usuario } = state;
     if (usuario === null || usuario === undefined || usuario.usuario === '') {
-      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')));
       if (
         (usuarioSesionT === null ||
           usuarioSesionT === undefined ||

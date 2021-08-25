@@ -9,6 +9,7 @@ const SideBar = ({
   buscarRegistro,
   columnas,
   proceso,
+  tipoUsuario
 }) => {
   return (
     <aside className="aside__titulo">
@@ -20,15 +21,18 @@ const SideBar = ({
         columnas={columnas}
         proceso={proceso}
       />
-      <div className="d-grid gap-2">
-        <Button
-          variant="primary"
-          block="true"
-          onClick={() => cambiarVentana(2)}
-        >
-          Agregar
-        </Button>
-      </div>
+
+      {tipoUsuario === 1 && (
+        <div className="d-grid gap-2">
+          <Button
+            variant="primary"
+            block="true"
+            onClick={() => cambiarVentana(2)}
+          >
+            Agregar
+          </Button>
+        </div>
+      )}
     </aside>
   );
 };

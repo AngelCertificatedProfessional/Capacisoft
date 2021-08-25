@@ -1,15 +1,10 @@
-export const validaUsuario = (state, agregarUsuario) => {
-  const { usuario } = state;
-  if (usuario === null || usuario === undefined || usuario.usuario === '') {
-    const usuarioSesion = JSON.parse(sessionStorage.getItem('usuario'));
-    if (
-      usuarioSesion === null ||
-      usuarioSesion === undefined ||
-      usuarioSesion.usuario === ''
-    ) {
-      return false;
-    }
-    agregarUsuario(usuarioSesion);
+export const b64_to_utf8 = ( str ) => {
+  if(str ===null){
+    return null;
   }
-  return true;
-};
+  return decodeURIComponent(escape(window.atob( str )));
+}
+
+export const utf8_to_b64 = ( str ) => {
+  return window.btoa(unescape(encodeURIComponent( str )));
+}

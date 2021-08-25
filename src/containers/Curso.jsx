@@ -4,6 +4,7 @@ import initialState from './../utils/initialState';
 import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import AppContext from './../context/AppContext';
+import {b64_to_utf8} from './../utils/UtileriasPagina';
 import moment from 'moment';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 const InfoCurso = React.lazy(() => import('./../components/Curso/InfoCurso'));
@@ -43,7 +44,7 @@ const Curso = () => {
   const location = useLocation();
   useEffect(() => {
     if (usuario === null || usuario === undefined || usuario.usuario === '') {
-      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')));
       if (
         (usuarioSesionT === null ||
           usuarioSesionT === undefined ||

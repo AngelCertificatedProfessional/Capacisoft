@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, Suspense } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import { listado } from './../utils/ConexionAPI';
 import AppContext from './../context/AppContext';
+import {b64_to_utf8} from './../utils/UtileriasPagina';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 const InfoUltimoCambio = React.lazy(() =>
   import('./../components/UltimosCambios/InfoUltimoCambio')
@@ -17,7 +18,7 @@ const Actualizacion = () => {
   useEffect(() => {
     const { usuario } = state;
     if (usuario === null || usuario === undefined || usuario.usuario === '') {
-      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')))
       if (
         (usuarioSesionT === null ||
           usuarioSesionT === undefined ||

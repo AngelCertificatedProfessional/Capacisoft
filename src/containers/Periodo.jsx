@@ -5,6 +5,7 @@ import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import moment from 'moment';
 import AppContext from './../context/AppContext';
+import {b64_to_utf8} from './../utils/UtileriasPagina';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 const Tabla = React.lazy(() => import('./../components/Generales/Tabla'));
 const InfoPeriodo = React.lazy(() =>
@@ -38,7 +39,7 @@ const Periodo = () => {
   useEffect(() => {
     const { usuario } = state;
     if (usuario === null || usuario === undefined || usuario.usuario === '') {
-      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')));
       if (
         (usuarioSesionT === null ||
           usuarioSesionT === undefined ||

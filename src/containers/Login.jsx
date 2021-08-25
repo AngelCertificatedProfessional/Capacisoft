@@ -3,6 +3,7 @@ import { Col, Row, Container } from 'react-bootstrap';
 import AppContext from '../context/AppContext';
 import { useHistory, withRouter } from 'react-router-dom';
 import initialState from '../utils/initialState';
+import {b64_to_utf8} from './../utils/UtileriasPagina';
 const LoginFormulario = lazy(() =>
   import('./../components/Usuario/LoginFormulario')
 );
@@ -16,7 +17,7 @@ const Login = () => {
     if (usuario !== null && usuario !== undefined && usuario.usuario !== '') {
       ingresarSesion(usuario);
     }
-    const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+    const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')));
     if (
       usuarioSesionT !== null &&
       usuarioSesionT !== undefined &&
@@ -28,7 +29,6 @@ const Login = () => {
 
   const ingresarSesion = async (jsonUsuario) => {
     agregarUsuario(jsonUsuario);
-    sessionStorage.setItem('usuario', JSON.stringify(jsonUsuario));
     history.push('/');
     window.location.href = window.location.href;
   };

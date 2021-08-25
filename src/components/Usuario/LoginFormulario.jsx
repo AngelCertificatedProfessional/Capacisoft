@@ -22,6 +22,7 @@ const LoginFormulario = ({ usuario, ingresarSesion }) => {
             ingresarSesion(jsonUsuario);
           })
           .catch((error) => {
+            console.log(error)
             swal({
               title: 'Error',
               text: error,

@@ -5,6 +5,7 @@ import { listado, consultaById } from './../utils/ConexionAPI';
 import { crearArregloColumnas } from './../utils/Tabla';
 import AppContext from './../context/AppContext';
 import moment from 'moment';
+import {b64_to_utf8} from './../utils/UtileriasPagina';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 
 const InfoUniversidad = React.lazy(() =>
@@ -23,7 +24,7 @@ const Universidad = () => {
   const [universidadListado, setUniversidadListado] = useState([]);
   const [seleccionado, setSeleccionado] = useState(0);
   const [columnas, setColumnas] = useState([]);
-  const { state, agregarUsuario } = useContext(AppContext);
+  const {state, agregarUsuario } = useContext(AppContext);
 
   const cambiarVentana = (ventana) => {
     if (ventana === 2) {
@@ -37,7 +38,7 @@ const Universidad = () => {
   useEffect(() => {
     const { usuario } = state;
     if (usuario === null || usuario === undefined || usuario.usuario === '') {
-      const usuarioSesionT = JSON.parse(sessionStorage.getItem('usuario'));
+      const usuarioSesionT = JSON.parse(b64_to_utf8(sessionStorage.getItem('usuario')));
       if (
         (usuarioSesionT === null ||
           usuarioSesionT === undefined ||
@@ -85,6 +86,7 @@ const Universidad = () => {
               buscarRegistro={buscarRegistro}
               columnas={columnas}
               proceso="Universidad"
+              tipoUsuario = {state.usuario.tipoUsuario}
             />
           </Suspense>
         </Col>

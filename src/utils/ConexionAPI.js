@@ -1,5 +1,6 @@
 const config = require('./../config/config');
-let usuario = JSON.parse(sessionStorage.getItem('usuario'));
+const UtileriasPagina = require('./UtileriasPagina');
+let usuario = JSON.parse(UtileriasPagina.b64_to_utf8(sessionStorage.getItem('usuario')));
 
 export const agregar = async (sRuta, data) => {
   try {
@@ -196,19 +197,20 @@ export const iniciarSesion = async (sRuta, data) => {
       configuracion
     );
 
-    let json = await res.json();
-
+    const json = await res.json();
     if (res.status !== 200 && json.data !== undefined) {
-      throw json.data;
+      throw json.data;s
     } else if (res.status !== 200) {
       throw 'Hubo un error al ingresar la informacion';
     }
-
-    if (json.data.hasOwnProperty('token')) {
-      usuario = json.data;
-      return json.data;
+    const jsonDescodificado = JSON.parse(UtileriasPagina.b64_to_utf8(json.data))
+    
+    if (jsonDescodificado.hasOwnProperty('token')) {
+      usuario = jsonDescodificado;
+      sessionStorage.setItem('usuario', json.data);
+      return jsonDescodificado;
     } else {
-      throw 'Hubo un error al ingresar la informacion';
+      throw 'No se detecto el token';
     }
   } catch (error) {
     throw error;
