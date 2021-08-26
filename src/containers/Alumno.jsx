@@ -100,6 +100,7 @@ const Alumnos = () => {
               buscarRegistro={buscarRegistro}
               columnas={columnas}
               proceso="Alumno"
+              tipoUsuario = {state.usuario.tipoUsuario}
             />
           </Suspense>
         </Col>
@@ -113,6 +114,7 @@ const Alumnos = () => {
                       <InfoAlumno
                         alumno={alumno}
                         cambiarVentana={cambiarVentana}
+                        tipoUsuario = {state.usuario.tipoUsuario}
                       />
                     </Suspense>
                   </Col>
@@ -123,6 +125,7 @@ const Alumnos = () => {
                       <InfoAcademico
                         alumno={alumno}
                         cambiarVentana={cambiarVentana}
+                        tipoUsuario = {state.usuario.tipoUsuario}
                       />
                     </Suspense>
                   </Col>
@@ -131,6 +134,7 @@ const Alumnos = () => {
                       <InfoContacto
                         alumno={alumno}
                         cambiarVentana={cambiarVentana}
+                        tipoUsuario = {state.usuario.tipoUsuario}
                       />
                     </Suspense>
                   </Col>

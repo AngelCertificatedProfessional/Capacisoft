@@ -92,6 +92,7 @@ const Periodo = () => {
               buscarRegistro={buscarRegistro}
               columnas={columnas}
               proceso="Periodo"
+              tipoUsuario = {state.usuario.tipoUsuario}
             />
           </Suspense>
         </Col>
@@ -105,6 +106,7 @@ const Periodo = () => {
                       <InfoPeriodo
                         periodo={periodo}
                         cambiarVentana={cambiarVentana}
+                        tipoUsuario = {state.usuario.tipoUsuario}
                       />
                     </Suspense>
                   </Col>

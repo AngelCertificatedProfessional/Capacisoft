@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 
 const schema = yup.object({
   usuario: yup.string().required('El usuario es requerido'),
-  contrasena: yup.string().required('La contrasena es requerido'),
+  contrasena: yup.string().required('La contraseña es requerida'),
 });
 
 const LoginFormulario = ({ usuario, ingresarSesion }) => {
@@ -70,10 +70,10 @@ const LoginFormulario = ({ usuario, ingresarSesion }) => {
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label>Contrasena</Form.Label>
+              <Form.Label>Contraseña</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Contrasena"
+                placeholder="Contraseña"
                 name="contrasena"
                 id="contrasena"
                 value={values.contrasena}

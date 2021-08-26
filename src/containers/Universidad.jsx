@@ -97,6 +97,7 @@ const Universidad = () => {
                 <InfoUniversidad
                   universidad={universidad}
                   cambiarVentana={cambiarVentana}
+                  tipoUsuario = {state.usuario.tipoUsuario}
                 />
               </Suspense>
             )}

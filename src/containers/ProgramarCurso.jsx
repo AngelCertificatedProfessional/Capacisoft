@@ -124,6 +124,7 @@ const ProgramarCurso = () => {
               buscarRegistro={buscarRegistro}
               columnas={columnas}
               proceso="Programar Curso"
+              tipoUsuario = {state.usuario.tipoUsuario}
             />
           </Suspense>
         </Col>
@@ -138,6 +139,7 @@ const ProgramarCurso = () => {
                       <InfoProgramarCurso
                         programarCurso={programarCurso}
                         cambiarVentana={cambiarVentana}
+                        tipoUsuario = {state.usuario.tipoUsuario}
                       />
                     </Suspense>
                   </Col>
@@ -145,13 +147,16 @@ const ProgramarCurso = () => {
                 <Row className="mt-3">
                   <Col>
                     <h2> Alumnos Enlistados</h2>
-                    <Button
-                      className="mt-2 mb-2"
-                      onClick={() => obtenerAlumnoEspecifico()}
-                    >
-                      {' '}
-                      Agregar Calificación Curso
-                    </Button>
+                    {state.usuario.tipoUsuario === 1 && (
+                       <Button
+                       className="mt-2 mb-2"
+                       onClick={() => obtenerAlumnoEspecifico()}
+                     >
+                       {' '}
+                       Agregar Calificación Curso
+                     </Button>
+                    )}
+                   
                     <Suspense fallback={<div>Loading...</div>}>
                       <Tabla
                         listado={alumnoListado}

@@ -80,6 +80,7 @@ const Carrera = () => {
               buscarRegistro={buscarRegistro}
               columnas={columnas}
               proceso="Carrera"
+              tipoUsuario = {state.usuario.tipoUsuario}
             />
           </Suspense>
         </Col>
@@ -90,6 +91,7 @@ const Carrera = () => {
                 <InfoCarrera
                   carrera={carrera}
                   cambiarVentana={cambiarVentana}
+                  tipoUsuario = {state.usuario.tipoUsuario}
                 />
               </Suspense>
             )}

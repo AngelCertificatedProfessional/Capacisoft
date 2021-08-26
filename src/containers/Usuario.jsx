@@ -97,6 +97,7 @@ const Usuario = () => {
                 <InfoUsuario
                   usuario={usuario}
                   cambiarVentana={cambiarVentana}
+                  tipoUsuario = {state.usuario.tipoUsuario}
                 />
               </Suspense>
             )}

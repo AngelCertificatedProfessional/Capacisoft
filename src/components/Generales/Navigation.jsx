@@ -80,7 +80,7 @@ const Navigation = () => {
               </NavDropdown>
             </Nav>
             <Nav className="ml-auto">
-              <Nav.Link onClick={() => cerrarSesion()}>Cerrar Sesion</Nav.Link>
+              <Nav.Link onClick={() => cerrarSesion()}>Cerrar Sesión</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </>
