@@ -108,6 +108,7 @@ const Usuario = () => {
                   usuario={usuario}
                   actualizarListado={actualizarListado}
                   setAccion={setAccion}
+                  tipUsuarioSesion={state.usuario.tipoUsuario}
                 />
               </Suspense>
             )}

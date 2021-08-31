@@ -25,6 +25,7 @@ const FormularioUsuario = ({
   usuario,
   actualizarListado,
   setAccion,
+  tipUsuarioSesion
 }) => {
   if (accion === 3) {
     usuario.contrasena = '**********';
@@ -201,7 +202,9 @@ const FormularioUsuario = ({
                 onChange={handleChange}
                 onBlur={handleBlur}
               >
-                <option value="1">Administrador</option>
+                {(tipUsuarioSesion === 1) && (
+                  <option value="1">Administrador</option>
+                )}
                 <option value="2">Coordiandor Escolar</option>
                 <option value="3">Maestro</option>
                 <option value="4">Alumno</option>

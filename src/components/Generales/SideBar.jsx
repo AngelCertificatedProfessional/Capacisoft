@@ -22,7 +22,7 @@ const SideBar = ({
         proceso={proceso}
       />
 
-      {tipoUsuario === 1 && (
+      {(tipoUsuario === 1 || proceso === 'Usuario') && (
         <div className="d-grid gap-2">
           <Button
             variant="primary"
