@@ -37,6 +37,7 @@ const Usuario = () => {
   const location = useLocation();
 
   useEffect(() => {
+    setUsuario({ ...initialState.usuario });
     let usuarioSesionT = state.usuario;
     if (
       usuarioSesionT === null ||
@@ -53,13 +54,29 @@ const Usuario = () => {
         history.push('/login');
       }
       agregarUsuario(usuarioSesionT);
+      actualizarListado(usuarioSesionT);
+    }else{
+      actualizarListado();
     }
-    setUsuario({ ...initialState.usuario });
-    actualizarListado();
   }, []);
 
-  const actualizarListado = async () => {
-    const jsListado = await listado('usuario/listado');
+  const actualizarListado = async (usuarioSesionT) => {
+    let tipoUsuario;
+    if (
+      usuarioSesionT === null ||
+      usuarioSesionT === undefined ||
+      usuarioSesionT.usuario === ''
+    ) {
+      tipoUsuario = state.usuario.tipoUsuario
+    }else{
+      tipoUsuario = usuarioSesionT.tipoUsuario
+    }
+    let jsListado = null;
+    if(tipoUsuario === 1){
+      jsListado = await listado('usuario/listado');
+    }else{
+      jsListado = await listado('usuario/listadoUsuarioById');
+    }
     setColumnas(crearArregloColumnas(jsListado));
     setUsuarioListado(jsListado);
     setAccion(0);
