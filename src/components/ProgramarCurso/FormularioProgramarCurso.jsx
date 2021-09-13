@@ -153,6 +153,7 @@ const FormularioProgramarCurso = ({
         tipoCurso: programarCurso.tipoCurso,
         precioFinal: programarCurso.precioFinal,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,

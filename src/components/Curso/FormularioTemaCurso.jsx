@@ -97,6 +97,7 @@ const FormularioTemaCurso = ({
         }
       }}
       initialValues={{}}
+      enableReinitialize
     >
       {({
         handleSubmit,

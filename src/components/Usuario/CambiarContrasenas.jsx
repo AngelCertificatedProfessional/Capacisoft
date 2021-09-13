@@ -12,7 +12,7 @@ const schema = yup.object({
     .min(8, 'La Contrasena debe contener minimo 8 caracteres.'),
   validaContrasena: yup
     .string()
-    .required('El valor de valida Contrasena es obligatorio')
+    .required('El valor de valida Contraseña es obligatorio')
     .oneOf([yup.ref('contrasena'), null], 'Las contraseñas no son iguales'),
 });
 
@@ -43,7 +43,9 @@ const CambiarContrasenas = ({ usuario, actualizarListado, setAccion }) => {
       }}
       initialValues={{
         contrasena: '',
+        validaContrasena:''
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,

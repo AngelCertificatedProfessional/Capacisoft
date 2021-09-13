@@ -6,8 +6,8 @@ import { agregar, actualizar } from '../../utils/ConexionAPI';
 import swal from 'sweetalert';
 
 const schema = yup.object({
-  nombre: yup.string(),
-  abreviacion: yup.string(),
+  nombre: yup.string().required('El nombre es obligatorio'),
+  abreviacion: yup.string().required('La Abreviación es requeria'),
 });
 
 const FormularioUniversidad = ({
@@ -50,6 +50,7 @@ const FormularioUniversidad = ({
         nombre: universidad.nombre,
         abreviacion: universidad.abreviacion,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,
@@ -80,10 +81,10 @@ const FormularioUniversidad = ({
                 onBlur={handleBlur}
                 isInvalid={!!touched.nombre && !!errors.nombre}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.nombre}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Control.Feedback type="invalid">
-              {errors.nombre}
-            </Form.Control.Feedback>
             <Form.Group as={Col} md="3">
               <Form.Label htmlFor="abreviacion"> Abreviación</Form.Label>
               <Form.Control
@@ -95,10 +96,10 @@ const FormularioUniversidad = ({
                 onBlur={handleBlur}
                 isInvalid={!!touched.abreviacion && !!errors.abreviacion}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.abreviacion}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Control.Feedback type="invalid">
-              {errors.abreviacion}
-            </Form.Control.Feedback>
           </Row>
           <Form.Row className="float-right">
             <Button

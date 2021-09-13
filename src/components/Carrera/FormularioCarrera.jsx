@@ -6,10 +6,10 @@ import { agregar, actualizar } from '../../utils/ConexionAPI';
 import swal from 'sweetalert';
 
 const schema = yup.object({
-  nombreCarrera: yup.string().required(),
-  nombreCoordinador: yup.string().required(),
-  apellidoCoordinador: yup.string().required(),
-  cantidadSemestres: yup.number().required().positive().integer(),
+  nombreCarrera: yup.string().required('El nombre de la carrera es obligatorio'),
+  nombreCoordinador: yup.string().required('El nombre del coordinador es obligatorio'),
+  apellidoCoordinador: yup.string().required('El apellido del coordinador es obligatorio'),
+  cantidadSemestres: yup.number().typeError('age must be a number').positive('La cantida de semestres tiene que ser mayor a 0').required('La cantidad de semestres es obligatorio').integer(),
 });
 
 const FormularioCarrera = ({
@@ -54,6 +54,7 @@ const FormularioCarrera = ({
         apellidoCoordinador: carrera.apellidoCoordinador,
         cantidadSemestres: carrera.cantidadSemestres,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,
@@ -69,7 +70,9 @@ const FormularioCarrera = ({
           onSubmit={handleSubmit}
           noValidate
         >
+          <h1>
           {accion === 2 ? `Agregar Carrera` : `Modificar Carrera`}
+          </h1>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>Nombre de la Carrera</Form.Label>

@@ -60,6 +60,7 @@ const FormularioCurso = ({
         nombreInstructor: curso.nombreInstructor,
         descripcion: curso.descripcion,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,
@@ -144,10 +145,10 @@ const FormularioCurso = ({
                 onBlur={handleBlur}
                 isInvalid={!!touched.descripcion && !!errors.descripcion}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.descripcion}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Control.Feedback type="invalid">
-              {errors.descripcion}
-            </Form.Control.Feedback>
           </Row>
           <Form.Row className="float-right">
             <Button

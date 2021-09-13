@@ -66,6 +66,7 @@ const FormularioDetalleCurso = ({
         proveeCertificado: curso.detalleCurso.proveeCertificado,
         herramientas: curso.detalleCurso.herramientas,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,
@@ -164,10 +165,10 @@ const FormularioDetalleCurso = ({
                 onBlur={handleBlur}
                 isInvalid={!!touched.herramientas && !!errors.herramientas}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.herramientas}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Control.Feedback type="invalid">
-              {errors.descripcion}
-            </Form.Control.Feedback>
           </Row>
           <Form.Row className="float-right">
             <Button

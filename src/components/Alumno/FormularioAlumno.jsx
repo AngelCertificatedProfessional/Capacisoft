@@ -8,7 +8,11 @@ import swal from 'sweetalert';
 const schema = yup.object({
   nombreAlumno: yup.string().required('El nombre es un campo requerido'),
   apellidoAlumno: yup.string().required('El apellido es un campo obligatorio'),
-  edad: yup.number(),
+  edad: yup.number().typeError('age must be a number')
+    .positive('La edad tiene que ser mayor a 0')
+    .required('La edad es obligatorio')
+    .integer()
+    .min(17, "La edad tiene que ser mayor a 17"),
 });
 
 const FormularioAlumno = ({
@@ -55,6 +59,7 @@ const FormularioAlumno = ({
         apellidoAlumno: alumno.apellidoAlumno,
         edad: alumno.edad,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,
@@ -110,6 +115,7 @@ const FormularioAlumno = ({
             <Form.Group as={Col}>
               <Form.Label>Edad</Form.Label>
               <Form.Control
+                type="number"
                 placeholder="Edad"
                 name="edad"
                 id="edad"

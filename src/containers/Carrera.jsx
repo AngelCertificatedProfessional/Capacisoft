@@ -17,7 +17,7 @@ import moment from 'moment';
 
 const Carrera = () => {
   const [accion, setAccion] = useState(0);
-  const [carrera, setCarrera] = useState({ ...initialState.carerra });
+  const [carrera, setCarrera] = useState({ ...initialState.carrera });
   const [carreraListado, setCarreraListado] = useState([]);
   const [seleccionado, setSeleccionado] = useState(0);
   const [columnas, setColumnas] = useState([]);
@@ -25,7 +25,7 @@ const Carrera = () => {
 
   const cambiarVentana = (ventana) => {
     if (ventana === 2) {
-      setCarrera({ ...initialState.carerra });
+      setCarrera({ ...initialState.carrera });
     }
     setAccion(ventana);
   };

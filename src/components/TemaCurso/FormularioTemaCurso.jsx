@@ -45,6 +45,7 @@ const FormularioTemaCurso = ({
       initialValues={{
         temaCurso: temaCurso.temaCurso,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,

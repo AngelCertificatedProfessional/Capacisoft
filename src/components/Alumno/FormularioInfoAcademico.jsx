@@ -7,8 +7,11 @@ import swal from 'sweetalert';
 
 const schema = yup.object({
   matricula: yup.string().required('La matricula es un campo requerido'),
-  semestre: yup.number().required('El semestre es un campo requerido'),
-  cargaAcademica: yup.number(),
+  semestre: yup.number().positive('La carga academica tiene que ser mayor a 0').required('El semestre es un campo requerido'),
+  cargaAcademica: yup.number().positive('La carga academica tiene que ser mayor a 1')
+  .required('La carga academica es un campo obligatorio')
+  .integer()
+  .min(1, "La eddad tiene que ser mayor a 1"),
   universidadId: yup.string().required('Seleccione una univerisdad'),
   carrerId: yup.string().required('Seleccione una carrera'),
 });
@@ -65,6 +68,7 @@ const FormularioInfoAcademico = ({
         cargaAcademica: alumno.infoAcademico.cargaAcademica,
         estadoAlumno: alumno.infoAcademico.estadoAlumno,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,
@@ -181,6 +185,7 @@ const FormularioInfoAcademico = ({
             <Form.Group as={Col}>
               <Form.Label>Carga Académica</Form.Label>
               <Form.Control
+                type="number"
                 placeholder="Carga Académica"
                 name="cargaAcademica"
                 id="cargaAcademica"
@@ -196,6 +201,7 @@ const FormularioInfoAcademico = ({
             <Form.Group as={Col}>
               <Form.Label>Semestre</Form.Label>
               <Form.Control
+                type="number"
                 placeholder="Semestre"
                 name="semestre"
                 id="semestre"

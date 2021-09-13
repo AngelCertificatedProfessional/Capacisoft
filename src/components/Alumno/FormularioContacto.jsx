@@ -72,6 +72,7 @@ const FormularioContacto = ({
         github: alumno.contacto.github,
         linkedIn: alumno.contacto.linkedIn,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,

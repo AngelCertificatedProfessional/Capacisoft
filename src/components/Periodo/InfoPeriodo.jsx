@@ -44,7 +44,7 @@ const InfoPeriodo = ({ periodo, cambiarVentana,tipoUsuario }) => {
             <Row>
               <Col>
                 <Card.Text className="mtop-0 mbot-0 informacionAdicional">
-                  periodo: {periodo.periodo}
+                  Periodo: {periodo.periodo}
                 </Card.Text>
               </Col>
             </Row>

@@ -3,7 +3,7 @@ import { Card, Container, Row, Col } from 'react-bootstrap';
 
 const InfoCurso = ({ curso, cambiarVentana,tipoUsuario }) => {
   return (
-    <Fragment>s
+    <Fragment>
       <Card
         style={{ width: '100%' }}
         className="shadow Secondary"

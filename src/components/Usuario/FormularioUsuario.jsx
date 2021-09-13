@@ -88,6 +88,7 @@ const FormularioUsuario = ({
         apellido: usuario.apellido,
         tipoUsuario: usuario.tipoUsuario,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,

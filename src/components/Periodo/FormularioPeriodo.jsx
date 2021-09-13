@@ -112,6 +112,7 @@ const FormularioPeriodo = ({
         fechaInicio: periodo.fechaInicio,
         fechaFinal: periodo.fechaFinal,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,

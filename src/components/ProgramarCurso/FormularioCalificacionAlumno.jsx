@@ -55,6 +55,7 @@ const FormularioCalificacionAlumno = ({
         calificacionCurso: alumno.calificacionCurso,
         notasCurso: alumno.notasCurso,
       }}
+      enableReinitialize
     >
       {({
         handleSubmit,
