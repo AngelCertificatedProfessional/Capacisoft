@@ -4,6 +4,7 @@ const columnsToHide = [
   'notasCurso',
   'calificacionCurso',
   'fechaFinalizaCurso',
+  'fechaBaja'
 ];
 import { Table } from 'react-bootstrap';
 

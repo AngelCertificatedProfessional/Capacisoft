@@ -74,6 +74,9 @@ const Navigation = () => {
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="Reportes" id="collasible-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/reporteBaja">
+                  Bajas
+                </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/actualizacion">
                   Actualizaciones
                 </NavDropdown.Item>

@@ -70,6 +70,7 @@ const FormularioPeriodo = ({
       return;
     }
     alumnoListadoFinal[objIndex].alumnoBaja = true;
+    alumnoListadoFinal[objIndex].fechaBaja = moment.utc(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD HH:mm');
     setAlumnoListadoFinal([...alumnoListadoFinal]);
   };
 
