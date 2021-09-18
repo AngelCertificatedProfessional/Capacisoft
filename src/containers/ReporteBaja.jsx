@@ -19,13 +19,8 @@ const ReporteBaja = () => {
     const [periodoListado, setPeriodoListado] = useState([]);
     const [seleccionado, setSeleccionado] = useState(0);
     const [columnas, setColumnas] = useState([]);
-//   const [alumno, setAlumno] = useState({ ...initialState.alumno });
-
-//   const cambiarVentana = (ventana) => {
-//     if (ventana === 2) {
-//       setAlumno({ ...initialState.alumno });
-//     }
-//   };
+    const [backgroundColor, setBackgroundColor] = useState([])
+    const [borderColor, setBorderColor] = useState([])
 
   let history = useHistory();
   const location = useLocation();
@@ -53,12 +48,35 @@ const ReporteBaja = () => {
     setColumnas(crearArregloColumnas(jsListado));
   };
 
-  const seleccionarRegistro = async (sIdAlumno) => {
-    setSeleccionado(sIdAlumno);
-    const jsListado = await listado('periodo/listadoBajasByPeriodo');
+  const seleccionarRegistro = async (sIdPeriodo) => {
+    setSeleccionado(sIdPeriodo);
+    const jsListado = await consultaById('periodo/listadoBajasByPeriodo/',sIdPeriodo);
     if(jsListado.length > 0){
       setPeriodoListadoBaja(jsListado.map((periodoX) => periodoX.alumnos));
       setListadoColumnas(jsListado.map((periodoX) => periodoX._id))
+      setBackgroundColor(jsListado.map((periodoX) => {
+        if(periodoX.alumnos <= 1){
+          return 'rgba(15, 151, 9, 0.2)'
+        }else if(periodoX.alumnos === 2){
+          return 'rgba(255, 206, 86, 0.2)'
+        }else if(periodoX.alumnos >= 3){
+          return 'rgba(243, 36, 3, 0.2)'
+        }
+      }))
+      setBorderColor(jsListado.map((periodoX) => {
+        if(periodoX.alumnos <= 1){
+          return 'rgba(15, 151, 9, 1)'
+        }else if(periodoX.alumnos === 2){
+          return 'rgba(255, 206, 86, 1)'
+        }else if(periodoX.alumnos >= 3){
+          return 'rgba(243, 36, 3, 1)'
+        }
+      }))
+    }else{
+      setPeriodoListadoBaja([]);
+      setListadoColumnas([]);
+      setBackgroundColor([]);
+      setBorderColor([]);
     }
   };
 
@@ -69,16 +87,6 @@ const ReporteBaja = () => {
           <main className="pt-4">
               <>
                 <Row>
-                  <Col>
-                    <Suspense fallback={<div>Loading...</div>}>
-                      <BarChart
-                        periodoLisJSON = {periodoListadoBaja}
-                        listadoColumnas = {listadoColumnas}
-                      />
-                    </Suspense>
-                  </Col>
-                </Row>
-                <Row>
                   <Tabla
                     listado={periodoListado}
                     seleccionado={seleccionado}
@@ -86,6 +94,23 @@ const ReporteBaja = () => {
                     columnas={columnas}
                     proceso="Periodo"
                   />
+                </Row>
+                <Row>
+                  <Col xs>
+                    {periodoListadoBaja.length > 0 ? (
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <BarChart
+                          periodoLisJSON = {periodoListadoBaja}
+                          listadoColumnas = {listadoColumnas}
+                          backgroundColor = {backgroundColor}
+                          borderColor = {borderColor}
+                        />
+                      </Suspense>
+                    ) : (
+                      <h3> No se encontro informacion en este periodo</h3>
+                    )}
+                    
+                  </Col>
                 </Row>
               </>
           </main>
