@@ -12,9 +12,9 @@ import { useHistory, useLocation, withRouter } from 'react-router-dom';
 const BarChart = React.lazy(() =>
   import('./../components/Reportes/BarChart')
 );
-const ReporteBaja = () => {
+const ReporteGastos = () => {
     const { state, agregarUsuario } = useContext(AppContext);
-    const [periodoListadoBaja, setPeriodoListadoBaja] = useState([]);
+    const [periodoListadoGastos, setPeriodoListadoGastos] = useState([]);
     const [listadoColumnas, setListadoColumnas] = useState([]);
     const [periodoListado, setPeriodoListado] = useState([]);
     const [seleccionado, setSeleccionado] = useState(0);
@@ -50,34 +50,34 @@ const ReporteBaja = () => {
 
   const seleccionarRegistro = async (sIdPeriodo) => {
     setSeleccionado(sIdPeriodo);
-    const jsListado = await consultaById('periodo/listadoBajasByPeriodo/',sIdPeriodo);
+    const jsListado = await consultaById('programarCurso/listadoGastosByPeriodo/',sIdPeriodo);
     if(jsListado.length > 0){
-      setPeriodoListadoBaja(jsListado.map((periodoX) => periodoX.alumnos));
-      setListadoColumnas(jsListado.map((periodoX) => periodoX._id))
-      setBackgroundColor(jsListado.map((periodoX) => {
-        if(periodoX.alumnos <= 1){
-          return 'rgba(15, 151, 9, 0.2)'
-        }else if(periodoX.alumnos === 2){
-          return 'rgba(255, 206, 86, 0.2)'
-        }else if(periodoX.alumnos >= 3){
-          return 'rgba(243, 36, 3, 0.2)'
+        setPeriodoListadoGastos(jsListado.map((periodoX) => periodoX.total));
+        setListadoColumnas(jsListado.map((periodoX) => periodoX._id))
+        setBackgroundColor(jsListado.map((periodoX) => {
+            if(periodoX.total <= 500){
+                return 'rgba(15, 151, 9, 0.2)'
+            }else if(periodoX.total > 500 && periodoX.total <= 1000){
+                return 'rgba(255, 206, 86, 0.2)'
+            }else if(periodoX.total > 1000){
+                return 'rgba(243, 36, 3, 0.2)'
+            }
+        }))
+        setBorderColor(jsListado.map((periodoX) => {
+            if(periodoX.total <= 500){
+                return 'rgba(15, 151, 9, 0.2)'
+            }else if(periodoX.total > 500 && periodoX.total <= 1000){
+                return 'rgba(255, 206, 86, 0.2)'
+            }else if(periodoX.total > 1000){
+                return 'rgba(243, 36, 3, 0.2)'
+            }
+        }))
+        }else{
+            setPeriodoListadoGastos([]);
+            setListadoColumnas([]);
+            setBackgroundColor([]);
+            setBorderColor([]);
         }
-      }))
-      setBorderColor(jsListado.map((periodoX) => {
-        if(periodoX.alumnos <= 1){
-          return 'rgba(15, 151, 9, 1)'
-        }else if(periodoX.alumnos === 2){
-          return 'rgba(255, 206, 86, 1)'
-        }else if(periodoX.alumnos >= 3){
-          return 'rgba(243, 36, 3, 1)'
-        }
-      }))
-    }else{
-      setPeriodoListadoBaja([]);
-      setListadoColumnas([]);
-      setBackgroundColor([]);
-      setBorderColor([]);
-    }
   };
 
   return (
@@ -87,7 +87,7 @@ const ReporteBaja = () => {
           <main className="pt-4">
               <>
                 <Row>
-                  <h1> Reporte de Bajas</h1>
+                  <h1> Reporte de Gastos</h1>
                 </Row>
                 <Row>
                   <Tabla
@@ -100,14 +100,14 @@ const ReporteBaja = () => {
                 </Row>
                 <Row>
                   <Col xs>
-                    {periodoListadoBaja.length > 0 ? (
+                    {periodoListadoGastos.length > 0 ? (
                       <Suspense fallback={<div>Loading...</div>}>
                         <BarChart
-                          periodoLisJSON = {periodoListadoBaja}
+                          periodoLisJSON = {periodoListadoGastos}
                           listadoColumnas = {listadoColumnas}
                           backgroundColor = {backgroundColor}
                           borderColor = {borderColor}
-                          titulo = '# de Bajas por mes'
+                          titulo = 'Gastos por mes del periodo'
                         />
                       </Suspense>
                     ) : (
@@ -124,4 +124,4 @@ const ReporteBaja = () => {
   );
 };
 
-export default withRouter(ReporteBaja);
+export default withRouter(ReporteGastos);

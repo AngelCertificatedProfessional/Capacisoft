@@ -77,6 +77,9 @@ const Navigation = () => {
                 <NavDropdown.Item as={Link} to="/reporteBaja">
                   Bajas
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/reporteGastos">
+                  Gastos
+                </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/actualizacion">
                   Actualizaciones
                 </NavDropdown.Item>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const BarChart = ({periodoLisJSON,listadoColumnas,backgroundColor,borderColor}) => {
+const BarChart = ({periodoLisJSON,listadoColumnas,backgroundColor,borderColor,titulo}) => {
     return( 
         <>
             {listadoColumnas.length > 0 && (
@@ -9,7 +9,7 @@ const BarChart = ({periodoLisJSON,listadoColumnas,backgroundColor,borderColor}) 
                     data={{
                         labels: listadoColumnas,
                         datasets: [{
-                            label: '# de Bajas por mes',
+                            label: titulo,
                             data: periodoLisJSON,
                             backgroundColor: backgroundColor,
                             borderColor: borderColor,

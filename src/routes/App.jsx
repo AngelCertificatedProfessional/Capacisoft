@@ -16,6 +16,7 @@ import AppConText from './../context/AppContext';
 import useInitialState from './../hooks/useInitialState';
 import Actualizacion from './../containers/Actualizacion';
 import ReporteBaja from './../containers/ReporteBaja';
+import ReporteGastos from './../containers/ReporteGastos';
 
 const App = () => {
   const initialState = useInitialState();
@@ -37,6 +38,7 @@ const App = () => {
             <Route exact path="/programarCurso" component={ProgramarCurso} />
             <Route exact path="/actualizacion" component={Actualizacion} />
             <Route exact path="/reporteBaja" component={ReporteBaja} />
+            <Route exact path="/reporteGastos" component={ReporteGastos} />
             <Route component={Error404} />
           </Switch>
         </Layout>
